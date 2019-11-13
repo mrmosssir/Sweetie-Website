@@ -1,0 +1,35 @@
+.btn-cart {
+    @include set-center;
+    width: 70px;
+    height: 70px;
+    background: $white;
+    border: 2px solid #cccccc;
+    border-radius: 50%;
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    text-decoration: none !important;
+    i {
+        color: $secondary;
+        font-size: 24px;
+    }
+    &:hover {
+        background: $gray-500;
+        i {
+            color: $white;
+        }
+    }
+    .btn-cart-badge {
+        color: white;
+        @include set-absolute(top, right)
+    }
+    &-main {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.btn-search {
+    height: 40px;
+     width: 40px;
+}

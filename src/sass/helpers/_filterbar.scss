@@ -1,0 +1,17 @@
+.filter-bar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    .filter {
+        color: $brown;
+        font-weight: normal;
+        cursor: pointer;
+    }
+}
+.filter-active {
+    background: $brown !important;
+    color: $white !important;
+    i {
+    color: $white !important;
+    }
+}

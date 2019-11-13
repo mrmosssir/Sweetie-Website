@@ -1,0 +1,14 @@
+.offer-card {
+    max-width: 550px;
+    height: 250px;
+    background: $brown;
+    margin: 50px auto;
+    border-radius: 20px;
+    &-title, &-content, &-footer {
+        color: $white;
+    }
+    &-code {
+        display: block;
+        color: $warning;
+    }
+}

@@ -1,0 +1,32 @@
+.step-list {
+    & > div {
+        @include set-center;
+    }
+    &-header {
+        .step-circle {
+            @include set-center;
+            background: $secondary;
+            color: $white;
+            font-weight: bold;
+            width: 50px;
+            height: 50px;
+            border: 2px solid $white;
+            border-radius: 50%;
+            box-shadow: 0 0 5px $gray-500;
+        }
+        .step-line {
+            width: 45px;
+            border-top: 4px solid $gray-500;
+        }
+    }
+    &-body {
+        color: $secondary;
+    }
+}
+.circle-active {
+    border-width: 0 !important;
+    background: $green-light !important;
+}
+.text-active {
+    color: $brown !important;
+}
