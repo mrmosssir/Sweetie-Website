@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody class="text-secondary">
-          <tr class="border-bottom border-brown" v-for="item in orders" :key="item.id">
+          <tr class="border-bottom border-brown" v-for="item in returnOrders" :key="item.id">
             <td class="text-center">{{ item.create_at }}</td>
             <td class="text-center">{{ item.user.email }}</td>
             <td class="text-center">
@@ -40,10 +40,10 @@
       </table>
       <nav class="d-flex justify-content-center mt-5">
         <ul class="pagination">
-          <li class="page-item" v-for="num in totalPage"
+          <li class="page-item" v-for="num in returnTotalPage"
               :key="num"
               @click.prevent="getOrders(num)"
-              :class="{'active': currentPage == num}">
+              :class="{'active': returnCurrentPage == num}">
               <a class="page-link" href="#">{{ num }}</a>
           </li>
         </ul>
@@ -56,35 +56,40 @@ export default {
   name: 'Offers',
   data() {
     return {
-      orders: [],
-      totalPage: 1,
-      currentPage: 1,
     };
   },
   methods: {
     getOrders(page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`;
-      const vm = this;
-      this.$http.get(api).then((Response) => {
-        vm.orders = Response.data.orders;
-        vm.totalPage = Response.data.pagination.total_pages;
-        vm.currentPage = Response.data.pagination.current_page;
-        vm.orders.forEach((order) => {
-          vm.dateTransfer(order, order.create_at);
-        });
-      });
+      this.$store.dispatch('adminGetOrders', page);
     },
     dateTransfer(order, dateCode) {
       const date = new Date(dateCode * 1000);
       const dateStr = `${date.getFullYear()}/${this.addZero(date.getMonth())}/${this.addZero(date.getDate())} 
       ${this.addZero(date.getHours())}:${this.addZero(date.getMinutes())}:${this.addZero(date.getSeconds())}`;
       this.$set(order, 'create_at', dateStr);
+      return order;
     },
     addZero(num) {
       if (Number(num) < 10) {
         return `0${num}`;
       }
       return num;
+    },
+  },
+  computed: {
+    returnOrders() {
+      const orders = [];
+      this.$store.state.admin.orders.forEach((order) => {
+        this.dateTransfer(order, order.create_at);
+        orders.push(order);
+      });
+      return orders;
+    },
+    returnTotalPage() {
+      return this.$store.state.admin.orderTotalPage;
+    },
+    returnCurrentPage() {
+      return this.$store.state.admin.orderCurrentPage;
     },
   },
   created() {

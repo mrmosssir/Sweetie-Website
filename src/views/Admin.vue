@@ -22,18 +22,8 @@ export default {
     SideBar,
     TopBar,
   },
-  methods: {
-    checkLogin() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/user/check`;
-      this.$http.post(api).then((Response) => {
-        if (!Response.data.success) {
-          this.$router.push('sign');
-        }
-      });
-    },
-  },
   created() {
-    this.checkLogin();
+    this.$store.dispatch('checkLogin');
   },
 };
 </script>

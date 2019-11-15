@@ -7,6 +7,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './bus';
+import 'bootstrap';
 
 Vue.config.productionTip = false;
 axios.defaults.withCredentials = true;

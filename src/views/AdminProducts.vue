@@ -34,7 +34,7 @@
             </thead>
             <tbody class="text-secondary">
                 <tr class="border border-brown border-bottom"
-                    v-for="item in products" :key="item.id">
+                    v-for="item in returnProducts" :key="item.id">
                     <th class="text-center" scope="row">{{ item.num }}</th>
                     <td class="text-center">{{ item.category }}</td>
                     <td class="text-center">{{ item.title }}</td>
@@ -53,11 +53,13 @@
         </table>
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
-                <li class="page-item" v-for="num in totalPage"
+                <li class="page-item" v-for="num in returnTotalPage"
                     :key="num"
                     @click.prevent="getProducts(num)"
-                    :class="{'active': currentPage == num}">
-                    <a class="page-link" href="#">{{ num }}</a>
+                    :class="{'active': returnCurrentPage == num}">
+                    <a class="page-link" href="#">
+                      {{ num }}
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -87,8 +89,8 @@
                             <input type="file" id="customFile" class="form-control"
                                     ref="files" @change="uploadFile()">
                             </div>
-                            <img img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
-                                class="img-fluid" alt="" :src="product.imageUrl">
+                            <img class="img-fluid" alt=""
+                                 :src="product.imageUrl">
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
@@ -130,13 +132,15 @@
                             <label for="description">產品描述</label>
                             <textarea type="text" class="form-control" id="description"
                                         placeholder="請輸入產品描述"
-                                        v-model="product.description"></textarea>
+                                        v-model="product.description">
+                            </textarea>
                             </div>
                             <div class="form-group">
                             <label for="content">說明內容</label>
                             <textarea type="text" class="form-control" id="content"
                                         placeholder="請輸入產品說明內容"
-                                        v-model="product.content"></textarea>
+                                        v-model="product.content">
+                            </textarea>
                             </div>
                             <div class="form-group">
                             <div class="form-check">
@@ -157,10 +161,10 @@
                           取消
                   </button>
                   <button type="button" class="btn btn-brown"
-                          @click.prevent="submitProduct()">
+                          @click.prevent="submitProduct">
                           送出
                   </button>
-                  <button class="btn btn-danger" v-if="!isNew"
+                  <button class="btn btn-danger" v-if="!returnIsNew"
                           @click.prevent="deleteProduct()">
                           刪除
                   </button>
@@ -172,80 +176,49 @@
 </template>
 
 <script>
-import $ from 'jquery';
-
 export default {
   name: 'Products',
   data() {
     return {
-      products: [],
       product: {},
-      isNew: true,
-      totalPage: 0,
-      currentPage: 1,
     };
   },
   methods: {
     getProducts(page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`;
-      const vm = this;
-      this.$http.get(api).then((Response) => {
-        if (Response.data.success) {
-          vm.products = Response.data.products;
-          vm.totalPage = Response.data.pagination.total_pages;
-          vm.currentPage = Response.data.pagination.current_page;
-        }
-      });
-    },
-    openModal(isNew = true, item) {
-      $('#createModal').modal('show');
-      if (isNew) {
-        this.product = {};
-      } else {
-        this.product = Object.assign({}, item);
-      }
-      this.isNew = isNew;
+      this.$store.dispatch('adminGetProducts', page);
     },
     submitProduct() {
-      const vm = this;
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.product.id}`;
-      let mode = 'put';
-      if (vm.isNew) {
-        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
-        mode = 'post';
-      }
-      this.$http[mode](api, { data: vm.product }).then((Response) => {
-        if (Response.data.success) {
-          $('#createModal').modal('hide');
-          vm.getProducts();
-        }
-      });
+      this.$store.dispatch('adminSubmitProduct', this.product);
     },
     deleteProduct() {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.product.id}`;
-      this.$http.delete(api).then((Response) => {
-        if (Response.data.success) {
-          vm.getProducts();
-          $('#createModal').modal('hide');
-        }
-      });
+      this.$store.dispatch('adminDeleteProduct', this.product.id);
     },
     uploadFile() {
-      const file = this.$refs.files.files[0];
-      const vm = this;
-      const formData = new FormData();
-      formData.append('file-to-upload', file);
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
-      this.$http.post(api, formData, {
-        headers: {
-          'Content-type': 'multipart/form-data',
-        },
-      }).then((Response) => {
-        if (Response.data.success) {
-          this.$set(vm.product, 'imageUrl', Response.data.imageUrl);
-        }
+      this.$store.dispatch('adminProductUploadFile', this.$refs.files.files[0]);
+    },
+    openModal(isNew = true, item) {
+      this.$store.dispatch('adminProductOpenModal', {
+        isNew,
+        item,
       });
+      this.product = this.returnProduct;
+    },
+  },
+  computed: {
+    returnProducts() {
+      return this.$store.state.admin.products;
+    },
+    returnProduct() {
+      return this.$store.state.admin.product;
+    },
+    returnIsNew() {
+      return this.$store.state.admin.productIsNew;
+    },
+    returnTotalPage() {
+      return this.$store.state.admin.productTotalPage;
+    },
+    returnCurrentPage() {
+      return this.$store.state.admin.productCurrentPage;
     },
   },
   created() {

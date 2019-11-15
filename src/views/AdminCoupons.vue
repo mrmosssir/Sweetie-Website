@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 mt-4" v-for="item in coupons" :key="item.id">
+            <div class="col-md-4 mt-4" v-for="item in returnCoupons" :key="item.id">
                 <div class="justify-content-start align-items-center bg-white border rounded p-3">
                     <h3 class="m-0 text-overhidden">{{ item.title }}</h3>
                     <p class="m-0 text-secondary">到期日：{{ dateTransfer(item.dueDate) }}</p>
@@ -34,10 +34,10 @@
         </div>
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
-                <li class="page-item" v-for="num in totalPage"
+                <li class="page-item" v-for="num in returnTotalPage"
                     :key="num"
                     @click.prevent="getCoupons(num)"
-                    :class="{'active': currentPage == num}">
+                    :class="{'active': returnCurrentPage == num}">
                     <a class="page-link" href="#">{{ num }}</a>
                 </li>
             </ul>
@@ -55,27 +55,27 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="image">優惠券標題</label>
-                            <input type="text" class="form-control" v-model="coupon.title">
+                            <input type="text" class="form-control" v-model="returnCoupon.title">
                         </div>
                         <div class="form-group">
                             <label for="image">優惠券代碼</label>
                             <input type="text" onKeyUp="value=value.replace(/[\W]/g,'')"
-                                   class="form-control" v-model="coupon.code">
+                                   class="form-control" v-model="returnCoupon.code">
                         </div>
                         <div class="form-group">
                             <label for="image">折扣百分比</label>
                             <input type="number" max="100" min="0" step="5" class="form-control"
-                                   v-model="coupon.percent" @click.prevent>
+                                   v-model="returnCoupon.percent" @click.prevent>
                         </div>
                         <div class="form-group">
                             <label for="image">到期日</label>
                             <input type="datetime-local" class="form-control"
-                                   v-model="coupon.dueDate">
+                                   v-model="returnCoupon.dueDate">
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox"
                                 id="is_enabled"
-                                v-model="coupon.is_enabled">
+                                v-model="returnCoupon.is_enabled">
                             <label class="form-check-label" for="is_enabled">
                                 啟用
                             </label>
@@ -102,80 +102,56 @@
 </template>
 
 <script>
-import $ from 'jquery';
-
 export default {
   name: 'Coupons',
   data() {
     return {
-      coupons: [],
       coupon: {},
-      isNew: true,
-      totalPage: 0,
-      currentPage: 1,
     };
   },
   methods: {
     getCoupons(page = 1) {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`;
-      this.$http.get(api).then((Response) => {
-        vm.coupons = Response.data.coupons;
-        vm.totalPage = Response.data.pagination.total_pages;
-        vm.currentPage = Response.data.pagination.current_page;
-      });
+      this.$store.dispatch('adminGetCoupons', page);
     },
     submitCoupon() {
-      const vm = this;
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
-      let mode = 'post';
-      if (!vm.isNew) {
-        mode = 'put';
-        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.coupon.id}`;
-      }
-      const dueDate = vm.coupon.dueDate.split('T')[0];
-      const timeStamp = new Date(`${dueDate.split('-')[0]}/${dueDate.split('-')[1]}/${dueDate.split('-')[2]}`);
-      this.$set(vm.coupon, 'dueDate', timeStamp.getTime());
-      this.$http[mode](api, { data: vm.coupon }).then(() => {
-        vm.getCoupons();
-        $('#couponModal').modal('hide');
-      });
+      this.$store.dispatch('adminSubmitCoupon', this.coupon.id);
     },
     deleteCoupon() {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.coupon.id}`;
-      this.$http.delete(api).then(() => {
-        if (vm.currentPage > vm.totalPage) {
-          vm.getCoupons(vm.currentPage - 1);
-          vm.currentPage -= 1;
-        } else {
-          vm.getCoupons(vm.currentPage);
-        }
-        $('#couponModal').modal('hide');
-      });
+      this.$store.dispatch('adminDeleteCoupon', this.coupon.id);
     },
     openModal(isNew = true, item) {
-      if (isNew) {
-        this.coupon = {};
-        this.isNew = true;
-      } else {
-        this.coupon = Object.assign({}, item);
-        const date = new Date(item.dueDate);
-        const dateStr = `${date.getFullYear()}-${this.addZero(date.getMonth() + 1)}-${this.addZero(date.getDate())}T${this.addZero(date.getHours())}:${this.addZero(date.getMinutes())}`;
-        this.coupon.dueDate = dateStr;
-        this.isNew = false;
-      }
-      $('#couponModal').modal('show');
+      this.$store.dispatch('adminCouponOpenModal', {
+        isNew,
+        item,
+      });
+      this.coupon = this.returnCoupon;
     },
     dateTransfer(date) {
       const dateOrigin = new Date(date);
       return `${dateOrigin.getFullYear()}-${this.addZero(dateOrigin.getMonth() + 1)}-${this.addZero(dateOrigin.getDate())}`;
     },
     addZero(num) {
-      if (Number(num) < 10) {
+      if (num < 10) {
         return `0${num}`;
       }
       return num;
+    },
+  },
+  computed: {
+    returnCoupons() {
+      return this.$store.state.admin.coupons;
+    },
+    returnCoupon() {
+      return this.$store.state.admin.coupon;
+    },
+    returnIsNew() {
+      return this.$store.state.admin.couponIsNew;
+    },
+    returnTotalPage() {
+      return this.$store.state.admin.couponTotalPage;
+    },
+    returnCurrentPage() {
+      return this.$store.state.admin.couponCurrentPage;
     },
   },
   created() {
