@@ -3,30 +3,30 @@
       <div class="row">
           <div class="col-md-6">
               <div class="detail-image-position h-100"
-                   :style="`background-image: url(${product.imageUrl});`">
+                   :style="`background-image: url(${returnProduct.imageUrl});`">
               </div>
           </div>
           <div class="col-md-6">
-            <span class="badge badge-brown mb-4">{{ product.category }}</span>
-            <h2 class="h3 font-weight-normal text-secondary">{{ product.title }}</h2>
+            <span class="badge badge-brown mb-4">{{ returnProduct.category }}</span>
+            <h2 class="h3 font-weight-normal text-secondary">{{ returnProduct.title }}</h2>
             <hr class="detail-line">
             <p class="text-brown">【產品說明】</p>
-            <p class="text-secondary">{{ product.content }}</p>
-            <strong class="h4 text-brown">NT${{ product.price }}</strong>
-            <del class="h6 text-secondary">NT${{ product.origin_price }}</del>
-            <select class="d-block w-50 mt-4" v-model="amount">
+            <p class="text-secondary">{{ returnProduct.content }}</p>
+            <strong class="h4 text-brown">NT${{ returnProduct.price }}</strong>
+            <del class="h6 text-secondary">NT${{ returnProduct.origin_price }}</del>
+            <select class="d-block w-50 mt-4" v-model="productAmount">
                 <option v-for="num in 10" :key="num" :value=num>
-                  購買 {{ num }}{{ product.unit }}
+                  購買 {{ num }}{{ returnProduct.unit }}
                 </option>
             </select>
             <p class="text-right h5 mt-4 text-secondary">Total:
               <strong class="h3 font-weight-normal text-brown">
-                ${{ product.price * amount }}
+                ${{ returnProduct.price * productAmount }}
               </strong>
             </p>
             <hr>
             <div class="text-right mt-4">
-                <button class="btn btn-outline-secondary" @click.prevent="goBack()">取消</button>
+                <button class="btn btn-outline-secondary" @click.prevent="pageReturn()">取消</button>
                 <button class="btn btn-brown" @click.prevent="addCart()">加到購物車</button>
             </div>
           </div>
@@ -39,67 +39,30 @@ export default {
   name: 'ProductDetail',
   data() {
     return {
-      product: {},
-      productId: '',
-      amount: 1,
-      cartList: [],
-      totalPrice: 0,
+      productAmount: 1,
     };
   },
   methods: {
-    getProductDetail() {
-      this.productId = this.$route.params.productId;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${this.productId}`;
-      const vm = this;
-      this.$http.get(api).then((Response) => {
-        if (Response.data.success) {
-          vm.product = Response.data.product;
-        } else {
-          // alert('此產品已遭到移除');
-        }
-      });
-    },
-    getCart() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      const vm = this;
-      this.$http.get(api).then((Response) => {
-        if (Response.data.success) {
-          vm.cartList = Response.data.data.carts;
-          vm.totalPrice = Response.data.data.final_total;
-        }
-      });
+    getProductDetail(id) {
+      this.$store.dispatch('clientGetProductDetail', id);
     },
     addCart() {
-      const cartInfo = {
-        product_id: this.productId,
-        qty: this.amount,
-      };
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      const vm = this;
-      this.$http.post(api, { data: cartInfo }).then((Response) => {
-        if (Response.data.success) {
-          vm.getCart();
-        } else {
-          // alert('送出訂單時發生錯誤');
-        }
+      this.$store.dispatch('clientAddCart', {
+        id: this.returnProduct.id,
+        amount: this.productAmount,
       });
     },
-    deleteCart(id) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
-      const vm = this;
-      this.$http.delete(api).then((Response) => {
-        if (Response.data.success) {
-          vm.getCart();
-        }
-      });
+    pageReturn() {
+      this.$store.dispatch('clientProductPageReturn');
     },
-    goBack() {
-      this.$router.push('/shop');
+  },
+  computed: {
+    returnProduct() {
+      return this.$store.state.client.product;
     },
   },
   created() {
-    this.getProductDetail();
-    this.getCart();
+    this.getProductDetail(this.$route.params.productId);
   },
 };
 </script>

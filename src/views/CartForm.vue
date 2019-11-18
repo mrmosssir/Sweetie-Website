@@ -2,7 +2,7 @@
     <div class="row mt-4">
         <div class="col-8">
             <h2 class="h5 text-brown font-weight-normal mb-4">訂單資訊</h2>
-            <form @submit.prevent="createOrder()">
+            <form @submit.prevent="createOrder(form)">
               <div class="row">
                 <div class="form-group col-6">
                   <label class="text-secondary" for="name">姓名</label>
@@ -58,16 +58,18 @@
             <div class="d-flex justify-content-between
                         align-items-center border rounded px-3 py-2 mt-3">
                 <p class="text-secondary m-0">總額</p>
-                <strong class="text-brown font-weight-normal">NT{{ totalPrice }}$</strong>
+                <strong class="text-brown font-weight-normal">NT{{ returnTotalPrice }}$</strong>
             </div>
             <div class="d-flex justify-content-between
                         align-items-center border rounded px-3 py-2 mt-3"
-                 v-if="couponEnabled">
+                 v-if="returncouponEnabled">
                 <p class="text-secondary m-0">折扣後</p>
-                <strong class="text-brown font-weight-normal">NT{{ totalAfterCoupon }}$</strong>
+                <strong class="text-brown font-weight-normal">
+                  NT{{ returnTotalAfterCoupon }}$
+                </strong>
             </div>
             <div class="d-flex align-items-center border rounded p-3 mt-3"
-                    v-for="item in carts" :key="item.id">
+                    v-for="item in returnCarts" :key="item.id">
                 <button class="btn btn-outline-danger" @click.prevent="deleteCart(item.id)">
                     <i class="fas fa-trash-alt"></i>
                 </button>
@@ -100,11 +102,6 @@ export default {
   name: 'Cartform',
   data() {
     return {
-      carts: [],
-      totalPrice: 0,
-      totalAfterCoupon: 0,
-      couponCode: '',
-      couponEnabled: false,
       form: {
         user: {
           name: '',
@@ -114,55 +111,46 @@ export default {
         },
         message: '',
       },
-      orderId: '',
     };
   },
   methods: {
     getCarts() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      const vm = this;
-      this.$http.get(api).then((Response) => {
-        vm.carts = Response.data.data.carts;
-        vm.totalPrice = Response.data.data.total;
-        vm.totalAfterCoupon = Response.data.data.final_total;
-      });
+      this.$store.dispatch('clientGetCarts');
     },
     deleteCart(id) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
-      const vm = this;
-      this.$http.delete(api).then((Response) => {
-        if (Response.data.success) {
-          vm.getCarts();
-        }
-      });
+      this.$store.dispatch('clientDeleteCart', id);
     },
-    createOrder() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
-      const vm = this;
+    createOrder(form) {
       this.$validator.validate().then((result) => {
         if (result) {
-          this.$http.post(api, { data: vm.form }).then((Response) => {
-            if (Response.data.success) {
-              vm.orderId = Response.data.orderId;
-              vm.goToNext();
-            }
-          });
+          this.$store.dispatch('clientCreateOrder', form);
         }
       });
     },
     setCoupon() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
-      const vm = this;
-      this.$http.post(api, { data: { code: vm.couponCode } }).then((Response) => {
-        if (Response.data.success) {
-          vm.couponEnabled = true;
-          vm.totalAfterCoupon = Response.data.data.final_total;
-        }
-      });
+      this.$store.dispatch('clientSetCoupon');
     },
-    goToNext() {
-      this.$emit('transferSchdule', 'second', false);
-      this.$router.push(`payment/${this.orderId}`);
+  },
+  computed: {
+    returnCarts() {
+      return this.$store.state.client.carts;
+    },
+    returnTotalPrice() {
+      return this.$store.state.client.cartTotalPrice;
+    },
+    returnTotalAfterCoupon() {
+      return this.$store.state.client.cartTotalAfterCoupon;
+    },
+    returncouponEnabled() {
+      return this.$store.state.client.couponEnabled;
+    },
+    couponCode: {
+      get() {
+        return this.$store.state.client.couponCode;
+      },
+      set(value) {
+        this.$store.commit('CLIENT_COUPON_CODE', value);
+      },
     },
   },
   created() {
