@@ -54,10 +54,6 @@
 <script>
 export default {
   name: 'Offers',
-  data() {
-    return {
-    };
-  },
   methods: {
     getOrders(page = 1) {
       this.$store.dispatch('adminGetOrders', page);

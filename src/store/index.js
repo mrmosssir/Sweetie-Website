@@ -80,15 +80,14 @@ export default new Vuex.Store({
     // Login
     checkUser(context, payload) {
       const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;
-      context.commit('USER', payload);
+      context.commit('USERNAME', payload.username);
+      context.commit('PASSWORD', payload.password);
       axios.post(api, this.state.user).then((Response) => {
         if (Response.data.success) {
           router.push('/admin');
         } else {
-          context.commit('USER', {
-            username: '',
-            password: '',
-          });
+          context.commit('USERNAME', '');
+          context.commit('PASSWORD', '');
           // alert('帳號或密碼錯誤');
         }
       });
@@ -345,9 +344,11 @@ export default new Vuex.Store({
   },
   mutations: {
     // Login
-    USER(state, payload) {
-      state.user.username = payload.username;
-      state.user.password = payload.password;
+    USERNAME(state, payload) {
+      state.user.username = payload;
+    },
+    PASSWORD(state, payload) {
+      state.user.password = payload;
     },
     // Admin Product
     ADMIN_PRODUCTS(state, payload) {
@@ -458,6 +459,9 @@ export default new Vuex.Store({
     // Client Product Detail
     CLIENT_PRODUCT(state, payload) {
       state.client.product = payload;
+    },
+    CLIENT_PRODUCTAMOUNT(state, payload) {
+      state.client.productAmount = payload;
     },
     // Client Cart
     CLIENT_SCHEDULE_STATUE(state, payload) {

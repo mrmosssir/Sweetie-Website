@@ -2,11 +2,15 @@
     <div>
       <Banner />
       <section>
-        <h2 class="great_vibes-style text-brown text-center my-5">Hot Sales</h2>
+        <h2 class="great_vibes-style text-brown text-center my-5">
+          Hot Sales
+        </h2>
         <Spotlight />
       </section>
       <section>
-        <h2 class="great_vibes-style text-brown text-center my-5">Our persistence</h2>
+        <h2 class="great_vibes-style text-brown text-center my-5">
+          Our persistence
+        </h2>
         <p class="text-secondary text-indent">
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Possimus minima officia cupiditate doloremque esse cumq
@@ -22,7 +26,7 @@
             explicabo qui odio voluptatem quae suscipit quos tota
             m veritatis deleniti corrupti tempore error dolore co
             mmodi ut sed, quasi placeat? Voluptatibus, eaque.
-          </p>
+        </p>
       </section>
       <section>
         <h2 class="great_vibes-style text-brown text-center my-5">Contact Us</h2>
@@ -33,8 +37,8 @@
             <p>聯絡人：陳先生</p>
             <p>營業時間：11：00 ~ 18：00 每週三公休</p>
           </div>
-          <iframe src="
-                  https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3645.44223
+          <iframe src=
+                  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3645.44223
                   26304107!2d121.6045335146937!3d23.980155985877833!2m3!1f0!2f0!3f
                   0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34689fc0be4a7ca5%3A0x4443b
                   d6e02836ee!2zOTcw6Iqx6JOu57ij6Iqx6JOu5biC5Lit5bGx6LevMzI3LTHomZ8

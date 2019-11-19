@@ -104,11 +104,6 @@
 <script>
 export default {
   name: 'Coupons',
-  data() {
-    return {
-      coupon: {},
-    };
-  },
   methods: {
     getCoupons(page = 1) {
       this.$store.dispatch('adminGetCoupons', page);

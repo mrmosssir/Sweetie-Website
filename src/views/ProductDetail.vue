@@ -37,11 +37,6 @@
 <script>
 export default {
   name: 'ProductDetail',
-  data() {
-    return {
-      productAmount: 1,
-    };
-  },
   methods: {
     getProductDetail(id) {
       this.$store.dispatch('clientGetProductDetail', id);
@@ -59,6 +54,14 @@ export default {
   computed: {
     returnProduct() {
       return this.$store.state.client.product;
+    },
+    productAmount: {
+      get() {
+        return this.$store.state.client.productAmount;
+      },
+      set(value) {
+        this.$store.commit('CLIENT_PRODUCTAMOUNT', value);
+      },
     },
   },
   created() {

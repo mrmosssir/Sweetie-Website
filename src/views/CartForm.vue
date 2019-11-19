@@ -69,7 +69,7 @@
                 </strong>
             </div>
             <div class="d-flex align-items-center border rounded p-3 mt-3"
-                    v-for="item in returnCarts" :key="item.id">
+                 v-for="item in returnCarts" :key="item.id">
                 <button class="btn btn-outline-danger" @click.prevent="deleteCart(item.id)">
                     <i class="fas fa-trash-alt"></i>
                 </button>

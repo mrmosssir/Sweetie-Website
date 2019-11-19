@@ -40,7 +40,7 @@
             <i class="fas fa-backward mr-3"></i>
             回到商品區
         </router-link>
-        <router-view @transferSchdule="transferSchdule"></router-view>
+        <router-view></router-view>
     </div>
 </template>
 
