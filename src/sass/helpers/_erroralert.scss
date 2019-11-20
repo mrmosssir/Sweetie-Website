@@ -1,0 +1,11 @@
+.error-alert {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    text-align: center;
+    padding: 20px 0;
+    background: $dirt-yellow;
+    color: darken($dirt-yellow, 50%);
+    z-index: 900;
+}

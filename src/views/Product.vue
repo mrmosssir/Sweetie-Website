@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-4">
+    <div>
       <router-view></router-view>
       <router-link to="/cart" class="btn-cart">
         <i class="fas fa-shopping-basket"></i>

@@ -8,6 +8,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    // Loading
+    loadingStatus: false,
+    updateStatus: false,
+    // Error
+    error: false,
+    errorMessage: '',
     // Login Variable
     user: {
       username: '',
@@ -39,6 +45,9 @@ export default new Vuex.Store({
       products: [],
       productFilterArray: [],
       productFilterString: 'all',
+      productTotalPage: 0,
+      productCurrentPage: 1,
+      productListAmount: 0,
       productTitle: {
         all: '全部餐點',
         single: '單點餐點',
@@ -88,12 +97,22 @@ export default new Vuex.Store({
         } else {
           context.commit('USERNAME', '');
           context.commit('PASSWORD', '');
-          // alert('帳號或密碼錯誤');
+          context.commit('ERROR', {
+            error: true,
+            message: Response.data.error.message,
+          });
+          setInterval(() => {
+            context.commit('ERROR', {
+              error: false,
+              message: '',
+            });
+          }, 5000);
         }
       });
     },
     // Admin Product
     adminGetProducts(context, payload) {
+      context.commit('LOADING', true);
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${payload}`;
       axios.get(api).then((Response) => {
         if (Response.data.success) {
@@ -101,6 +120,7 @@ export default new Vuex.Store({
           context.commit('ADMIN_PRODUCT_TOTALPAGE', Response.data.pagination.total_pages);
           context.commit('ADMIN_PRODUCT_CURRENTPAGE', Response.data.pagination.current_page);
         }
+        context.commit('LOADING', false);
       });
     },
     adminProductOpenModal(context, payload) {
@@ -137,6 +157,7 @@ export default new Vuex.Store({
       });
     },
     adminProductUploadFile(context, payload) {
+      context.commit('UPDATESTATUS', true);
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
       const formData = new FormData();
       formData.append('file-to-upload', payload);
@@ -147,16 +168,19 @@ export default new Vuex.Store({
       }).then((Response) => {
         if (Response.data.success) {
           context.commit('ADMIN_PRODUCT_SET_IMAGEURL', Response.data.imageUrl);
+          context.commit('UPDATESTATUS', false);
         }
       });
     },
     // Admin Coupon
     adminGetCoupons(context, payload) {
+      context.commit('LOADING', true);
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${payload}`;
       axios.get(api).then((Response) => {
         context.commit('ADMIN_COUPONS', Response.data.coupons);
         context.commit('ADMIN_COUPON_TOTALPAGE', Response.data.pagination.total_pages);
         context.commit('ADMIN_COUPON_CURRENTPAGE', Response.data.pagination.current_page);
+        context.commit('LOADING', false);
       });
     },
     adminSubmitCoupon(context, payload) {
@@ -198,19 +222,24 @@ export default new Vuex.Store({
     },
     // Admin Order
     adminGetOrders(context, payload) {
+      context.commit('LOADING', true);
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${payload}`;
       axios.get(api).then((Response) => {
         context.commit('ADMIN_ORDERS', Response.data.orders);
         context.commit('ADMIN_ORDER_TOTALPAGE', Response.data.pagination.total_pages);
         context.commit('ADMIN_ORDER_CURRENTPAGE', Response.data.pagination.current_page);
+        context.commit('LOADING', false);
       });
     },
     // Client Product Main
-    clientGetProducts(context, payload) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${payload}`;
+    clientGetProducts(context) {
+      context.commit('LOADING', true);
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
       axios.get(api).then((Response) => {
         if (Response.data.success) {
           context.commit('CLIENT_PRODUCTS', Response.data.products);
+          context.commit('CLIENT_PRODUCT_CURRENTPAGE', 1);
+          this.commit('LOADING', false);
         }
       });
     },
@@ -226,6 +255,7 @@ export default new Vuex.Store({
       });
     },
     clientAddCart(context, payload) {
+      context.commit('LOADING', true);
       const cartPackage = {
         product_id: payload.id,
         qty: payload.amount,
@@ -234,9 +264,19 @@ export default new Vuex.Store({
       axios.post(api, { data: cartPackage }).then((Response) => {
         if (Response.data.success) {
           this.dispatch('clientGetCartsAmount');
-        } else {
-          // alert('送出訂單時發生錯誤');
+          this.dispatch('clientGetCarts');
+          context.commit('ERROR', {
+            error: true,
+            message: Response.data.message,
+          });
+          setInterval(() => {
+            context.commit('ERROR', {
+              error: false,
+              message: '',
+            });
+          }, 3000);
         }
+        context.commit('LOADING', false);
       });
     },
     clientChangeCategory(context, payload) {
@@ -245,13 +285,24 @@ export default new Vuex.Store({
     },
     // Client Product Detail
     clientGetProductDetail(context, payload) {
+      context.commit('LOADING', true);
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${payload}`;
       axios.get(api).then((Response) => {
         if (Response.data.success) {
           context.commit('CLIENT_PRODUCT', Response.data.product);
         } else {
-          // alert('此產品已遭到移除')s;
+          context.commit('ERROR', {
+            error: true,
+            message: Response.data.message,
+          });
+          setInterval(() => {
+            context.commit('ERROR', {
+              error: false,
+              message: '',
+            });
+          }, 5000);
         }
+        context.commit('LOADING', false);
       });
     },
     clientProductPageReturn() {
@@ -259,6 +310,7 @@ export default new Vuex.Store({
     },
     // Client Cart Form
     clientGetCarts(context) {
+      context.commit('LOADING', true);
       context.commit('CLIENT_SCHEDULE_STATUE', {
         page: 'first',
         paid: false,
@@ -268,17 +320,21 @@ export default new Vuex.Store({
         context.commit('CLIENT_CARTS', Response.data.data.carts);
         context.commit('CLIENT_CART_TOTALPRICE', Response.data.data.total);
         context.commit('CLIENT_CART_TOTAL_AFTER_COUPON', Response.data.data.final_total);
+        context.commit('LOADING', false);
       });
     },
     clientDeleteCart(context, payload) {
+      context.commit('LOADING', true);
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${payload}`;
       axios.delete(api).then((Response) => {
         if (Response.data.success) {
           this.dispatch('clientGetCarts');
         }
+        context.commit('LOADING', false);
       });
     },
     clientCreateOrder(context, payload) {
+      context.commit('LOADING', true);
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
       axios.post(api, { data: payload }).then((Response) => {
         if (Response.data.success) {
@@ -287,17 +343,20 @@ export default new Vuex.Store({
             page: 'second',
             paid: false,
           });
+          context.commit('LOADING', false);
           router.push(`payment/${this.state.client.cartOrderId}`);
         }
       });
     },
     clientSetCoupon(context) {
+      context.commit('LOADING', true);
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
       axios.post(api, { data: { code: this.state.client.couponCode } }).then((Response) => {
         if (Response.data.success) {
           context.commit('CLIENT_COUPON_ENABLED', true);
           context.commit('CLIENT_CART_TOTAL_AFTER_COUPON', Response.data.data.final_total);
         }
+        context.commit('LOADING', false);
       });
     },
     clientCartPageForward(context, payload) {
@@ -343,6 +402,18 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    // Loading
+    LOADING(state, payload) {
+      state.loadingStatus = payload;
+    },
+    UPDATESTATUS(state, payload) {
+      state.updateStatus = payload;
+    },
+    // Error
+    ERROR(state, payload) {
+      state.error = payload.error;
+      state.errorMessage = payload.message;
+    },
     // Login
     USERNAME(state, payload) {
       state.user.username = payload;
@@ -420,11 +491,13 @@ export default new Vuex.Store({
     CLIENT_PRODUCTS(state, payload) {
       state.client.products = [];
       state.client.productFilterArray = [];
+      state.client.productListAmount = 0;
       switch (state.client.productFilterString) {
         case 'single':
           payload.forEach((product) => {
             if (product.category === '甜點') {
               state.client.products.push(product);
+              state.client.productListAmount += 1;
             }
           });
           break;
@@ -432,6 +505,7 @@ export default new Vuex.Store({
           payload.forEach((product) => {
             if (product.category === '飲品') {
               state.client.products.push(product);
+              state.client.productListAmount += 1;
             }
           });
           break;
@@ -439,6 +513,7 @@ export default new Vuex.Store({
           payload.forEach((product) => {
             if (product.category === '水果沙拉') {
               state.client.products.push(product);
+              state.client.productListAmount += 1;
             }
           });
           break;
@@ -446,15 +521,27 @@ export default new Vuex.Store({
           payload.forEach((product) => {
             if (product.category === '拼盤') {
               state.client.products.push(product);
+              state.client.productListAmount += 1;
             }
           });
           break;
         default:
           state.client.products = payload;
+          state.client.productListAmount = payload.length;
+      }
+      state.client.productTotalPage = Math.floor(state.client.productListAmount / 10);
+      if (state.client.productListAmount % 10 !== 0) {
+        state.client.productTotalPage += 1;
       }
     },
     CLIENT_CATEGORY(state, payload) {
       state.client.productFilterString = payload;
+    },
+    CLIENT_PRODUCT_TOTALPAGE(state, payload) {
+      state.client.productTotalPage = payload;
+    },
+    CLIENT_PRODUCT_CURRENTPAGE(state, payload) {
+      state.client.productCurrentPage = payload;
     },
     // Client Product Detail
     CLIENT_PRODUCT(state, payload) {

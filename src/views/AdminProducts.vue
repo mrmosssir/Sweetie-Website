@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="!returnLoading">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent px-0">
               <li class="breadcrumb-item text-secondary"><small>後台管理系統</small></li>
@@ -84,7 +84,9 @@
                             </div>
                             <div class="form-group">
                             <label for="customFile">或 上傳圖片
-                                <i class="fas fa-spinner fa-spin"></i>
+                                <i class="fas fa-spinner fa-spin text-brown"
+                                   v-if="returnUpdateStatus">
+                                </i>
                             </label>
                             <input type="file" id="customFile" class="form-control"
                                     ref="files" @change="uploadFile()">
@@ -219,6 +221,12 @@ export default {
     },
     returnCurrentPage() {
       return this.$store.state.admin.productCurrentPage;
+    },
+    returnLoading() {
+      return this.$store.state.loadingStatus;
+    },
+    returnUpdateStatus() {
+      return this.$store.state.updateStatus;
     },
   },
   created() {

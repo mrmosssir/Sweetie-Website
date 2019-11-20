@@ -1,5 +1,8 @@
 <template>
     <div class="height-100vh d-flex justify-content-center align-items-center text-center">
+      <div class="error-alert" v-if="returnError">
+        {{ returnErrorMessage }}
+      </div>
         <form class="login-width" @submit.prevent="checkUser()">
             <p class="h1 text-brown font-weight-bold great_vibes-style m-0">Afternoon Sweetie</p>
             <h1 class="h3 my-4 font-weight-normal text-brown">管理系統登入</h1>
@@ -42,6 +45,12 @@ export default {
       set(value) {
         this.$store.commit('PASSWORD', value);
       },
+    },
+    returnError() {
+      return this.$store.state.error;
+    },
+    returnErrorMessage() {
+      return this.$store.state.errorMessage;
     },
   },
 };

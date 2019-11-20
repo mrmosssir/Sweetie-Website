@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="!returnLoading">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent px-0">
               <li class="breadcrumb-item text-secondary"><small>後台管理系統</small></li>
@@ -147,6 +147,9 @@ export default {
     },
     returnCurrentPage() {
       return this.$store.state.admin.couponCurrentPage;
+    },
+    returnLoading() {
+      return this.$store.state.loadingStatus;
     },
   },
   created() {

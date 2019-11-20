@@ -22,6 +22,11 @@
 // mixin
 
 // general
+.p-sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+}
 .text-overhidden {
     white-space: nowrap;
     width: 100%;
@@ -42,9 +47,6 @@
 // product detail
 .detail-image-position {
     @include set-background-center;
-}
-.detail-line {
-    @include draw-thick-line(2, $gray-500)
 }
 // product detail
 
