@@ -3,7 +3,7 @@
       <Banner />
       <section>
         <h2 class="great_vibes-style text-brown text-center my-5">
-          Hot Sales
+          New Sales
         </h2>
         <Spotlight />
       </section>

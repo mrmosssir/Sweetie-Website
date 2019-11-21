@@ -1,11 +1,13 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col-md-4">
               <div class="p-sticky">
                 <ul class="filter-bar p-0">
                   <li class="filter border border-brown mb-3 py-2 pl-4 rounded-pill"
-                      :class="{'filter-active': returnCategory === 'all'}"
+                      :class="{
+                        'filter-active': returnCategory === 'all' || returnCategory === 'home'
+                        }"
                       @click.prevent="changeCategory('all')">
                     <i class="fas fa-cookie"></i>
                     全部餐點
@@ -39,8 +41,8 @@
                 <CartList />
               </div>
             </div>
-            <div class="col-8">
-                <h2 class="h3 font-weight-normal mb-5">
+            <div class="col-md-8">
+                <h2 class="h3 font-weight-normal mb-4">
                   {{ this.$store.state.client.productTitle[returnCategory] }}
                 </h2>
                 <div class="border rounded p-3

@@ -123,7 +123,7 @@ export default {
     },
     dateTransfer(date) {
       const dateOrigin = new Date(date);
-      return `${dateOrigin.getFullYear()}-${this.addZero(dateOrigin.getMonth() + 1)}-${this.addZero(dateOrigin.getDate())}`;
+      return `${dateOrigin.getFullYear()}-${this.addZero(dateOrigin.getMonth() + 1)}-${this.addZero(dateOrigin.getDate())} ${this.addZero(dateOrigin.getHours())}:${this.addZero(dateOrigin.getMinutes())}`;
     },
     addZero(num) {
       if (num < 10) {

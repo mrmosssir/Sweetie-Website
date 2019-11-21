@@ -50,6 +50,7 @@ export default new Vuex.Store({
       productListAmount: 0,
       productTitle: {
         all: '全部餐點',
+        home: '全部餐點',
         single: '單點餐點',
         drink: '甜蜜飲品',
         fruit: '水果沙拉',
@@ -190,8 +191,9 @@ export default new Vuex.Store({
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${payload}`;
         mode = 'put';
       }
-      const dueDate = this.state.admin.coupon.dueDate.split('T')[0];
-      const timeStamp = new Date(`${dueDate.split('-')[0]}/${dueDate.split('-')[1]}/${dueDate.split('-')[2]}`);
+      // const dueDate = this.state.admin.coupon.dueDate.split('T')[0];
+      // `${dueDate.split('-')[0]}/${dueDate.split('-')[1]}/${dueDate.split('-')[2]}`
+      const timeStamp = new Date(this.state.admin.coupon.dueDate);
       context.commit('ADMIN_SET_COUPON', timeStamp);
       axios[mode](api, { data: this.state.admin.coupon }).then(() => {
         this.dispatch('adminGetCoupons', 1);
@@ -232,12 +234,15 @@ export default new Vuex.Store({
       });
     },
     // Client Product Main
-    clientGetProducts(context) {
+    clientGetProducts(context, payload = false) {
       context.commit('LOADING', true);
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
       axios.get(api).then((Response) => {
         if (Response.data.success) {
-          context.commit('CLIENT_PRODUCTS', Response.data.products);
+          context.commit('CLIENT_PRODUCTS', {
+            products: Response.data.products,
+            status: payload,
+          });
           context.commit('CLIENT_PRODUCT_CURRENTPAGE', 1);
           this.commit('LOADING', false);
         }
@@ -245,6 +250,7 @@ export default new Vuex.Store({
     },
     clientShowProductDetail(context, payload) {
       router.push(`/shop/${payload}`);
+      window.location.reload();
     },
     clientGetCartsAmount(context) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
@@ -332,6 +338,18 @@ export default new Vuex.Store({
         }
         context.commit('LOADING', false);
       });
+    },
+    clientRemoveCartsItem(context) {
+      context.commit('LOADING', true);
+      this.state.client.carts.forEach((item) => {
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item.id}`;
+        axios.delete(api).then((Response) => {
+          if (Response.data.success) {
+            this.dispatch('clientGetCarts');
+          }
+        });
+      });
+      context.commit('LOADING', false);
     },
     clientCreateOrder(context, payload) {
       context.commit('LOADING', true);
@@ -492,9 +510,12 @@ export default new Vuex.Store({
       state.client.products = [];
       state.client.productFilterArray = [];
       state.client.productListAmount = 0;
+      if (payload.status === true) {
+        state.client.productFilterString = 'home';
+      }
       switch (state.client.productFilterString) {
         case 'single':
-          payload.forEach((product) => {
+          payload.products.forEach((product) => {
             if (product.category === '甜點') {
               state.client.products.push(product);
               state.client.productListAmount += 1;
@@ -502,7 +523,7 @@ export default new Vuex.Store({
           });
           break;
         case 'drink':
-          payload.forEach((product) => {
+          payload.products.forEach((product) => {
             if (product.category === '飲品') {
               state.client.products.push(product);
               state.client.productListAmount += 1;
@@ -510,7 +531,7 @@ export default new Vuex.Store({
           });
           break;
         case 'fruit':
-          payload.forEach((product) => {
+          payload.products.forEach((product) => {
             if (product.category === '水果沙拉') {
               state.client.products.push(product);
               state.client.productListAmount += 1;
@@ -518,16 +539,19 @@ export default new Vuex.Store({
           });
           break;
         case 'package':
-          payload.forEach((product) => {
+          payload.products.forEach((product) => {
             if (product.category === '拼盤') {
               state.client.products.push(product);
               state.client.productListAmount += 1;
             }
           });
           break;
+        case 'home':
+          state.client.products = payload.products;
+          break;
         default:
-          state.client.products = payload;
-          state.client.productListAmount = payload.length;
+          state.client.products = payload.products;
+          state.client.productListAmount = payload.products.length;
       }
       state.client.productTotalPage = Math.floor(state.client.productListAmount / 10);
       if (state.client.productListAmount % 10 !== 0) {
