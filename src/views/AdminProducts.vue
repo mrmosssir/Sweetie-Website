@@ -53,7 +53,7 @@
         </table>
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
-                <li class="page-item" v-for="num in returnTotalPage"
+                <li class="page-item" v-for="num in returnPage"
                     :key="num"
                     @click.prevent="getProducts(num)"
                     :class="{'active': returnCurrentPage == num}">
@@ -188,6 +188,7 @@ export default {
   methods: {
     getProducts(page = 1) {
       this.$store.dispatch('adminGetProducts', page);
+      this.$store.dispatch('changeSearchMode', 'product');
     },
     submitProduct() {
       this.$store.dispatch('adminSubmitProduct', this.product);
@@ -216,8 +217,8 @@ export default {
     returnIsNew() {
       return this.$store.state.admin.productIsNew;
     },
-    returnTotalPage() {
-      return this.$store.state.admin.productTotalPage;
+    returnPage() {
+      return this.$store.state.admin.productSearchPage;
     },
     returnCurrentPage() {
       return this.$store.state.admin.productCurrentPage;

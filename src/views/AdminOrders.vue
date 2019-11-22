@@ -40,7 +40,7 @@
       </table>
       <nav class="d-flex justify-content-center mt-5">
         <ul class="pagination">
-          <li class="page-item" v-for="num in returnTotalPage"
+          <li class="page-item" v-for="num in returnPage"
               :key="num"
               @click.prevent="getOrders(num)"
               :class="{'active': returnCurrentPage == num}">
@@ -53,10 +53,11 @@
 
 <script>
 export default {
-  name: 'Offers',
+  name: 'Orders',
   methods: {
     getOrders(page = 1) {
       this.$store.dispatch('adminGetOrders', page);
+      this.$store.dispatch('changeSearchMode', 'order');
     },
     dateTransfer(order, dateCode) {
       const date = new Date(dateCode * 1000);
@@ -81,8 +82,8 @@ export default {
       });
       return orders;
     },
-    returnTotalPage() {
-      return this.$store.state.admin.orderTotalPage;
+    returnPage() {
+      return this.$store.state.admin.orderSearchPage;
     },
     returnCurrentPage() {
       return this.$store.state.admin.orderCurrentPage;
