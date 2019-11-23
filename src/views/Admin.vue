@@ -9,7 +9,7 @@
                 返回首頁
         </button>
       </div>
-      <div class="row close-on-mobile" :class="{'loading-target': returnLoading}">
+      <div class="row hidden-flex-mobile" :class="{'loading-target': returnLoading}">
         <Loading v-if="returnLoading" />
         <div class="col-md-2">
           <SideBar />

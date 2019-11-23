@@ -29,6 +29,9 @@
     .width-mobile {
         width: 100% !important;
     }
+    .hidden-flex-mobile {
+        display: none;
+    }
 }
 .open-mobile {
     display: none;
@@ -75,6 +78,11 @@
     position: sticky;
     top: 0;
     left: 0;
+}
+@media (max-width: 768px) {
+    .p-sticky {
+        position: relative;
+    }
 }
 .text-overhidden {
     white-space: nowrap;
