@@ -1,13 +1,20 @@
 <template>
     <div class="my-5">
-        <div class="d-flex justify-content-center align-items-center text-center">
+        <router-link to="/" class="navbar-home-mobile text-center">
+            <h1 class="font-weight-bold great_vibes-style m-0">Afternoon Sweetie</h1>
+        </router-link>
+        <button class="btn btn-outline-brown navbar-select"
+                @click.prevent="openMenu">
+                現在想去哪 ? ．．．↓
+        </button>
+        <div class="navbar-frame">
             <router-link to="/news" class="navbar-link text-secondary mx-3">
                 最新消息
             </router-link>
             <router-link to="/offers" class="navbar-link text-secondary mx-3">
                 特別優惠
             </router-link>
-            <router-link to="/" class="navbar-link mx-5">
+            <router-link to="/" class="navbar-home mx-5">
                 <h1 class="font-weight-bold great_vibes-style m-0">Afternoon Sweetie</h1>
             </router-link>
             <router-link to="/shop" class="navbar-link text-secondary mx-3">
@@ -19,3 +26,16 @@
         </div>
     </div>
 </template>
+
+<script>
+import $ from 'jquery';
+
+export default {
+  name: 'Menu',
+  methods: {
+    openMenu() {
+      $('.navbar-frame').toggleClass('navbar-open');
+    },
+  },
+};
+</script>

@@ -26,7 +26,7 @@
             <td class="text-center">{{ item.create_at }}</td>
             <td class="text-center">{{ item.user.email }}</td>
             <td class="text-center">
-              <ul>
+              <ul class="mb-0">
                 <li v-for="product in item.products" :key="product.id">
                   {{ product.product.title }} 數量：{{ product.qty }} {{ product.product.unit }}
                 </li>

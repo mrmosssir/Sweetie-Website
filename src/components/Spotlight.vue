@@ -5,7 +5,7 @@
                  v-for="numRow in 2" :key="numRow"
                  :class="{'active': numRow === 1}">
                 <div class="row">
-                    <div class="col-3" v-for="numCol in 4"
+                    <div class="col-md-3 p-3" v-for="numCol in 4"
                          :key="returnProducts[4 * (numRow - 1) + (numCol - 1)].id">
                         <div class="spotlight-image spotlight-link"
                              :style="`background-image: url('${

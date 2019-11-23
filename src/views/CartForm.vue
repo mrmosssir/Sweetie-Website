@@ -1,7 +1,10 @@
 <template>
     <div class="row mt-4 align-items-start">
+        <div class="col-md-4">
+          <CartList />
+        </div>
         <div class="col-md-8">
-            <h2 class="h5 text-brown font-weight-normal mb-4">訂單資訊</h2>
+            <h2 class="h5 text-brown font-weight-normal mb-4 margin-mobile">訂單資訊</h2>
             <form @submit.prevent="createOrder(form)">
               <div class="row">
                 <div class="form-group col-6">
@@ -49,9 +52,6 @@
               <hr>
               <button class="btn btn-block btn-brown" type="submit">前往付款</button>
             </form>
-        </div>
-        <div class="col-md-4">
-          <CartList />
         </div>
     </div>
 </template>

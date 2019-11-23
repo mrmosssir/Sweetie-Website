@@ -2,13 +2,13 @@
     <div>
       <Banner />
       <section>
-        <h2 class="great_vibes-style text-brown text-center my-5">
+        <h2 class="great_vibes-style text-brown text-center mt-5">
           New Sales
         </h2>
         <Spotlight />
       </section>
       <section>
-        <h2 class="great_vibes-style text-brown text-center my-5">
+        <h2 class="great_vibes-style text-brown text-center my-4">
           Our persistence
         </h2>
         <p class="text-secondary text-indent">
@@ -30,8 +30,8 @@
       </section>
       <section>
         <h2 class="great_vibes-style text-brown text-center my-5">Contact Us</h2>
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="mr-5">
+        <div class="d-md-flex justify-content-center align-items-center">
+          <div class="mr-3">
             <p>聯絡電話：0912-345678</p>
             <p>地址：花蓮縣花蓮市中山路一號</p>
             <p>聯絡人：陳先生</p>
@@ -43,7 +43,7 @@
                   0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34689fc0be4a7ca5%3A0x4443b
                   d6e02836ee!2zOTcw6Iqx6JOu57ij6Iqx6JOu5biC5Lit5bGx6LevMzI3LTHomZ8
                   !5e0!3m2!1szh-TW!2stw!4v1563267714244!5m2!1szh-TW!2stw"
-                  width="600" height="450" frameborder="0" style="border:0" allowfullscreen>
+                  width="100%" height="450" frameborder="0" style="border:0" allowfullscreen>
           </iframe>
         </div>
       </section>

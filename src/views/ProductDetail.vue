@@ -6,7 +6,7 @@
       </router-link>
       <div class="row">
         <div class="col-md-3">
-          <CartList />
+          <CartList class="close-on-mobile" />
         </div>
         <div class="col-md-5">
           <div class="detail-image-position h-100"
@@ -46,8 +46,8 @@
         </div>
       </div>
       <hr class="my-5">
-      <h2 class="mb-4">新商品上架</h2>
-      <Spotlight />
+      <h2 class="mb-4 close-on-mobile">新商品上架</h2>
+      <Spotlight class="close-on-mobile" />
     </div>
 </template>
 

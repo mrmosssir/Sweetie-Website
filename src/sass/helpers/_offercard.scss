@@ -1,9 +1,8 @@
 .offer-card {
     max-width: 550px;
-    height: 250px;
     background: $brown;
     margin: 50px auto;
-    border-radius: 20px;
+    box-shadow: 0 0 10px grey;
     &-title, &-content, &-footer {
         color: $white;
     }

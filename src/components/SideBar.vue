@@ -1,6 +1,6 @@
 <template>
-    <div class="height-100vh">
-        <nav class="sidebar d-none d-md-block col-md-2">
+    <div>
+        <nav class="sidebar d-md-block col-md-2">
             <div class="sidebar-sticky">
                 <router-link to="/">
                     <h1 class="great_vibes-style text-center text-brown-light py-4 mb-0">
