@@ -1,59 +1,25 @@
 <template>
     <div id="carouselSpotlightControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div class="carousel-item"
+                 v-for="numRow in 2" :key="numRow"
+                 :class="{'active': numRow === 1}">
                 <div class="row">
-                    <div class="col-3">
-                        <img width=100% height="300px" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" alt="">
-                        <div class="mt-2 text-brown">
-                            <small>卡布奇諾 - NT $80</small>
+                    <div class="col-md-3 p-3" v-for="numCol in 4"
+                         :key="returnProducts[4 * (numRow - 1) + (numCol - 1)].id">
+                        <div class="spotlight-image spotlight-link"
+                             :style="`background-image: url('${
+                                 returnProducts[4 * (numRow - 1) + (numCol - 1)].imageUrl
+                             }')`"
+                             @click.prevent="
+                              showProductDetail(returnProducts[4 * (numRow - 1) + (numCol - 1)].id)
+                             ">
                         </div>
-                    </div>
-                    <div class="col-3">
-                        <img width=100% height="300px" src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=716&q=80" alt="">
                         <div class="mt-2 text-brown">
-                            <small>清爽風味田野冷飲 - NT $80</small>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <img width=100% height="300px" src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=706&q=80" alt="">
-                        <div class="mt-2 text-brown">
-                            <small>田野蔬食沙拉 - NT $80</small>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <img width=100% height="300px" src="https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" alt="">
-                        <div class="mt-2 text-brown">
-                            <small>粉紅女王風味奶酪 - NT $80</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row px-3">
-                    <div class="col-3">
-                        <img width=100% height="300px" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" alt="">
-                        <div class="mt-2 text-brown">
-                            <small>卡布奇諾 - NT $80</small>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <img width=100% height="300px" src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=716&q=80" alt="">
-                        <div class="mt-2 text-brown">
-                            <small>清爽風味田野冷飲 - NT $80</small>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <img width=100% height="300px" src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=706&q=80" alt="">
-                        <div class="mt-2 text-brown">
-                            <small>田野蔬食沙拉 - NT $80</small>
-
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <img width=100% height="300px" src="https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" alt="">
-                        <div class="mt-2 text-brown">
-                            <small>粉紅女王風味奶酪 - NT $80</small>
+                            <small>
+                              {{returnProducts[4 * (numRow - 1) + (numCol - 1)].title}} - NT $
+                              {{returnProducts[4 * (numRow - 1) + (numCol - 1)].price}}
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -71,3 +37,25 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+  name: 'Spotlight',
+  methods: {
+    getProducts() {
+      this.$store.dispatch('clientGetProducts', true);
+    },
+    showProductDetail(id) {
+      this.$store.dispatch('clientShowProductDetail', id);
+    },
+  },
+  computed: {
+    returnProducts() {
+      return this.$store.state.client.products;
+    },
+  },
+  created() {
+    this.getProducts();
+  },
+};
+</script>

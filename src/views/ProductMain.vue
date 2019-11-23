@@ -1,11 +1,13 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col-md-4">
               <div class="p-sticky">
                 <ul class="filter-bar p-0">
                   <li class="filter border border-brown mb-3 py-2 pl-4 rounded-pill"
-                      :class="{'filter-active': returnCategory === 'all'}"
+                      :class="{
+                        'filter-active': returnCategory === 'all' || returnCategory === 'home'
+                        }"
                       @click.prevent="changeCategory('all')">
                     <i class="fas fa-cookie"></i>
                     全部餐點
@@ -36,29 +38,26 @@
                   </li>
                 </ul>
                 <hr>
-                <CartList />
+                <CartList class="close-on-mobile" />
               </div>
             </div>
-            <div class="col-8">
-                <h2 class="h3 font-weight-normal mb-5">
+            <div class="col-md-8">
+                <h2 class="h3 font-weight-normal mb-4">
                   {{ this.$store.state.client.productTitle[returnCategory] }}
                 </h2>
-                <div class="border rounded p-3
-                            d-flex justify-content-between align-items-center mb-3"
-                     v-for="item in returnProducts" :key="item.id">
-                  <div class="d-flex align-items-center">
+                <div class="row">
+                  <div class="col-md-4 col-sm-6" v-for="item in returnProducts" :key="item.id">
                     <div class="main-image mr-3"
-                         :style="'background-image: url(' + item.imageUrl + ');'"
-                         @click.prevent="showProductDetail(item.id)"></div>
-                    <div>
-                      <span class="badge badge-brown">{{ item.category }}</span>
-                      <h2 class="h4 text-secondary font-weight-normal">{{ item.title }}</h2>
-                      <strong class="h3 text-danger">{{ item.price }} $</strong>
+                        :style="'background-image: url(' + item.imageUrl + ');'"
+                        @click.prevent="showProductDetail(item.id)"></div>
+                    <h2 class="h6 text-dark font-weight-bold mt-2">{{ item.title }}</h2>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                      <strong class="text-danger">NT$ {{ item.price }}</strong>
+                      <button class="btn btn-link p-0" @click.prevent="addCart(item.id)">
+                        <i class="fas fa-shopping-basket text-secondary"></i>
+                      </button>
                     </div>
                   </div>
-                  <button class="btn btn-brown btn-cart-main" @click.prevent="addCart(item.id)">
-                    <i class="fas fa-shopping-basket"></i>
-                  </button>
                 </div>
                 <nav class="d-flex justify-content-center mt-5">
                   <ul class="pagination">

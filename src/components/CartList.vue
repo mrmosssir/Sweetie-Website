@@ -32,7 +32,11 @@
             <strong class="h5 font-weight-normal text-brown m-0 ml-auto">
                 NT${{ item.total }}
             </strong>
-            </div>
+        </div>
+        <button class="btn btn-block btn-danger mt-3"
+                @click.prevent="removeCartsItems">
+          清除購物車物品
+        </button>
         <div class="border rounded p-3 mt-3">
             <div class="input-group">
                 <input type="text" class="form-control"
@@ -57,6 +61,9 @@ export default {
     },
     setCoupon() {
       this.$store.dispatch('clientSetCoupon');
+    },
+    removeCartsItems() {
+      this.$store.dispatch('clientRemoveCartsItem');
     },
   },
   computed: {

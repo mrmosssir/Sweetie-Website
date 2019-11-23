@@ -1,5 +1,5 @@
 <template>
-    <div class="d-block w-50 mx-auto">
+    <div class="d-block w-50 width-mobile mx-auto">
         <h2 class="h5 text-secondary font-weight-normal my-3">購買列表</h2>
         <table class="w-100 table-striped">
             <thead class="bg-brown text-white">

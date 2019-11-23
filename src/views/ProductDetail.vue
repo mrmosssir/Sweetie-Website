@@ -1,12 +1,12 @@
 <template>
     <div>
-      <router-link to="/shop" class="d-block text-green-light mb-3">
+      <router-link to="/shop" class="d-block text-green-light mb-5">
           <i class="fas fa-backward mr-3"></i>
           回到商品區
       </router-link>
       <div class="row">
         <div class="col-md-3">
-          <CartList />
+          <CartList class="close-on-mobile" />
         </div>
         <div class="col-md-5">
           <div class="detail-image-position h-100"
@@ -19,35 +19,47 @@
           <hr>
           <p class="text-brown">【產品說明】</p>
           <p class="text-secondary">{{ returnProduct.content }}</p>
-          <strong class="h4 text-brown">NT${{ returnProduct.price }}</strong>
-          <del class="h6 text-secondary">NT${{ returnProduct.origin_price }}</del>
-          <select class="d-block w-50 mt-4" v-model="productAmount">
+          <strong class="h4 text-brown mr-2">
+            <small class="font-weight-bold">NT$</small>
+            {{ returnProduct.price }}
+          </strong>
+          <del class="h6 text-secondary">
+            <small class="font-weight-bold">NT$</small>
+            {{ returnProduct.origin_price }}
+          </del>
+          <select class="select-block mt-4" v-model="productAmount">
             <option v-for="num in 10" :key="num" :value=num>
-              購買 {{ num }}{{ returnProduct.unit }}
+              購買 {{ num }} {{ returnProduct.unit }}
             </option>
           </select>
-          <p class="text-right h5 mt-4 text-secondary">Total:
+          <p class="text-right h5 mt-4 text-secondary">總共 :
             <strong class="h3 font-weight-normal text-brown">
-              ${{ returnProduct.price * productAmount }}
+              <small class="font-weight-bold">NT$</small>
+              {{ returnProduct.price * productAmount }}
             </strong>
           </p>
           <hr>
-          <div class="text-right mt-4">
-            <button class="btn btn-outline-secondary" @click.prevent="pageReturn()">取消</button>
+          <div class="d-flex justify-content-between mt-4">
             <button class="btn btn-brown" @click.prevent="addCart()">加到購物車</button>
+            <button class="btn btn-outline-secondary" @click.prevent="pageReturn()">查看其他商品</button>
           </div>
         </div>
       </div>
+      <hr class="my-5">
+      <h2 class="mb-4 close-on-mobile">新商品上架</h2>
+      <Spotlight class="close-on-mobile" />
     </div>
 </template>
 
 <script>
 import CartList from '../components/CartList.vue';
+import Spotlight from '../components/Spotlight.vue';
 
 export default {
   name: 'ProductDetail',
   components: {
     CartList,
+    Spotlight,
   },
   methods: {
     getProductDetail(id) {

@@ -4,8 +4,10 @@
             <div class="col-md-9 d-flex">
                 <input class="px-3 text-brown d-block rounded-pill
                               border border-brown w-100 mx-3 input-search"
-                       type="text">
-                <button class="d-block btn btn-brown btn-search rounded-circle">
+                       type="text"
+                       v-model="searchContent">
+                <button class="d-block btn btn-brown btn-search rounded-circle"
+                        @click.prevent="search">
                   <i class="fas fa-search text-white"></i>
                 </button>
             </div>
@@ -30,6 +32,19 @@ export default {
           vm.$router.push('/sign');
         }
       });
+    },
+    search() {
+      this.$store.dispatch('search');
+    },
+  },
+  computed: {
+    searchContent: {
+      get() {
+        return this.$store.state.admin.searchContent;
+      },
+      set(value) {
+        this.$store.commit('ADMIN_SEARCHCONTENT', value);
+      },
     },
   },
 };

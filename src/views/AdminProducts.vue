@@ -35,13 +35,13 @@
             <tbody class="text-secondary">
                 <tr class="border border-brown border-bottom"
                     v-for="item in returnProducts" :key="item.id">
-                    <th class="text-center" scope="row">{{ item.num }}</th>
-                    <td class="text-center">{{ item.category }}</td>
-                    <td class="text-center">{{ item.title }}</td>
-                    <td class="text-right">{{ item.origin_price }}$</td>
-                    <td class="text-right">{{ item.price }}$</td>
-                    <td class="text-center" v-if="item.is_enabled">已啟用</td>
-                    <td class="text-center" v-if="!item.is_enabled">未啟用</td>
+                    <th class="text-center pt-3" scope="row">{{ item.num }}</th>
+                    <td class="text-center pt-3">{{ item.category }}</td>
+                    <td class="text-center pt-3">{{ item.title }}</td>
+                    <td class="text-right pt-3">{{ item.origin_price }}$</td>
+                    <td class="text-right pt-3">{{ item.price }}$</td>
+                    <td class="text-center pt-3" v-if="item.is_enabled">已啟用</td>
+                    <td class="text-center pt-3" v-if="!item.is_enabled">未啟用</td>
                     <td class="text-center">
                       <button class="btn btn-sm btn-outline-brown rounded"
                               @click="openModal(false, item)">
@@ -53,7 +53,7 @@
         </table>
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
-                <li class="page-item" v-for="num in returnTotalPage"
+                <li class="page-item" v-for="num in returnPage"
                     :key="num"
                     @click.prevent="getProducts(num)"
                     :class="{'active': returnCurrentPage == num}">
@@ -188,6 +188,7 @@ export default {
   methods: {
     getProducts(page = 1) {
       this.$store.dispatch('adminGetProducts', page);
+      this.$store.dispatch('changeSearchMode', 'product');
     },
     submitProduct() {
       this.$store.dispatch('adminSubmitProduct', this.product);
@@ -216,8 +217,8 @@ export default {
     returnIsNew() {
       return this.$store.state.admin.productIsNew;
     },
-    returnTotalPage() {
-      return this.$store.state.admin.productTotalPage;
+    returnPage() {
+      return this.$store.state.admin.productSearchPage;
     },
     returnCurrentPage() {
       return this.$store.state.admin.productCurrentPage;

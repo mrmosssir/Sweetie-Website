@@ -34,7 +34,7 @@
         </div>
         <nav class="d-flex justify-content-center mt-5">
             <ul class="pagination">
-                <li class="page-item" v-for="num in returnTotalPage"
+                <li class="page-item" v-for="num in returnPage"
                     :key="num"
                     @click.prevent="getCoupons(num)"
                     :class="{'active': returnCurrentPage == num}">
@@ -107,6 +107,7 @@ export default {
   methods: {
     getCoupons(page = 1) {
       this.$store.dispatch('adminGetCoupons', page);
+      this.$store.dispatch('changeSearchMode', 'coupon');
     },
     submitCoupon() {
       this.$store.dispatch('adminSubmitCoupon', this.coupon.id);
@@ -123,7 +124,7 @@ export default {
     },
     dateTransfer(date) {
       const dateOrigin = new Date(date);
-      return `${dateOrigin.getFullYear()}-${this.addZero(dateOrigin.getMonth() + 1)}-${this.addZero(dateOrigin.getDate())}`;
+      return `${dateOrigin.getFullYear()}-${this.addZero(dateOrigin.getMonth() + 1)}-${this.addZero(dateOrigin.getDate())} ${this.addZero(dateOrigin.getHours())}:${this.addZero(dateOrigin.getMinutes())}`;
     },
     addZero(num) {
       if (num < 10) {
@@ -142,8 +143,8 @@ export default {
     returnIsNew() {
       return this.$store.state.admin.couponIsNew;
     },
-    returnTotalPage() {
-      return this.$store.state.admin.couponTotalPage;
+    returnPage() {
+      return this.$store.state.admin.couponSearchPage;
     },
     returnCurrentPage() {
       return this.$store.state.admin.couponCurrentPage;
