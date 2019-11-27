@@ -1,0 +1,42 @@
+.image-spotlight {
+    width: 100%;
+    height: 300px;
+    @include set-background-center;
+}
+.image-about {
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px gray;
+    @include set-background-center;
+}
+.image-back {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('https://images.unsplash.com/photo-1517416418625-3f568763b596?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80');
+    z-index: -1;
+    @include set-background-center;
+}
+.image-product {
+    @include set-background-center;
+    width: 100%;
+    height: 240px;
+    cursor: pointer;
+}
+.image-banner {
+    height: calc(100vh - 80px - 96px);
+    @include set-background-center;
+}
+
+@media (max-width: 768px) {
+    .image-banner {
+        height: calc(100vh - 60px - 96px);
+    }
+}
+
+@media (max-width: 414px) {
+    .image-banner {
+        height: calc(100vh - 60px - 144px);
+    }
+}

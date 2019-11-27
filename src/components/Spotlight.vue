@@ -1,40 +1,78 @@
 <template>
-    <div id="carouselSpotlightControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item"
-                 v-for="numRow in 2" :key="numRow"
-                 :class="{'active': numRow === 1}">
-                <div class="row">
-                    <div class="col-md-3 p-3" v-for="numCol in 4"
-                         :key="returnProducts[4 * (numRow - 1) + (numCol - 1)].id">
-                        <div class="spotlight-image spotlight-link"
-                             :style="`background-image: url('${
-                                 returnProducts[4 * (numRow - 1) + (numCol - 1)].imageUrl
-                             }')`"
-                             @click.prevent="
-                              showProductDetail(returnProducts[4 * (numRow - 1) + (numCol - 1)].id)
-                             ">
-                        </div>
-                        <div class="mt-2 text-brown">
-                            <small>
-                              {{returnProducts[4 * (numRow - 1) + (numCol - 1)].title}} - NT $
-                              {{returnProducts[4 * (numRow - 1) + (numCol - 1)].price}}
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselSpotlightControls"
-               role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselSpotlightControls"
-               role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+    <div>
+      <!-- pc -->
+      <div id="carouselSpotlightControls" class="carousel slide mb-4" data-ride="carousel">
+          <div class="carousel-inner open-pc">
+              <div class="carousel-item"
+                  v-for="numRow in 2" :key="numRow"
+                  :class="{'active': numRow === 1}">
+                  <div class="row">
+                      <div class="col-md-3" v-for="numCol in 4"
+                          :key="returnProducts[4 * (numRow - 1) + (numCol - 1)].id">
+                          <div class="image-spotlight spotlight-link"
+                              :style="`background-image: url('${
+                                  returnProducts[4 * (numRow - 1) + (numCol - 1)].imageUrl
+                              }')`"
+                              @click.prevent="
+                                showProductDetail(
+                                  returnProducts[4 * (numRow - 1) + (numCol - 1)].id
+                                )
+                              ">
+                          </div>
+                          <div class="mt-2 text-white">
+                              <p class="m-0">
+                                {{returnProducts[4 * (numRow - 1) + (numCol - 1)].title}} - NT $
+                                {{returnProducts[4 * (numRow - 1) + (numCol - 1)].price}}
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselSpotlightControls"
+                role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselSpotlightControls"
+                role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+              </a>
+          </div>
+          <!-- mobile -->
+          <div id="carouselSpotlightControlsMobile"
+               class="carousel slide mb-4" data-ride="carousel">
+            <div class="carousel-inner open-mobile h-100">
+              <div class="carousel-item"
+                  v-for="num in 8" :key="num"
+                  :class="{'active': num === 1}">
+                  <div class="image-spotlight spotlight-link"
+                      :style="`background-image: url('${
+                                returnProducts[num].imageUrl
+                                }')`"
+                      @click.prevent="
+                                showProductDetail(returnProducts[num].id)">
+                  </div>
+                  <div class="mt-2 text-white">
+                    <p class="m-0">
+                      {{returnProducts[num].title}} - NT $
+                      {{returnProducts[num].price}}
+                    </p>
+                  </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselSpotlightControlsMobile"
+                role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselSpotlightControlsMobile"
+                role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+              </a>
+          </div>
         </div>
+      </div>
     </div>
 </template>
 

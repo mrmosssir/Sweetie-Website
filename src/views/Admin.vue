@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-      <div class="open-mobile">
+      <div class="admin-open-mobile">
         <h1 class="h2">非常抱歉 系統尚未開放</h1>
         <p>目前管理系統未提供手機螢幕使用</p>
         <p>不便之處敬請見諒</p>
@@ -9,7 +9,7 @@
                 返回首頁
         </button>
       </div>
-      <div class="row hidden-flex-mobile" :class="{'loading-target': returnLoading}">
+      <div class="row open-pc" :class="{'loading-target': returnLoading}">
         <Loading v-if="returnLoading" />
         <div class="col-md-2">
           <SideBar />

@@ -33,3 +33,15 @@
     height: 40px;
      width: 40px;
 }
+
+.btn-home {
+    display: block;
+    width: 100px;
+    background: $brown;
+    color: white;
+    text-align: center;
+    padding: 5px 0px;
+    border-radius: 10px;
+    font-size: 24px;
+    margin: 64px auto;
+}

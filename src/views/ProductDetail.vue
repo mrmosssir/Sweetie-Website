@@ -1,13 +1,10 @@
 <template>
-    <div>
+    <div class="container detail-margin-mobile">
       <router-link to="/shop" class="d-block text-green-light mb-5">
           <i class="fas fa-backward mr-3"></i>
           回到商品區
       </router-link>
       <div class="row">
-        <div class="col-md-3">
-          <CartList class="close-on-mobile" />
-        </div>
         <div class="col-md-5">
           <div class="detail-image-position h-100"
                :style="`background-image: url(${returnProduct.imageUrl});`">
@@ -44,10 +41,13 @@
             <button class="btn btn-outline-secondary" @click.prevent="pageReturn()">查看其他商品</button>
           </div>
         </div>
+        <div class="col-md-3">
+          <CartList class="open-pc" />
+        </div>
       </div>
       <hr class="my-5">
-      <h2 class="mb-4 close-on-mobile">新商品上架</h2>
-      <Spotlight class="close-on-mobile" />
+      <h2 class="mb-4">新商品上架</h2>
+      <Spotlight />
     </div>
 </template>
 

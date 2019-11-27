@@ -38,7 +38,7 @@
                   </li>
                 </ul>
                 <hr>
-                <CartList class="close-on-mobile" />
+                <CartList class="open-pc" />
               </div>
             </div>
             <div class="col-md-8">
@@ -47,7 +47,7 @@
                 </h2>
                 <div class="row">
                   <div class="col-md-4 col-sm-6" v-for="item in returnProducts" :key="item.id">
-                    <div class="main-image mr-3"
+                    <div class="image-product mr-3"
                         :style="'background-image: url(' + item.imageUrl + ');'"
                         @click.prevent="showProductDetail(item.id)"></div>
                     <h2 class="h6 text-dark font-weight-bold mt-2">{{ item.title }}</h2>
@@ -108,7 +108,6 @@ export default {
   },
   computed: {
     returnProducts() {
-      // return this.$store.state.client.products;
       const productBuffer = [];
       if (this.$store.state.client.products.length > 0) {
         for (let count = 10 * (this.returnCurrentPage - 1);

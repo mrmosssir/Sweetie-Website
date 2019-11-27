@@ -13,9 +13,10 @@ export default {
 <style lang="scss">
   @import './sass/style.scss';
   @import url('https://fonts.googleapis.com/css?family=Great+Vibes&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap');
   body * {
     list-style: none;
-    font-family: Microsoft JhengHei;
+    font-family: 'Noto Sans TC', sans-serif;
   }
   .great_vibes-style {
     font-family: 'Great Vibes', cursive;

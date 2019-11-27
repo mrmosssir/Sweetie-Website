@@ -15,6 +15,7 @@ import Offers from '../views/Offers.vue';
 import Cart from '../views/Cart.vue';
 import CartForm from '../views/CartForm.vue';
 import CartPayment from '../views/CartPayment.vue';
+import News from '../views/News.vue';
 
 Vue.use(VueRouter);
 
@@ -101,6 +102,11 @@ const routes = [
             component: CartPayment,
           },
         ],
+      },
+      {
+        path: 'news',
+        name: 'News',
+        component: News,
       },
     ],
   },

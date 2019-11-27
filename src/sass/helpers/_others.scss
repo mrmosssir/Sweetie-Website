@@ -1,152 +1,35 @@
-// mixin
-@mixin set-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-@mixin set-absolute($y, $x) {
-    position: absolute;
-    #{$y}: 0;   // $y is top or bottom
-    #{$x}: 0;   // $x is right or left
-}
-@mixin set-background-center {
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-@mixin draw-thick-line($line-width, $color) {
-    display: block;
-    border: 0;
-    border-top: #{$line-width}px solid $color;
-}
-// mixin
-
-// general
-@media (max-width: 768px) {
-    .margin-mobile {
-        margin-top: 30px;
-    }
-    .width-mobile {
-        width: 100% !important;
-    }
-    .hidden-flex-mobile {
-        display: none;
-    }
-}
-.open-mobile {
-    display: none;
-}
-@media (max-width: 768px) {
-    .open-mobile {
-        display: flex;
-        height: 100vh;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        h1 {
-            margin-bottom: 32px;
-            color: $brown;
-        }
-    }
-}
-.close-on-mobile {
-    display: block;
-}
-@media (max-width: 768px) {
-    .close-on-mobile {
-        display: none;
-    }
-}
-.spotlight-image {
-    width: 100%;
-    height: 300px;
-    @include set-background-center;
-}
-.spotlight-link {
-    cursor: pointer;
-}
-.select-block {
-    display: block;
-    width: 100%;
-    border-radius: 5px;
-    padding: 10px 15px;
-}
-.align-items-start {
-    align-items: flex-start;
-}
 .p-sticky {
     position: sticky;
     top: 0;
     left: 0;
 }
-@media (max-width: 768px) {
-    .p-sticky {
-        position: relative;
-    }
-}
-.text-overhidden {
-    white-space: nowrap;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 .height-100vh {
     height: 100vh;
 }
-// general
-
+.spotlight-link {
+    cursor: pointer;
+}
 // login
 .login-width {
     width: 300px;
 }
 // login
-
-// product detail
-.detail-image-position {
-    @include set-background-center;
-}
-@media (max-width: 768px) {
-    .detail-image-position {
-        height: 450px !important;
-        margin-bottom: 16px;
-    }
-}
-// product detail
-
-// product main
-.main-image {
-    @include set-background-center;
+.text-overhidden {          // 優惠券字串過大要隱藏為...
+    white-space: nowrap;
     width: 100%;
-    height: 240px;
-    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-// procuct main
-
-// banner 
-.banner-image {
-    height: 500px;
-    @include set-background-center;
-}
-.bg-transparent-black {
-    background: rgba(0, 0, 0, 0.7);
-}
-// banner
-
-// sidebar
-.sidebar-line {
-    @include draw-thick-line(1, $brown-light);
-}
-.sidebar {
-    background: $brown;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-}
-// sidebar
-
-// topbar 
 .input-search {
     height: 40px;
 }
-// topbar
+
+@media (max-width: 768px) {
+    .p-sticky {
+        position: relative;
+        margin-top: 16px;
+    }
+    .height-100vh {
+        height: auto;
+    }
+}

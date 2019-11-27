@@ -2,11 +2,20 @@
 @import './helpers/variables';
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
+@import './helpers/mixin';
 @import './helpers/others';
-@import './helpers/navbar';
-@import './helpers/steplist';
-@import './helpers/offercard';
-@import './helpers/btn';
-@import './helpers/filterbar';
-@import './helpers/erroralert';
 @import './helpers/loading';
+@import './helpers/btn';
+@import './helpers/image';
+
+@import './helpers/menu';
+@import './helpers/steplist';
+@import './helpers/offerCard';
+@import './helpers/filterBar';
+@import './helpers/errorAlert';
+@import './helpers/pageSelector';
+@import './helpers/news';
+@import './helpers/detail';
+@import './helpers/sideBar';
+
+@import './helpers/responseDisplay';

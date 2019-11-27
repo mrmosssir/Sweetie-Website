@@ -1,28 +1,27 @@
 <template>
-    <div class="my-5">
-        <router-link to="/" class="navbar-home-mobile text-center">
-            <h1 class="font-weight-bold great_vibes-style m-0">Afternoon Sweetie</h1>
-        </router-link>
-        <button class="btn btn-outline-brown navbar-select"
-                @click.prevent="openMenu">
-                現在想去哪 ? ．．．↓
-        </button>
-        <div class="navbar-frame">
-            <router-link to="/news" class="navbar-link text-secondary mx-3">
-                最新消息
-            </router-link>
-            <router-link to="/offers" class="navbar-link text-secondary mx-3">
-                特別優惠
-            </router-link>
-            <router-link to="/" class="navbar-home mx-5">
-                <h1 class="font-weight-bold great_vibes-style m-0">Afternoon Sweetie</h1>
-            </router-link>
-            <router-link to="/shop" class="navbar-link text-secondary mx-3">
-                預約餐點
-            </router-link>
-            <router-link to="/login" class="navbar-link text-secondary mx-3">
-                管理商品
-            </router-link>
+    <div id="part1" class="bg-white">
+        <div class="navbar-frame bg-brown">
+            <div class="d-flex justify-content-between align-items-center">
+                <router-link to="/" class="navbar-home">
+                    <h1 class="font-weight-bold great_vibes-style text-brown-light m-0">
+                        AfterSweet
+                    </h1>
+                </router-link>
+                <i class="fas fa-bars"
+                   @mouseover.prevent="openMenu"
+                   @mouseout.prevent="closeMenu"></i>
+            </div>
+            <div class="navbar-group">
+                <router-link to="/news" class="navbar-link text-white mx-3">
+                    最新消息
+                </router-link>
+                <router-link to="/offers" class="navbar-link text-white mx-3">
+                    特別優惠
+                </router-link>
+                <router-link to="/shop" class="navbar-link text-white mx-3 ">
+                    預約餐點
+                </router-link>
+            </div>
         </div>
     </div>
 </template>
@@ -34,7 +33,10 @@ export default {
   name: 'Menu',
   methods: {
     openMenu() {
-      $('.navbar-frame').toggleClass('navbar-open');
+      $('.navbar-group').addClass('navbar-open');
+    },
+    closeMenu() {
+      $('.navbar-group').removeClass('navbar-open');
     },
   },
 };

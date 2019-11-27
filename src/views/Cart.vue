@@ -1,5 +1,6 @@
 <template>
-    <div class="step-list">
+  <div class="mt-5">
+    <div class="container step-list mb-5">
         <div class="step-list-header">
             <span class="step-circle"
                   :class="{
@@ -42,10 +43,12 @@
         </router-link>
         <router-view></router-view>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
+  name: 'Cart',
   computed: {
     returnPageStatus() {
       return this.$store.state.client.schedulePage;

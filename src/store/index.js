@@ -651,10 +651,12 @@ export default new Vuex.Store({
           break;
         case 'home':
           state.client.products = payload.products;
+          state.client.productListAmount = payload.products.length;
           break;
         default:
           state.client.products = payload.products;
           state.client.productListAmount = payload.products.length;
+          break;
       }
       state.client.productTotalPage = Math.floor(state.client.productListAmount / 10);
       if (state.client.productListAmount % 10 !== 0) {

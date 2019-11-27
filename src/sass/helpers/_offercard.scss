@@ -11,3 +11,8 @@
         color: $warning;
     }
 }
+@media (max-width: 768px) {
+    .offer-margin {
+        margin-top: 16px;
+    }
+}
