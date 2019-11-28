@@ -1,5 +1,5 @@
 <template>
-    <div @wheel.passive="changePage">
+    <div>
       <div class="page-selector">
         <div class="page-selector-point" @click.prevent="changePage(1)"></div>
         <div class="page-selector-line"></div>

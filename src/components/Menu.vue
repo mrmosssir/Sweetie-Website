@@ -15,7 +15,7 @@
                 <router-link to="/news" class="navbar-link text-white mx-3">
                     最新消息
                 </router-link>
-                <router-link to="/offers" class="navbar-link text-white mx-3">
+                <router-link to="/coupon" class="navbar-link text-white mx-3">
                     特別優惠
                 </router-link>
                 <router-link to="/shop" class="navbar-link text-white mx-3 ">

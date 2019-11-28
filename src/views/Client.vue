@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Loading from '../components/Loading.vue';
 import Menu from '../components/Menu.vue';
 
@@ -51,15 +52,7 @@ export default {
     Menu,
   },
   computed: {
-    returnLoading() {
-      return this.$store.state.loadingStatus;
-    },
-    returnError() {
-      return this.$store.state.error;
-    },
-    returnErrorMessage() {
-      return this.$store.state.errorMessage;
-    },
+    ...mapGetters(['returnLoading', 'returnError', 'returnErrorMessage']),
   },
 };
 </script>

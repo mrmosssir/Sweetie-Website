@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import CartList from '../components/CartList.vue';
 import Spotlight from '../components/Spotlight.vue';
 
@@ -63,7 +64,7 @@ export default {
   },
   methods: {
     getProductDetail(id) {
-      this.$store.dispatch('clientGetProductDetail', id);
+      this.$store.dispatch('clientProduct/clientGetProductDetail', id);
     },
     addCart() {
       this.$store.dispatch('clientAddCart', {
@@ -72,21 +73,19 @@ export default {
       });
     },
     pageReturn() {
-      this.$store.dispatch('clientProductPageReturn');
+      this.$store.dispatch('clientProduct/clientProductPageReturn');
     },
   },
   computed: {
-    returnProduct() {
-      return this.$store.state.client.product;
-    },
     productAmount: {
       get() {
-        return this.$store.state.client.productAmount;
+        return this.$store.state.clientProduct.productAmount;
       },
       set(value) {
-        this.$store.commit('CLIENT_PRODUCTAMOUNT', value);
+        this.$store.commit('clientProduct/CLIENT_PRODUCTAMOUNT', value);
       },
     },
+    ...mapGetters('clientProduct', ['returnProduct']),
   },
   created() {
     this.getProductDetail(this.$route.params.productId);

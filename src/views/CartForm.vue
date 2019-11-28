@@ -79,42 +79,14 @@ export default {
   },
   methods: {
     getCarts() {
-      this.$store.dispatch('clientGetCarts');
-    },
-    deleteCart(id) {
-      this.$store.dispatch('clientDeleteCart', id);
+      this.$store.dispatch('clientCart/clientGetCarts');
     },
     createOrder(form) {
       this.$validator.validate().then((result) => {
         if (result) {
-          this.$store.dispatch('clientCreateOrder', form);
+          this.$store.dispatch('clientCart/clientCreateOrder', form);
         }
       });
-    },
-    setCoupon() {
-      this.$store.dispatch('clientSetCoupon');
-    },
-  },
-  computed: {
-    returnCarts() {
-      return this.$store.state.client.carts;
-    },
-    returnTotalPrice() {
-      return this.$store.state.client.cartTotalPrice;
-    },
-    returnTotalAfterCoupon() {
-      return this.$store.state.client.cartTotalAfterCoupon;
-    },
-    returncouponEnabled() {
-      return this.$store.state.client.couponEnabled;
-    },
-    couponCode: {
-      get() {
-        return this.$store.state.client.couponCode;
-      },
-      set(value) {
-        this.$store.commit('CLIENT_COUPON_CODE', value);
-      },
     },
   },
   created() {

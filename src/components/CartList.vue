@@ -50,43 +50,34 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'CartList',
   methods: {
     getCarts() {
-      this.$store.dispatch('clientGetCarts');
+      this.$store.dispatch('clientCart/clientGetCarts');
     },
     deleteCart(id) {
-      this.$store.dispatch('clientDeleteCart', id);
+      this.$store.dispatch('clientCart/clientDeleteCart', id);
     },
     setCoupon() {
-      this.$store.dispatch('clientSetCoupon');
+      this.$store.dispatch('clientCart/clientSetCoupon');
     },
     removeCartsItems() {
-      this.$store.dispatch('clientRemoveCartsItem');
+      this.$store.dispatch('clientCart/clientRemoveCartsItem');
     },
   },
   computed: {
-    returnCarts() {
-      return this.$store.state.client.carts;
-    },
-    returnTotalPrice() {
-      return this.$store.state.client.cartTotalPrice;
-    },
-    returnTotalAfterCoupon() {
-      return this.$store.state.client.cartTotalAfterCoupon;
-    },
-    returncouponEnabled() {
-      return this.$store.state.client.couponEnabled;
-    },
     couponCode: {
       get() {
         return this.$store.state.client.couponCode;
       },
       set(value) {
-        this.$store.commit('CLIENT_COUPON_CODE', value);
+        this.$store.commit('clientCart/CLIENT_COUPON_CODE', value);
       },
     },
+    ...mapGetters('clientCart', ['returnCarts', 'returnTotalPrice', 'returnTotalAfterCoupon', 'returncouponEnabled']),
   },
   created() {
     this.getCarts();

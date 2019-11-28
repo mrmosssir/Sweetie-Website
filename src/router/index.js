@@ -11,7 +11,7 @@ import Main from '../views/Main.vue';
 import Product from '../views/Product.vue';
 import ProductMain from '../views/ProductMain.vue';
 import ProductDetail from '../views/ProductDetail.vue';
-import Offers from '../views/Offers.vue';
+import Coupon from '../views/Coupon.vue';
 import Cart from '../views/Cart.vue';
 import CartForm from '../views/CartForm.vue';
 import CartPayment from '../views/CartPayment.vue';
@@ -83,9 +83,9 @@ const routes = [
         ],
       },
       {
-        path: 'offers',
-        name: 'Offers',
-        component: Offers,
+        path: 'coupon',
+        name: 'Coupon',
+        component: Coupon,
       },
       {
         path: 'cart',

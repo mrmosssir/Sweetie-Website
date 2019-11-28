@@ -47,15 +47,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Cart',
   computed: {
-    returnPageStatus() {
-      return this.$store.state.client.schedulePage;
-    },
-    returnPaidStatus() {
-      return this.$store.state.client.schedulePaid;
-    },
+    ...mapGetters('clientCart', ['returnPageStatus', 'returnPaidStatus']),
   },
 };
 </script>

@@ -52,11 +52,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Orders',
   methods: {
     getOrders(page = 1) {
-      this.$store.dispatch('adminGetOrders', page);
+      this.$store.dispatch('adminOrder/adminGetOrders', page);
       this.$store.dispatch('changeSearchMode', 'order');
     },
     dateTransfer(order, dateCode) {
@@ -76,21 +78,14 @@ export default {
   computed: {
     returnOrders() {
       const orders = [];
-      this.$store.state.admin.orders.forEach((order) => {
+      this.$store.state.adminOrder.orders.forEach((order) => {
         this.dateTransfer(order, order.create_at);
         orders.push(order);
       });
       return orders;
     },
-    returnPage() {
-      return this.$store.state.admin.orderSearchPage;
-    },
-    returnCurrentPage() {
-      return this.$store.state.admin.orderCurrentPage;
-    },
-    returnLoading() {
-      return this.$store.state.loadingStatus;
-    },
+    ...mapGetters(['returnLoading']),
+    ...mapGetters('adminOrder', ['returnPage', 'returnCurrentPage']),
   },
   created() {
     this.getOrders();

@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Login',
   methods: {
@@ -32,7 +34,7 @@ export default {
   computed: {
     returnUsername: {
       get() {
-        return this.$store.state.user.username;
+        return this.$store.state.admin.user.username;
       },
       set(value) {
         this.$store.commit('USERNAME', value);
@@ -40,18 +42,13 @@ export default {
     },
     returnPassword: {
       get() {
-        return this.$store.state.user.password;
+        return this.$store.state.admin.user.password;
       },
       set(value) {
         this.$store.commit('PASSWORD', value);
       },
     },
-    returnError() {
-      return this.$store.state.error;
-    },
-    returnErrorMessage() {
-      return this.$store.state.errorMessage;
-    },
+    ...mapGetters(['returnError', 'returnErrorMessage']),
   },
 };
 </script>

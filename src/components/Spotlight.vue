@@ -42,7 +42,7 @@
           <!-- mobile -->
           <div id="carouselSpotlightControlsMobile"
                class="carousel slide mb-4" data-ride="carousel">
-            <div class="carousel-inner open-mobile h-100">
+            <div class="carousel-inner open-mobile h-50">
               <div class="carousel-item"
                   v-for="num in 8" :key="num"
                   :class="{'active': num === 1}">
@@ -77,20 +77,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Spotlight',
   methods: {
     getProducts() {
-      this.$store.dispatch('clientGetProducts', true);
+      this.$store.dispatch('clientProduct/clientGetProducts', true);
     },
     showProductDetail(id) {
-      this.$store.dispatch('clientShowProductDetail', id);
+      this.$store.dispatch('clientProduct/clientShowProductDetail', id);
     },
   },
   computed: {
-    returnProducts() {
-      return this.$store.state.client.products;
-    },
+    ...mapGetters('clientProduct', ['returnProducts']),
   },
   created() {
     this.getProducts();
