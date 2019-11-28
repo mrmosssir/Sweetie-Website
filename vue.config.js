@@ -1,4 +1,4 @@
 module.exports = {
     // publicPath: './'
-    publicPath: '/Sweetie-Website/'
+    publicPath: '/Sweetie-Website/dist/'
 }
