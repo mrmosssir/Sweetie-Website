@@ -21,4 +21,9 @@ export default {
       state.cartsAmount = payload;
     },
   },
+  getters: {
+    returnCartsAmount(state) {
+      return state.cartsAmount;
+    },
+  },
 };

@@ -67,6 +67,7 @@ export default {
       axios.delete(api).then((Response) => {
         if (Response.data.success) {
           context.dispatch('clientGetCarts');
+          this.dispatch('client/clientGetCartsAmount');
         }
         context.commit('LOADING', false, { root: true });
       });
@@ -78,6 +79,7 @@ export default {
         axios.delete(api).then((Response) => {
           if (Response.data.success) {
             context.dispatch('clientGetCarts');
+            this.dispatch('client/clientGetCartsAmount');
           }
         });
       });

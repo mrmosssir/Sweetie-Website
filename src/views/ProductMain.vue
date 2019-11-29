@@ -46,7 +46,8 @@
                   {{ this.$store.state.clientProduct.productTitle[returnCategory] }}
                 </h2>
                 <div class="row">
-                  <div class="col-md-4 col-sm-6" v-for="item in returnProducts" :key="item.id">
+                  <div class="col-md-4 col-sm-6" v-for="item in returnProducts" :key="item.id"
+                       :class="{ 'd-none': !item.is_enabled}">
                     <div class="image-product mr-3"
                         :style="'background-image: url(' + item.imageUrl + ');'"
                         @click.prevent="showProductDetail(item.id)"></div>
@@ -122,7 +123,8 @@ export default {
       }
       return productBuffer;
     },
-    ...mapGetters('clientProduct', ['retrunCartsAmount', 'returnCategory', 'returnTotalPage', 'returnCurrentPage']),
+    ...mapGetters('clientProduct', ['returnCategory', 'returnTotalPage', 'returnCurrentPage']),
+    ...mapGetters('client', ['returnCartsAmount']),
   },
   created() {
     this.getProducts();

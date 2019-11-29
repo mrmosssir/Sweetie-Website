@@ -8,22 +8,32 @@
                   :class="{'active': numRow === 1}">
                   <div class="row">
                       <div class="col-md-3" v-for="numCol in 4"
-                          :key="returnProducts[4 * (numRow - 1) + (numCol - 1)].id">
+                          :key="returnProducts
+                          [returnProducts.length - 1 -
+                          (4 * (numRow - 1) + (numCol - 1))].id
+                          ">
                           <div class="image-spotlight spotlight-link"
-                              :style="`background-image: url('${
-                                  returnProducts[4 * (numRow - 1) + (numCol - 1)].imageUrl
-                              }')`"
+                               style="position: relative;"
+                               :style="`background-image: url('${
+                                  returnProducts
+                                  [returnProducts.length - 1 -
+                                  (4 * (numRow - 1) + (numCol - 1))].imageUrl
+                               }')`"
                               @click.prevent="
                                 showProductDetail(
-                                  returnProducts[4 * (numRow - 1) + (numCol - 1)].id
+                                  returnProducts
+                                  [returnProducts.length - 1 -
+                                  (4 * (numRow - 1) + (numCol - 1))].id
                                 )
                               ">
-                          </div>
-                          <div class="mt-2 text-white">
-                              <p class="m-0">
-                                {{returnProducts[4 * (numRow - 1) + (numCol - 1)].title}} - NT $
-                                {{returnProducts[4 * (numRow - 1) + (numCol - 1)].price}}
-                              </p>
+                              <div class="spotlight-hover">
+                                <p class="h5">
+                                  {{ returnProducts
+                                  [returnProducts.length - 1 -
+                                  (4 * (numRow - 1) + (numCol - 1))].title
+                                  }}
+                                </p>
+                              </div>
                           </div>
                       </div>
                   </div>
@@ -48,16 +58,15 @@
                   :class="{'active': num === 1}">
                   <div class="image-spotlight spotlight-link"
                       :style="`background-image: url('${
-                                returnProducts[num].imageUrl
+                                returnProducts[returnProducts.length - 1 - num].imageUrl
                                 }')`"
                       @click.prevent="
-                                showProductDetail(returnProducts[num].id)">
-                  </div>
-                  <div class="mt-2 text-white">
-                    <p class="m-0">
-                      {{returnProducts[num].title}} - NT $
-                      {{returnProducts[num].price}}
-                    </p>
+                      showProductDetail(returnProducts[returnProducts.length - 1 - num].id)">
+                    <div class="spotlight-hover">
+                      <p class="h5">
+                        {{returnProducts[returnProducts.length - 1 - num].title}}
+                      </p>
+                    </div>
                   </div>
               </div>
               <a class="carousel-control-prev" href="#carouselSpotlightControlsMobile"

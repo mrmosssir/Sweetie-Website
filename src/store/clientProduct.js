@@ -152,9 +152,6 @@ export default {
     returnProduct(state) {
       return state.product;
     },
-    retrunCartsAmount(state) {
-      return state.cartsAmount;
-    },
     returnCategory(state) {
       return state.productFilterString;
     },

@@ -65,9 +65,10 @@ export default {
   methods: {
     getProductDetail(id) {
       this.$store.dispatch('clientProduct/clientGetProductDetail', id);
+      this.$store.dispatch('client/clientGetCartsAmount');
     },
     addCart() {
-      this.$store.dispatch('clientAddCart', {
+      this.$store.dispatch('clientCart/clientAddCart', {
         id: this.returnProduct.id,
         amount: this.productAmount,
       });
