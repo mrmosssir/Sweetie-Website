@@ -47,9 +47,12 @@
                 </h2>
                 <div class="row">
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <div class="col-md-4 col-sm-6" v-for="item in returnProducts" :key="item.id">
                     <div class="main-image mr-3"
 =======
+=======
+>>>>>>> a00dcae... update version 2.0
                   <div class="col-md-4 col-sm-6" v-for="item in returnProducts" :key="item.id"
                        :class="{ 'd-none': !item.is_enabled}">
                     <div class="image-product mr-3"
@@ -129,6 +132,7 @@ export default {
       return productBuffer;
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
     retrunCartsAmount() {
       return this.$store.state.client.cartsAmount;
     },
@@ -141,6 +145,10 @@ export default {
     returnCurrentPage() {
       return this.$store.state.client.productCurrentPage;
     },
+=======
+    ...mapGetters('clientProduct', ['returnCategory', 'returnTotalPage', 'returnCurrentPage']),
+    ...mapGetters('client', ['returnCartsAmount']),
+>>>>>>> a00dcae... update version 2.0
 =======
     ...mapGetters('clientProduct', ['returnCategory', 'returnTotalPage', 'returnCurrentPage']),
     ...mapGetters('client', ['returnCartsAmount']),

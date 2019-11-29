@@ -86,7 +86,10 @@ export default {
       },
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> a00dcae... update version 2.0
     ...mapGetters('clientCart', [
       'returnCarts',
       'returnTotalPrice',
@@ -94,6 +97,9 @@ export default {
       'returncouponEnabled',
     ]),
     ...mapGetters('client', ['returnCartsAmount']),
+<<<<<<< HEAD
+>>>>>>> a00dcae... update version 2.0
+=======
 >>>>>>> a00dcae... update version 2.0
   },
   created() {

@@ -68,6 +68,9 @@ export default {
 =======
       this.$store.dispatch('clientProduct/clientGetProductDetail', id);
       this.$store.dispatch('client/clientGetCartsAmount');
+<<<<<<< HEAD
+>>>>>>> a00dcae... update version 2.0
+=======
 >>>>>>> a00dcae... update version 2.0
     },
     addCart() {
