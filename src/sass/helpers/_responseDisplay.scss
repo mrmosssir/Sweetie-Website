@@ -4,6 +4,9 @@
 .admin-open-mobile {
     display: none;
 }
+.open-mobile-text {
+    display: none;
+}
 
 @media (max-width: 768px) {
     .open-pc {
@@ -25,6 +28,9 @@
             margin-bottom: 32px;
             color: $brown;
         }
+    }
+    .open-mobile-text {
+        display: block;
     }
     .admin-open-mobile {
         height: 100vh;

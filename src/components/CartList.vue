@@ -15,16 +15,14 @@
     </div>
     <div
       class="d-flex justify-content-between align-items-center border rounded px-3 py-2 mt-3"
-      v-if="returncouponEnabled"
-    >
+      v-if="returncouponEnabled">
       <p class="text-secondary m-0">折扣後</p>
       <strong class="text-brown font-weight-normal">NT{{ returnTotalAfterCoupon }}$</strong>
     </div>
     <div
       class="d-flex align-items-center border rounded p-3 mt-3"
       v-for="item in returnCarts"
-      :key="item.id"
-    >
+      :key="item.id">
       <button class="btn btn-outline-danger" @click.prevent="deleteCart(item.id)">
         <i class="fas fa-trash-alt"></i>
       </button>
@@ -75,14 +73,6 @@ export default {
         this.$store.commit('clientCart/CLIENT_COUPON_CODE', value);
       },
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> a00dcae... update version 2.0
-=======
->>>>>>> master
     ...mapGetters('clientCart', [
       'returnCarts',
       'returnTotalPrice',
@@ -90,13 +80,6 @@ export default {
       'returncouponEnabled',
     ]),
     ...mapGetters('client', ['returnCartsAmount']),
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> a00dcae... update version 2.0
-=======
->>>>>>> a00dcae... update version 2.0
-=======
->>>>>>> master
   },
   created() {
     this.getCarts();

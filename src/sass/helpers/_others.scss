@@ -6,6 +6,17 @@
 .height-100vh {
     height: 100vh;
 }
+.homepage-circle {
+    width: 600px;
+    height: 600px;
+    position: absolute;
+    right: 0;
+    background: $brown;
+    opacity: 0.3;
+    border-radius: 50%;
+    transform: translate(-20%, -60%);
+    z-index: -1;
+}
 .spotlight-link {
     cursor: pointer;
 }
@@ -27,11 +38,6 @@
         opacity: 1;
     }
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-// general
-
-=======
 .spotlight-link {
     cursor: pointer;
 }
@@ -53,12 +59,6 @@
         opacity: 1;
     }
 }
-<<<<<<< HEAD
->>>>>>> a00dcae... update version 2.0
-=======
->>>>>>> a00dcae... update version 2.0
-=======
->>>>>>> master
 // login
 .login-width {
     width: 300px;
@@ -81,49 +81,47 @@
 .bg-brown-light {
     background: $brown-light;
 }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-// sidebar
-.sidebar-line {
-    @include draw-thick-line(1, $brown-light);
-=======
-.bg-gray {
-    background: $gray;
->>>>>>> master
-}
-
-<<<<<<< HEAD
-// topbar 
-.input-search {
-    height: 40px;
-=======
-.text-brown-light {
-    color: $brown-light;
-}
-
-.bg-brown-light {
-    background: $brown-light;
-}
-
 .bg-gray {
     background: $gray;
 }
-
-.text-brown-light {
-    color: $brown-light;
+#part2 {
+    height: calc(100vh - 176px);
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .homepage-content h2 {
+        font-family: 'Black Han Sans', sans-serif;
+        color: $brown;
+    }
+    .homepage-content p {
+        font-size: 14px;
+        color: $secondary;
+        margin-bottom: 16px;
+        margin-top: 16px;
+    }
+    .homepage-link-line {
+        height: 2px;
+        width: 0px;
+        background: $brown;
+        border-width: 0px;
+        margin: 0px;
+        margin-left: auto;
+        transition: width 0.5s;
+    }
+    .homepage-link {
+        text-decoration: none;
+        color: $secondary;
+        &:hover {
+            small {
+                color: darken($secondary, 30%);
+            }
+            .homepage-link-line {
+                width: 52px;
+            }
+        }
+    }
 }
-
-.bg-brown-light {
-    background: $brown-light;
-}
-
-.bg-gray {
-    background: $gray;
-}
-
-=======
->>>>>>> master
 @media (max-width: 768px) {
     .p-sticky {
         position: relative;
@@ -132,8 +130,12 @@
     .height-100vh {
         height: auto;
     }
-<<<<<<< HEAD
->>>>>>> a00dcae... update version 2.0
-=======
->>>>>>> master
+    #part2 {
+        height: auto;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        .homepage-link-line {
+            margin-bottom: 100px;
+        }
+    }
 }

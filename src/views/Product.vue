@@ -1,13 +1,13 @@
 <template>
-    <div class="mt-5">
-      <router-view></router-view>
-      <button class="btn-cart" @click.prevent="transferCartForm">
-        <i class="fas fa-shopping-basket"></i>
-        <span class="badge badge-pill badge-green-light btn-cart-badge px-2 py-1">
-          {{ returnCartsAmount }}
-        </span>
-      </button>
-    </div>
+  <div class="mt-5">
+    <router-view></router-view>
+    <button class="btn-cart" @click.prevent="transferCartForm">
+      <i class="fas fa-shopping-basket"></i>
+      <span class="badge badge-pill badge-green-light btn-cart-badge px-2 py-1">
+        {{ returnCartsAmount }}
+      </span>
+    </button>
+  </div>
 </template>
 
 <script>
