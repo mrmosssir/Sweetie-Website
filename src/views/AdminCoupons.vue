@@ -102,21 +102,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Coupons',
   methods: {
     getCoupons(page = 1) {
-      this.$store.dispatch('adminGetCoupons', page);
+      this.$store.dispatch('adminCoupon/adminGetCoupons', page);
       this.$store.dispatch('changeSearchMode', 'coupon');
     },
     submitCoupon() {
-      this.$store.dispatch('adminSubmitCoupon', this.coupon.id);
+      this.$store.dispatch('adminCoupon/adminSubmitCoupon', this.coupon.id);
     },
     deleteCoupon() {
-      this.$store.dispatch('adminDeleteCoupon', this.coupon.id);
+      this.$store.dispatch('adminCoupon/adminDeleteCoupon', this.coupon.id);
     },
     openModal(isNew = true, item) {
-      this.$store.dispatch('adminCouponOpenModal', {
+      this.$store.dispatch('adminCoupon/adminCouponOpenModal', {
         isNew,
         item,
       });
@@ -134,24 +136,8 @@ export default {
     },
   },
   computed: {
-    returnCoupons() {
-      return this.$store.state.admin.coupons;
-    },
-    returnCoupon() {
-      return this.$store.state.admin.coupon;
-    },
-    returnIsNew() {
-      return this.$store.state.admin.couponIsNew;
-    },
-    returnPage() {
-      return this.$store.state.admin.couponSearchPage;
-    },
-    returnCurrentPage() {
-      return this.$store.state.admin.couponCurrentPage;
-    },
-    returnLoading() {
-      return this.$store.state.loadingStatus;
-    },
+    ...mapGetters(['returnLoading']),
+    ...mapGetters('adminCoupon', ['returnCoupons', 'returnCoupon', 'returnIsNew', 'returnPage', 'returnCurrentPage']),
   },
   created() {
     this.getCoupons();

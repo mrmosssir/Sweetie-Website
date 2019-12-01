@@ -38,14 +38,15 @@
                   </li>
                 </ul>
                 <hr>
-                <CartList class="close-on-mobile" />
+                <CartList class="open-pc" />
               </div>
             </div>
             <div class="col-md-8">
                 <h2 class="h3 font-weight-normal mb-4">
-                  {{ this.$store.state.client.productTitle[returnCategory] }}
+                  {{ this.$store.state.clientProduct.productTitle[returnCategory] }}
                 </h2>
                 <div class="row">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                   <div class="col-md-4 col-sm-6" v-for="item in returnProducts" :key="item.id">
@@ -57,6 +58,11 @@
                        :class="{ 'd-none': !item.is_enabled}">
                     <div class="image-product mr-3"
 >>>>>>> a00dcae... update version 2.0
+=======
+                  <div class="col-md-4 col-sm-6" v-for="item in returnProducts" :key="item.id"
+                       :class="{ 'd-none': !item.is_enabled}">
+                    <div class="image-product mr-3"
+>>>>>>> master
                         :style="'background-image: url(' + item.imageUrl + ');'"
                         @click.prevent="showProductDetail(item.id)"></div>
                     <h2 class="h6 text-dark font-weight-bold mt-2">{{ item.title }}</h2>
@@ -86,6 +92,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import CartList from '../components/CartList.vue';
 
 export default {
@@ -94,43 +101,43 @@ export default {
   },
   methods: {
     getProducts() {
-      this.$store.dispatch('clientGetProducts');
+      this.$store.dispatch('clientProduct/clientGetProducts');
     },
     showProductDetail(id) {
-      this.$store.dispatch('clientShowProductDetail', id);
+      this.$store.dispatch('clientProduct/clientShowProductDetail', id);
     },
     getCartsAmount() {
-      this.$store.dispatch('clientGetCartsAmount');
+      this.$store.dispatch('client/clientGetCartsAmount');
     },
     addCart(id) {
-      this.$store.dispatch('clientAddCart', {
+      this.$store.dispatch('clientCart/clientAddCart', {
         id,
         amount: 1,
       });
     },
     changeCategory(category) {
-      this.$store.dispatch('clientChangeCategory', category);
+      this.$store.dispatch('clientProduct/clientChangeCategory', category);
     },
     changeCurrentPage(page) {
-      this.$store.commit('CLIENT_PRODUCT_CURRENTPAGE', page);
+      this.$store.commit('clientProduct/CLIENT_PRODUCT_CURRENTPAGE', page);
     },
   },
   computed: {
     returnProducts() {
-      // return this.$store.state.client.products;
       const productBuffer = [];
-      if (this.$store.state.client.products.length > 0) {
+      if (this.$store.state.clientProduct.products.length > 0) {
         for (let count = 10 * (this.returnCurrentPage - 1);
           count <= 10 * (this.returnCurrentPage - 1) + 9;
           count += 1) {
-          if (this.$store.state.client.products[count] !== undefined) {
-            productBuffer.push(this.$store.state.client.products[count]);
+          if (this.$store.state.clientProduct.products[count] !== undefined) {
+            productBuffer.push(this.$store.state.clientProduct.products[count]);
           }
         }
         return productBuffer;
       }
       return productBuffer;
     },
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     retrunCartsAmount() {
@@ -153,6 +160,10 @@ export default {
     ...mapGetters('clientProduct', ['returnCategory', 'returnTotalPage', 'returnCurrentPage']),
     ...mapGetters('client', ['returnCartsAmount']),
 >>>>>>> a00dcae... update version 2.0
+=======
+    ...mapGetters('clientProduct', ['returnCategory', 'returnTotalPage', 'returnCurrentPage']),
+    ...mapGetters('client', ['returnCartsAmount']),
+>>>>>>> master
   },
   created() {
     this.getProducts();

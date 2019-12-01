@@ -1,13 +1,10 @@
 <template>
-    <div>
+    <div class="container detail-margin-mobile">
       <router-link to="/shop" class="d-block text-green-light mb-5">
           <i class="fas fa-backward mr-3"></i>
           回到商品區
       </router-link>
       <div class="row">
-        <div class="col-md-3">
-          <CartList class="close-on-mobile" />
-        </div>
         <div class="col-md-5">
           <div class="detail-image-position h-100"
                :style="`background-image: url(${returnProduct.imageUrl});`">
@@ -44,14 +41,18 @@
             <button class="btn btn-outline-secondary" @click.prevent="pageReturn()">查看其他商品</button>
           </div>
         </div>
+        <div class="col-md-3">
+          <CartList class="open-pc" />
+        </div>
       </div>
       <hr class="my-5">
-      <h2 class="mb-4 close-on-mobile">新商品上架</h2>
-      <Spotlight class="close-on-mobile" />
+      <h2 class="mb-4">新商品上架</h2>
+      <Spotlight />
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import CartList from '../components/CartList.vue';
 import Spotlight from '../components/Spotlight.vue';
 
@@ -64,6 +65,7 @@ export default {
   methods: {
     getProductDetail(id) {
 <<<<<<< HEAD
+<<<<<<< HEAD
       this.$store.dispatch('clientGetProductDetail', id);
 =======
       this.$store.dispatch('clientProduct/clientGetProductDetail', id);
@@ -72,6 +74,10 @@ export default {
 >>>>>>> a00dcae... update version 2.0
 =======
 >>>>>>> a00dcae... update version 2.0
+=======
+      this.$store.dispatch('clientProduct/clientGetProductDetail', id);
+      this.$store.dispatch('client/clientGetCartsAmount');
+>>>>>>> master
     },
     addCart() {
       this.$store.dispatch('clientCart/clientAddCart', {
@@ -80,21 +86,19 @@ export default {
       });
     },
     pageReturn() {
-      this.$store.dispatch('clientProductPageReturn');
+      this.$store.dispatch('clientProduct/clientProductPageReturn');
     },
   },
   computed: {
-    returnProduct() {
-      return this.$store.state.client.product;
-    },
     productAmount: {
       get() {
-        return this.$store.state.client.productAmount;
+        return this.$store.state.clientProduct.productAmount;
       },
       set(value) {
-        this.$store.commit('CLIENT_PRODUCTAMOUNT', value);
+        this.$store.commit('clientProduct/CLIENT_PRODUCTAMOUNT', value);
       },
     },
+    ...mapGetters('clientProduct', ['returnProduct']),
   },
   created() {
     this.getProductDetail(this.$route.params.productId);

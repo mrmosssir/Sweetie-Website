@@ -62,29 +62,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'CartPayment',
   methods: {
     getOrders() {
-      this.$store.dispatch('clientGetOrders');
+      this.$store.dispatch('clientCart/clientGetOrders');
     },
     payment() {
-      this.$store.dispatch('clientOrderPayment');
+      this.$store.dispatch('clientCart/clientOrderPayment');
     },
   },
   computed: {
-    returnOrders() {
-      return this.$store.state.client.orders;
-    },
-    returnOrderUserDetail() {
-      return this.$store.state.client.orderUserDetail;
-    },
-    returnOrderTotalPrice() {
-      return this.$store.state.client.orderTotalPrice;
-    },
-    returnOrderPaid() {
-      return this.$store.state.client.orderPaid;
-    },
+    ...mapGetters('clientCart', ['returnOrders', 'returnOrderUserDetail', 'returnOrderTotalPrice', 'returnOrderPaid']),
   },
   created() {
     this.getOrders();

@@ -4,35 +4,33 @@
             {{ returnErrorMessage }}
         </div>
         <Loading v-if="returnLoading" />
-        <div class="container">
-            <header>
-                <Menu />
-            </header>
-            <router-view>
-            </router-view>
-        </div>
-        <footer class="bg-gray p-5 text-center text-white mt-5">
+        <header>
+            <Menu />
+        </header>
+        <router-view>
+        </router-view>
+        <footer class="bg-gray p-5 text-center text-white">
             <h2 class="h1 great_vibes-style">
                 Afternoon Sweetie
             </h2>
             <ul class="d-flex justify-content-center p-0 my-5">
                 <li class="mx-3">
-                    <a href="#">
+                    <a href="https://www.facebook.com/profile.php?id=100003069111691">
                         <i class="fab fa-facebook-square text-white h3"></i>
                     </a>
                 </li>
                 <li class="mx-3">
-                    <a href="#">
+                    <a href="https://github.com/mrmosssir">
                         <i class="fab fa-github text-white h3"></i>
                     </a>
                 </li>
                 <li class="mx-3">
-                    <a href="#">
-                        <i class="fab fa-instagram text-white h3"></i>
+                    <a href="https://medium.com/@mrmosssir">
+                        <i class="fab fa-medium text-white h3"></i>
                     </a>
                 </li>
                 <li class="mx-3">
-                    <a href="#">
+                    <a href="https://twitter.com/mrmosssir">
                         <i class="fab fa-twitter-square text-white h3"></i>
                     </a>
                 </li>
@@ -43,25 +41,18 @@
 </template>
 
 <script>
-import Menu from '../components/Menu.vue';
+import { mapGetters } from 'vuex';
 import Loading from '../components/Loading.vue';
+import Menu from '../components/Menu.vue';
 
 export default {
   name: 'App',
   components: {
-    Menu,
     Loading,
+    Menu,
   },
   computed: {
-    returnLoading() {
-      return this.$store.state.loadingStatus;
-    },
-    returnError() {
-      return this.$store.state.error;
-    },
-    returnErrorMessage() {
-      return this.$store.state.errorMessage;
-    },
+    ...mapGetters(['returnLoading', 'returnError', 'returnErrorMessage']),
   },
 };
 </script>

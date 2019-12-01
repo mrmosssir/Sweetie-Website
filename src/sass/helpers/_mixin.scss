@@ -1,0 +1,20 @@
+@mixin set-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin set-absolute($y, $x) {
+    position: absolute;
+    #{$y}: 0;   // $y is top or bottom
+    #{$x}: 0;   // $x is right or left
+}
+@mixin set-background-center {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+@mixin draw-thick-line($line-width, $color) {
+    display: block;
+    border: 0;
+    border-top: #{$line-width}px solid $color;
+}

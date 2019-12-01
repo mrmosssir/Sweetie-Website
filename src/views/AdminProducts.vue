@@ -178,6 +178,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Products',
   data() {
@@ -187,20 +189,20 @@ export default {
   },
   methods: {
     getProducts(page = 1) {
-      this.$store.dispatch('adminGetProducts', page);
+      this.$store.dispatch('adminProduct/adminGetProducts', page);
       this.$store.dispatch('changeSearchMode', 'product');
     },
     submitProduct() {
-      this.$store.dispatch('adminSubmitProduct', this.product);
+      this.$store.dispatch('adminProduct/adminSubmitProduct', this.product);
     },
     deleteProduct() {
-      this.$store.dispatch('adminDeleteProduct', this.product.id);
+      this.$store.dispatch('adminProduct/adminDeleteProduct', this.product.id);
     },
     uploadFile() {
-      this.$store.dispatch('adminProductUploadFile', this.$refs.files.files[0]);
+      this.$store.dispatch('adminProduct/adminProductUploadFile', this.$refs.files.files[0]);
     },
     openModal(isNew = true, item) {
-      this.$store.dispatch('adminProductOpenModal', {
+      this.$store.dispatch('adminProduct/adminProductOpenModal', {
         isNew,
         item,
       });
@@ -208,27 +210,8 @@ export default {
     },
   },
   computed: {
-    returnProducts() {
-      return this.$store.state.admin.products;
-    },
-    returnProduct() {
-      return this.$store.state.admin.product;
-    },
-    returnIsNew() {
-      return this.$store.state.admin.productIsNew;
-    },
-    returnPage() {
-      return this.$store.state.admin.productSearchPage;
-    },
-    returnCurrentPage() {
-      return this.$store.state.admin.productCurrentPage;
-    },
-    returnLoading() {
-      return this.$store.state.loadingStatus;
-    },
-    returnUpdateStatus() {
-      return this.$store.state.updateStatus;
-    },
+    ...mapGetters(['returnLoading']),
+    ...mapGetters('adminProduct', ['returnProducts', 'returnProduct', 'returnIsNew', 'returnPage', 'returnCurrentPage', 'returnUpdateStatus']),
   },
   created() {
     this.getProducts();

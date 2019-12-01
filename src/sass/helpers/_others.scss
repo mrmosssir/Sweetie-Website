@@ -1,90 +1,33 @@
-// mixin
-@mixin set-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-@mixin set-absolute($y, $x) {
-    position: absolute;
-    #{$y}: 0;   // $y is top or bottom
-    #{$x}: 0;   // $x is right or left
-}
-@mixin set-background-center {
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-@mixin draw-thick-line($line-width, $color) {
-    display: block;
-    border: 0;
-    border-top: #{$line-width}px solid $color;
-}
-// mixin
-
-// general
-@media (max-width: 768px) {
-    .margin-mobile {
-        margin-top: 30px;
-    }
-    .width-mobile {
-        width: 100% !important;
-    }
-}
-.open-mobile {
-    display: none;
-}
-@media (max-width: 768px) {
-    .open-mobile {
-        display: flex;
-        height: 100vh;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        h1 {
-            margin-bottom: 32px;
-            color: $brown;
-        }
-    }
-}
-.close-on-mobile {
-    display: block;
-}
-@media (max-width: 768px) {
-    .close-on-mobile {
-        display: none;
-    }
-}
-.spotlight-image {
-    width: 100%;
-    height: 300px;
-    @include set-background-center;
-}
-.spotlight-link {
-    cursor: pointer;
-}
-.select-block {
-    display: block;
-    width: 100%;
-    border-radius: 5px;
-    padding: 10px 15px;
-}
-.align-items-start {
-    align-items: flex-start;
-}
 .p-sticky {
     position: sticky;
     top: 0;
     left: 0;
 }
-.text-overhidden {
-    white-space: nowrap;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 .height-100vh {
     height: 100vh;
 }
+.spotlight-link {
+    cursor: pointer;
+}
+.spotlight-hover {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    z-index: 0;
+    transition: opacity 0.3s;
+    &:hover {
+        opacity: 1;
+    }
+}
+<<<<<<< HEAD
 <<<<<<< HEAD
 // general
 
@@ -114,57 +57,43 @@
 >>>>>>> a00dcae... update version 2.0
 =======
 >>>>>>> a00dcae... update version 2.0
+=======
+>>>>>>> master
 // login
 .login-width {
     width: 300px;
 }
 // login
-
-// product detail
-.detail-image-position {
-    @include set-background-center;
-}
-@media (max-width: 768px) {
-    .detail-image-position {
-        height: 450px !important;
-        margin-bottom: 16px;
-    }
-}
-// product detail
-
-// product main
-.main-image {
-    @include set-background-center;
+.text-overhidden {          // 優惠券字串過大要隱藏為...
+    white-space: nowrap;
     width: 100%;
-    height: 240px;
-    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-// procuct main
+.input-search {
+    height: 40px;
+}
 
-// banner 
-.banner-image {
-    height: 500px;
-    @include set-background-center;
+.text-brown-light {
+    color: $brown-light;
 }
-.bg-transparent-black {
-    background: rgba(0, 0, 0, 0.7);
-}
-// banner
 
+.bg-brown-light {
+    background: $brown-light;
+}
+
+<<<<<<< HEAD
 <<<<<<< HEAD
 // sidebar
 .sidebar-line {
     @include draw-thick-line(1, $brown-light);
+=======
+.bg-gray {
+    background: $gray;
+>>>>>>> master
 }
-.sidebar {
-    background: $brown;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-}
-// sidebar
 
+<<<<<<< HEAD
 // topbar 
 .input-search {
     height: 40px;
@@ -193,6 +122,8 @@
     background: $gray;
 }
 
+=======
+>>>>>>> master
 @media (max-width: 768px) {
     .p-sticky {
         position: relative;
@@ -201,6 +132,8 @@
     .height-100vh {
         height: auto;
     }
+<<<<<<< HEAD
 >>>>>>> a00dcae... update version 2.0
+=======
+>>>>>>> master
 }
-// topbar

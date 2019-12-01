@@ -1,0 +1,36 @@
+.open-mobile {
+    display: none !important;
+}
+.admin-open-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .open-pc {
+        display: none;
+    }
+    .margin-mobile {
+        margin-top: 30px;
+    }
+    .width-mobile { // CartPayment
+        width: 100% !important;
+    }
+    .open-mobile {
+        display: block !important;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        h1 {
+            margin-bottom: 32px;
+            color: $brown;
+        }
+    }
+    .admin-open-mobile {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

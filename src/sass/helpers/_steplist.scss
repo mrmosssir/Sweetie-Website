@@ -30,3 +30,9 @@
 .text-active {
     color: $brown !important;
 }
+
+@media (max-width: 768px) {
+    .step-list {
+        margin-top: 64px;
+    }
+}
