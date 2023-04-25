@@ -7,6 +7,15 @@
 <script>
 export default {
   name: 'App',
+  data () {
+    return {
+      tg: null,
+    }
+  },
+  created () {
+    this.tg = window.Telegram.WebApp;
+    if (this.tg) this.tg.ready()
+  }
 };
 </script>
 
