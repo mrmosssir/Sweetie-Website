@@ -13,6 +13,7 @@ export default {
     }
   },
   created () {
+    console.log("start");
     this.tg = window.Telegram.WebApp;
     if (this.tg) this.tg.ready()
   }
