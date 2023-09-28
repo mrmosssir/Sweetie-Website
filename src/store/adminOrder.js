@@ -12,7 +12,7 @@ export default {
     // Admin Order
     adminGetOrders(context, payload) {
       context.commit('LOADING', true, { root: true });
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${payload}`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/orders?page=${payload}`;
       axios.get(api).then((Response) => {
         context.commit('ADMIN_ORDERS', Response.data.orders);
         context.commit('ADMIN_ORDER_TOTALPAGE', Response.data.pagination.total_pages);
