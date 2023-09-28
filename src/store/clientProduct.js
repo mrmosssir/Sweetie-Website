@@ -27,7 +27,7 @@ export default {
     // Client Product Main
     clientGetProducts(context, payload = false) {
       context.commit('LOADING', true, { root: true });
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/products/all`;
       axios.get(api).then((Response) => {
         if (Response.data.success) {
           context.commit('CLIENT_PRODUCTS', {
@@ -50,7 +50,7 @@ export default {
     // Client Product Detail
     clientGetProductDetail(context, payload) {
       context.commit('LOADING', true, { root: true });
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${payload}`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/product/${payload}`;
       axios.get(api).then((Response) => {
         if (Response.data.success) {
           context.commit('CLIENT_PRODUCT', Response.data.product);

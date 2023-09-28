@@ -15,7 +15,7 @@ export default {
   actions: {
     adminGetCoupons(context, payload) {
       context.commit('LOADING', true, { root: true });
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${payload}`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/coupons?page=${payload}`;
       axios.get(api).then((Response) => {
         context.commit('ADMIN_COUPONS', Response.data.coupons);
         context.commit('ADMIN_COUPON_TOTALPAGE', Response.data.pagination.total_pages);
@@ -25,10 +25,10 @@ export default {
       });
     },
     adminSubmitCoupon(context, payload) {
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
+      let api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/coupon`;
       let mode = 'post';
       if (!this.state.adminCoupon.couponIsNew) {
-        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${payload}`;
+        api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/coupon/${payload}`;
         mode = 'put';
       }
       const timeStamp = new Date(this.state.adminCoupon.coupon.dueDate);
@@ -39,7 +39,7 @@ export default {
       });
     },
     adminDeleteCoupon(context, payload) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${payload}`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/coupon/${payload}`;
       axios.delete(api).then(() => {
         if (this.state.adminCoupon.CouponCurrentPage > this.state.adminCoupon.CouponTotalPage) {
           context.dispatch('adminGetCoupons', this.state.adminCoupon.couponCurrentPage - 1);

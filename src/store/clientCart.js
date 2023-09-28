@@ -27,7 +27,7 @@ export default {
         product_id: payload.id,
         qty: payload.amount,
       };
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/cart`;
       axios.post(api, { data: cartPackage }).then((Response) => {
         if (Response.data.success) {
           this.dispatch('client/clientGetCartsAmount');
@@ -53,7 +53,7 @@ export default {
         page: 'first',
         paid: false,
       });
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/cart`;
       axios.get(api).then((Response) => {
         context.commit('CLIENT_CARTS', Response.data.data.carts);
         context.commit('CLIENT_CART_TOTALPRICE', Response.data.data.total);
@@ -63,7 +63,7 @@ export default {
     },
     clientDeleteCart(context, payload) {
       context.commit('LOADING', true, { root: true });
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${payload}`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/cart/${payload}`;
       axios.delete(api).then((Response) => {
         if (Response.data.success) {
           context.dispatch('clientGetCarts');
@@ -75,7 +75,7 @@ export default {
     clientRemoveCartsItem(context) {
       context.commit('LOADING', true, { root: true });
       this.state.clientCart.carts.forEach((item) => {
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item.id}`;
+        const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/cart/${item.id}`;
         axios.delete(api).then((Response) => {
           if (Response.data.success) {
             context.dispatch('clientGetCarts');
@@ -87,7 +87,7 @@ export default {
     },
     clientCreateOrder(context, payload) {
       context.commit('LOADING', true, { root: true });
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/order`;
       axios.post(api, { data: payload }).then((Response) => {
         if (Response.data.success) {
           context.commit('CLIENT_CART_ORDERID', Response.data.orderId);
@@ -102,7 +102,7 @@ export default {
     },
     clientSetCoupon(context) {
       context.commit('LOADING', true, { root: true });
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/coupon`;
       axios.post(api, { data: { code: this.state.clientCart.couponCode } }).then((Response) => {
         if (Response.data.success) {
           context.commit('CLIENT_COUPON_ENABLED', true);
@@ -119,7 +119,7 @@ export default {
     },
     // Client Cart Payment
     clientGetOrders(context) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${this.state.clientCart.cartOrderId}`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/order/${this.state.clientCart.cartOrderId}`;
       axios.get(api).then((Response) => {
         if (Response.data.success) {
           context.commit('CLIENT_ORDERS', Response.data.order.products);
@@ -141,7 +141,7 @@ export default {
       });
     },
     clientOrderPayment(context) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${this.state.clientCart.cartOrderId}`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/pay/${this.state.clientCart.cartOrderId}`;
       axios.post(api).then((Response) => {
         if (Response.data.success) {
           context.commit('CLIENT_ORDER_PAID', true);

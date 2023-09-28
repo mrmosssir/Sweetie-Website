@@ -25,7 +25,7 @@ export default {
   name: 'Topbar',
   methods: {
     logout() {
-      const api = `${process.env.VUE_APP_APIPATH}/logout`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/logout`;
       const vm = this;
       this.$http.post(api).then((Response) => {
         if (Response.data.success) {

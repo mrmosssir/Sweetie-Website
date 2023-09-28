@@ -7,7 +7,7 @@ export default {
   },
   actions: {
     clientGetCartsAmount(context) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/cart`;
       axios.get(api).then((Response) => {
         if (Response.data.success) {
           context.commit('CLIENT_GET_CARTSAMOUNT', Response.data.data.carts.length);

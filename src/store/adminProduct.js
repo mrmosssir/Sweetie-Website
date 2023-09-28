@@ -19,7 +19,7 @@ export default {
     // Admin Product
     adminGetProducts(context, payload) {
       context.commit('LOADING', true, { root: true });
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${payload}`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/products?page=${payload}`;
       axios.get(api).then((Response) => {
         if (Response.data.success) {
           context.commit('ADMIN_PRODUCTS', Response.data.products);
@@ -41,10 +41,10 @@ export default {
     },
     adminSubmitProduct(context, payload) {
       context.commit('ADMIN_PRODUCT', payload);
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
+      let api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/product`;
       let mode = 'post';
       if (!this.state.adminProduct.productIsNew) {
-        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${payload.id}`;
+        api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/product/${payload.id}`;
         mode = 'put';
       }
       axios[mode](api, { data: this.state.adminProduct.product }).then((Response) => {
@@ -55,7 +55,7 @@ export default {
       });
     },
     adminDeleteProduct(context, payload) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${payload}`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/product/${payload}`;
       axios.delete(api).then((Response) => {
         if (Response.data.success) {
           context.dispatch('adminGetProducts', 1);
@@ -65,7 +65,7 @@ export default {
     },
     adminProductUploadFile(context, payload) {
       context.commit('UPDATESTATUS', true);
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/upload`;
       const formData = new FormData();
       formData.append('file-to-upload', payload);
       axios.post(api, formData, {

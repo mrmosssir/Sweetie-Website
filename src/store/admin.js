@@ -15,7 +15,7 @@ export default {
   actions: {
     // Admin
     checkLogin() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/user/check`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/api/user/check`;
       axios.post(api).then((Response) => {
         if (!Response.data.success) {
           router.push('sign');
@@ -37,7 +37,7 @@ export default {
             break;
           }
           for (let count = 1; count <= this.state.adminProduct.productTotalPage; count += 1) {
-            api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${count}`;
+            api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/products?page=${count}`;
             axios.get(api).then((Response) => {
               if (Response.data.success) {
                 Response.data.products.forEach((item) => {
@@ -59,7 +59,7 @@ export default {
             break;
           }
           for (let count = 1; count <= this.state.adminCoupon.couponTotalPage; count += 1) {
-            api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${count}`;
+            api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/coupons?page=${count}`;
             axios.get(api).then((Response) => {
               if (Response.data.success) {
                 Response.data.coupons.forEach((item) => {
@@ -81,7 +81,7 @@ export default {
             break;
           }
           for (let count = 1; count <= this.state.adminOrder.orderTotalPage; count += 1) {
-            api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${count}`;
+            api = `${import.meta.env.VITE_APP_APIPATH}/api/${import.meta.env.VITE_APP_CUSTOMPATH}/admin/orders?page=${count}`;
             axios.get(api).then((Response) => {
               if (Response.data.success) {
                 Response.data.orders.forEach((item) => {
@@ -102,7 +102,7 @@ export default {
     },
     // Login
     checkUser(context, payload) {
-      const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;
+      const api = `${import.meta.env.VITE_APP_APIPATH}/admin/signin`;
       context.commit('USERNAME', payload.username);
       context.commit('PASSWORD', payload.password);
       axios.post(api, context.state.user).then((Response) => {
