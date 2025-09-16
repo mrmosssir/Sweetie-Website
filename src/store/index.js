@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 
 import admin from './admin';
 import adminProduct from './adminProduct';
@@ -9,9 +8,7 @@ import client from './client';
 import clientProduct from './clientProduct';
 import clientCart from './clientCart';
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default createStore({
   state: {
     // Loading
     loadingStatus: false,

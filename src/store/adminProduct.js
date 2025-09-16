@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import Vue from 'vue';
 import axios from 'axios';
 
 export default {
@@ -105,7 +104,7 @@ export default {
       state.productIsNew = payload;
     },
     ADMIN_PRODUCT_SET_IMAGEURL(state, payload) {
-      Vue.set(state.product, 'imageUrl', payload);
+      state.product.imageUrl = payload;
     },
   },
   getters: {

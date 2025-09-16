@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import Vue from 'vue';
 import axios from 'axios';
 
 export default {
@@ -70,7 +69,7 @@ export default {
       state.coupon = payload;
     },
     ADMIN_SET_COUPON(state, payload) {
-      Vue.set(state.coupon, 'dueDate', payload.getTime());
+      state.coupon.dueDate = payload.getTime();
     },
     ADMIN_COUPON_TOTALPAGE(state, payload) {
       state.couponTotalPage = payload;

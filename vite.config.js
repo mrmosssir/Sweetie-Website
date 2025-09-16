@@ -1,11 +1,11 @@
 // vite.config.js
 
 import { defineConfig } from "vite";
-import { createVuePlugin as vue } from "vite-plugin-vue2";
+import vue from "@vitejs/plugin-vue";
 import * as path from "path";
 
 export default defineConfig({
-    base: "/Sweetie-Website/dist/",
+    base: "./",
     plugins: [vue()],
     resolve: {
         alias: {
