@@ -7,6 +7,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import 'bootstrap';
+import './styles/tailwind.css';
 
 axios.defaults.withCredentials = true;
 

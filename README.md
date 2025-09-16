@@ -28,9 +28,9 @@
   + jQuery
   
 ### Demo 畫面
-![主頁](/src/README1.png)
-![商品列表](/src/README3.png)
-![後台管理端](/src/README2.png)
+![主頁](/public/README1.png)
+![商品列表](/public/README3.png)
+![後台管理端](/public/README2.png)
   
 
 ### Project setup
