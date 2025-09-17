@@ -120,3 +120,37 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.page-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 45%;
+  right: 50px;
+  z-index: 100;
+  &-point {
+      width: 30px;
+      height: 30px;
+      background: $brown;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 5px solid darken($brown, 10);
+      &:hover {
+          background: lighten($brown, 20);
+      }
+  }
+  &-line {
+      width: 3px;
+      height: 30px;
+      background: darken($brown, 10);
+  }
+}
+@media (max-width: 768px) {
+  .page-selector {
+      height: 0px;
+      opacity: 0;
+  }
+}
+</style>

@@ -1,3 +1,4 @@
+<!-- 似乎沒有使用了 -->
 <template>
   <div>
     <div id="carouselBannerFade" class="carousel slide carousel-fade" data-ride="carousel">
