@@ -16,25 +16,28 @@
         <p>打開你的心房 進入這個甜點的夢幻國度 我們很樂意為您服務</p>
         <router-link to="/shop" class="homepage-link">
           <small>前往預約</small>
-          <hr class="homepage-link-line">
+          <hr class="homepage-link-line" />
         </router-link>
       </div>
       <Spotlight />
     </section>
     <section id="part3" class="bg-brown-light py-5">
       <div class="container">
-        <h2 class="h1 great_vibes-style font-weight-bold text-brown text-center my-4">
-          About us
-        </h2>
+        <h2 class="h1 great_vibes-style font-weight-bold text-brown text-center my-4">About us</h2>
         <div class="row mb-4">
           <div class="col-md-5 open-pc">
-            <div class="image-about" style="background-image: url('https://images.unsplash.com/photo-1471646174523-327e108889e7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80');"></div>
+            <div
+              class="image-about"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1471646174523-327e108889e7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80');
+              "
+            ></div>
           </div>
           <div class="col-md-7">
             <p class="text-secondary text-indent">
               堅持從原料手工製作，最後成為每一份在您口中散發溫暖的甜點；我們希望來過我們這裡的每一位客人，都能夠品嘗到幸福的滋味，這是我們一直持續努力的動力；
               草莓及檸檬的酸甜味，不僅中和了蛋糕的甜膩，也為它襯托出了另一種奇妙的滋味，一口咬下，像是咬下了一朵用幕斯用奶油細細織成的雲；
-              巧克力像魔鬼一般，強行的為平凡無奇的糕點注入濃郁的香氣，並與之同化；而我們則是魔法師，將所有美味的元素中和，讓他們聚集成一顆名為甜點的鑽石。<br/>
+              巧克力像魔鬼一般，強行的為平凡無奇的糕點注入濃郁的香氣，並與之同化；而我們則是魔法師，將所有美味的元素中和，讓他們聚集成一顆名為甜點的鑽石。<br />
             </p>
             <p class="text-secondary text-indent">
               AfterSweet創立於2017年，在以將幸福帶給大家為宗旨中用餐車的形式開幕了，老闆放棄了500萬的年薪，決定回到家鄉自己出來開創一片天地，並秉持著良心企業，
@@ -45,16 +48,22 @@
         </div>
         <div class="row open-pc">
           <div class="col-md-7">
-            <div class="image-about"
-                  style="background-image: url('https://images.unsplash.com/photo-1531172079369-5f1a80aa8a99?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1055&q=80');
-                        height: 250px">
-            </div>
+            <div
+              class="image-about"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1531172079369-5f1a80aa8a99?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1055&q=80');
+                height: 250px;
+              "
+            ></div>
           </div>
           <div class="col-md-5">
-            <div class="image-about"
-                  style="background-image: url('https://images.unsplash.com/photo-1507009977554-470051a8d4d9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=942&q=80');
-                        height: 250px">
-            </div>
+            <div
+              class="image-about"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1507009977554-470051a8d4d9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=942&q=80');
+                height: 250px;
+              "
+            ></div>
           </div>
         </div>
       </div>
@@ -65,7 +74,7 @@
         <div class="row">
           <div class="col-md-5">
             <h3 class="font-weight-bold">店家資訊</h3>
-            <hr class="my-5">
+            <hr class="my-5" />
             <p>
               <i class="fas fa-phone text-brown mr-2"></i>
               聯絡電話：0912-345678
@@ -88,12 +97,18 @@
             </p>
           </div>
           <div class="col-md-7">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615
             .0032467299634!2d121.56228351500631!3d25.033963883972344!2m3!1f0!2f0!3f
             0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abb6da9c9e1f%3A0x1206bcf082fd
             10a6!2zMTEw5Y-w5YyX5biC5L-h576p5Y2A5L-h576p6Lev5LqU5q61N-iZnw!5e0!3m2!1
             szh-TW!2stw!4v1574754796456!5m2!1szh-TW!2stw"
-            width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="">
+              width="100%"
+              height="450"
+              frameborder="0"
+              style="border: 0"
+              allowfullscreen=""
+            >
             </iframe>
           </div>
         </div>
@@ -103,19 +118,22 @@
 </template>
 
 <script>
-import $ from 'jquery';
-import Spotlight from '../components/Spotlight.vue';
+import $ from "jquery";
+import Spotlight from "../components/Spotlight.vue";
 
 export default {
-  name: 'Main',
+  name: "Main",
   components: {
     Spotlight,
   },
   methods: {
     changePage(page) {
-      $('html, body').animate({
-        scrollTop: $(`#part${page}`).offset().top,
-      }, 800);
+      $("html, body").animate(
+        {
+          scrollTop: $(`#part${page}`).offset().top,
+        },
+        800
+      );
     },
   },
 };
@@ -131,26 +149,26 @@ export default {
   right: 50px;
   z-index: 100;
   &-point {
-      width: 30px;
-      height: 30px;
-      background: $brown;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 5px solid darken($brown, 10);
-      &:hover {
-          background: lighten($brown, 20);
-      }
+    width: 30px;
+    height: 30px;
+    background: #8d6a5c;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 5px solid darken(#8d6a5c, 10);
+    &:hover {
+      background: lighten(#8d6a5c, 20);
+    }
   }
   &-line {
-      width: 3px;
-      height: 30px;
-      background: darken($brown, 10);
+    width: 3px;
+    height: 30px;
+    background: darken(#8d6a5c, 10);
   }
 }
 @media (max-width: 768px) {
   .page-selector {
-      height: 0px;
-      opacity: 0;
+    height: 0px;
+    opacity: 0;
   }
 }
 </style>

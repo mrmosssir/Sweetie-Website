@@ -3,32 +3,26 @@
     <div class="navbar-frame">
       <div class="d-flex justify-content-between align-items-center">
         <router-link to="/" class="navbar-home">
-            <h1 class="font-weight-bold great_vibes-style text-brown m-0">
-                AfterSweet
-            </h1>
+          <h1 class="font-weight-bold great_vibes-style text-brown m-0">AfterSweet</h1>
         </router-link>
-        <i class="fas fa-bars"
-            @mouseover.prevent="menuEnabled = true"
-            @mouseout.prevent="menuEnabled = false">
+        <i
+          class="fas fa-bars"
+          @mouseover.prevent="menuEnabled = true"
+          @mouseout.prevent="menuEnabled = false"
+        >
         </i>
       </div>
-      <div class="navbar-group text-brown" :class="{'navbar-open': menuEnabled}">
-        <router-link to="/news" class="navbar-link mx-3">
-          最新消息
-        </router-link>
-        <router-link to="/coupon" class="navbar-link mx-3">
-          特別優惠
-        </router-link>
-        <router-link to="/shop" class="navbar-link mx-3 ">
-          預約餐點
-        </router-link>
+      <div class="navbar-group text-brown" :class="{ 'navbar-open': menuEnabled }">
+        <router-link to="/news" class="navbar-link mx-3"> 最新消息 </router-link>
+        <router-link to="/coupon" class="navbar-link mx-3"> 特別優惠 </router-link>
+        <router-link to="/shop" class="navbar-link mx-3"> 預約餐點 </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const menuEnabled = ref(false);
 </script>
@@ -55,7 +49,7 @@ const menuEnabled = ref(false);
   .navbar-frame {
     display: block;
     padding: 0px 16px;
-    background: $brown;
+    background: #8d6a5c;
     * {
       color: white !important;
     }
@@ -81,7 +75,7 @@ const menuEnabled = ref(false);
   }
   .navbar-link {
     display: block;
-    background: $brown;
+    background: #8d6a5c;
     text-align: center;
     color: white !important;
     border-top: 1px solid white;

@@ -1,5 +1,5 @@
 <template></template>
 
-<script lang="ts" setup name="modal-couple"></script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped></style>

@@ -1,52 +1,58 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
-// import Home from '../views/Home.vue';
-import Admin from '../views/Admin.vue';
-import Login from '../views/Login.vue';
-import AdminProducts from '../views/AdminProducts.vue';
-import AdminOrders from '../views/AdminOrders.vue';
-import AdminCoupons from '../views/AdminCoupons.vue';
-import Client from '../views/Client.vue';
-import Main from '../views/Main.vue';
-import Product from '../views/Product.vue';
-import ProductMain from '../views/ProductMain.vue';
-import ProductDetail from '../views/ProductDetail.vue';
-import Coupon from '../views/Coupon.vue';
-import Cart from '../views/Cart.vue';
-import CartForm from '../views/CartForm.vue';
-import CartPayment from '../views/CartPayment.vue';
-import News from '../views/News.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import Admin from "../views/Admin.vue";
+import Login from "../views/Login.vue";
+import AdminProducts from "../views/AdminProducts.vue";
+import AdminOrders from "../views/AdminOrders.vue";
+import AdminCoupons from "../views/AdminCoupons.vue";
+import Client from "../views/Client.vue";
+import Main from "../views/Main.vue";
+import Product from "../views/Product.vue";
+import ProductMain from "../views/ProductMain.vue";
+import ProductDetail from "../views/ProductDetail.vue";
+import Coupon from "../views/Coupon.vue";
+import Cart from "../views/Cart.vue";
+import CartForm from "../views/CartForm.vue";
+import CartPayment from "../views/CartPayment.vue";
+import News from "../views/News.vue";
+
+// import test from "@/views/test.vue";
 
 const routes = [
+  // {
+  //   path: "/",
+  //   name: "Test",
+  //   component: test,
+  // },
   {
-    path: '/:pathMatch(.*)*',
-    redirect: '/',
+    path: "/:pathMatch(.*)*",
+    redirect: "/",
   },
   {
-    path: '/admin',
+    path: "/admin",
     component: Admin,
     meta: {
       requiresAuth: true,
     },
     children: [
       {
-        path: '',
-        name: 'AdminProducts',
+        path: "",
+        name: "AdminProducts",
         component: AdminProducts,
         meta: {
           requiresAuth: true,
         },
       },
       {
-        path: 'orders',
-        name: 'AdminOrders',
+        path: "orders",
+        name: "AdminOrders",
         component: AdminOrders,
         meta: {
           requiresAuth: true,
         },
       },
       {
-        path: 'coupons',
-        name: 'AdminCoupons',
+        path: "coupons",
+        name: "AdminCoupons",
         component: AdminCoupons,
         meta: {
           requiresAuth: true,
@@ -55,67 +61,67 @@ const routes = [
     ],
   },
   {
-    path: '/',
+    path: "/",
     component: Client,
     children: [
       {
-        path: '',
-        name: 'Main',
+        path: "",
+        name: "Main",
         component: Main,
       },
       {
-        path: 'shop',
+        path: "shop",
         component: Product,
         children: [
           {
-            path: '/',
-            name: 'ProductMain',
+            path: "/",
+            name: "ProductMain",
             component: ProductMain,
           },
           {
-            path: ':productId',
-            name: 'ProductDetail',
+            path: ":productId",
+            name: "ProductDetail",
             component: ProductDetail,
           },
         ],
       },
       {
-        path: 'coupon',
-        name: 'Coupon',
+        path: "coupon",
+        name: "Coupon",
         component: Coupon,
       },
       {
-        path: 'cart',
+        path: "cart",
         component: Cart,
         children: [
           {
-            path: '/',
-            name: 'CartForm',
+            path: "/",
+            name: "CartForm",
             component: CartForm,
           },
           {
-            path: '/payment/:orderId',
-            name: 'CartPayment',
+            path: "/payment/:orderId",
+            name: "CartPayment",
             component: CartPayment,
           },
         ],
       },
       {
-        path: 'news',
-        name: 'News',
+        path: "news",
+        name: "News",
         component: News,
       },
     ],
   },
   {
-    path: '/login',
-    name: 'Login',
+    path: "/login",
+    name: "Login",
     component: Login,
   },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 

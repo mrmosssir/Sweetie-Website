@@ -1,4 +1,16 @@
-@use "tailwindcss";
+@import "tailwindcss";
+
+/* 隱藏 Chrome, Safari, Edge, Opera 的箭頭 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 隱藏 Firefox 的箭頭 */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 
 /* ===== 響應式 REM 轉換設定 ===== */
 /* 基於 font-size 的 rem 縮放系統 */

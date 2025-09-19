@@ -1,14 +1,14 @@
 .filter-bar {
-    .filter {
-        color: $brown;
-        font-weight: normal;
-        cursor: pointer;
-    }
+  .filter {
+    color: #8d6a5c;
+    font-weight: normal;
+    cursor: pointer;
+  }
 }
 .filter-active {
-    background: $brown !important;
+  background: #8d6a5c !important;
+  color: $white !important;
+  i {
     color: $white !important;
-    i {
-    color: $white !important;
-    }
+  }
 }

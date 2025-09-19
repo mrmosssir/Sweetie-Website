@@ -1,18 +1,20 @@
 .offer-card {
-    max-width: 550px;
-    background: $brown;
-    margin: 50px auto;
-    box-shadow: 0 0 10px grey;
-    &-title, &-content, &-footer {
-        color: $white;
-    }
-    &-code {
-        display: block;
-        color: $warning;
-    }
+  max-width: 550px;
+  background: #8d6a5c;
+  margin: 50px auto;
+  box-shadow: 0 0 10px grey;
+  &-title,
+  &-content,
+  &-footer {
+    color: $white;
+  }
+  &-code {
+    display: block;
+    color: $warning;
+  }
 }
 @media (max-width: 768px) {
-    .offer-margin {
-        margin-top: 16px;
-    }
+  .offer-margin {
+    margin-top: 16px;
+  }
 }

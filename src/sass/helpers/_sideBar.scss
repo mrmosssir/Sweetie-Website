@@ -1,10 +1,10 @@
 .sidebar {
-    background: $brown;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
+  background: #8d6a5c;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
 }
 .sidebar-line {
-    @include draw-thick-line(1, $brown-light);
+  @include draw-thick-line(1, #8d6a5c-light);
 }
