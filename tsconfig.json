@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    // --- Base Options --- 
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "lib": ["ESNext", "DOM"],
+    "useDefineForClassFields": true,
+    "allowJs": true, // Allow JavaScript files to be included
+    "checkJs": false,
+
+    // --- Bundler / Vite Specific --- 
+    "moduleResolution": "bundler", // Recommended for modern bundlers
+    "resolveJsonModule": true, // Allows importing .json files
+    "isolatedModules": true, // Required by Vite for transpiling single files
+    "noEmit": true, // TypeScript only performs type-checking, Vite handles the build
+
+    // --- Path Aliases --- 
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+
+    // --- Types for Node.js environment (for .config.js files) ---
+    "types": ["node"]
+  },
+  "include": [
+    "src/**/*.ts", 
+    "src/**/*.d.ts", 
+    "src/**/*.tsx", 
+    "src/**/*.vue",
+    "vite.config.js" // Include root config files
+  ],
+  "exclude": ["node_modules"]
+}
