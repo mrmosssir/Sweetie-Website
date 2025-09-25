@@ -27,7 +27,7 @@
         :step="step"
         class="w-full p-2 rounded-lg bg-zinc-900 text-sm outline-none"
         :class="{
-          'placeholder:text-zinc-600': !hasError,
+          'placeholder:text-zinc-600 text-white': !hasError,
           'inset-ring inset-ring-zinc-500 text-white': isFocused,
           'inset-ring inset-ring-red-600 text-red-600 placeholder:text-red-700': hasError,
           'opacity-60 cursor-not-allowed': disabled,
@@ -39,7 +39,10 @@
       />
 
       <!-- Icon (if provided) -->
-      <div v-if="icon" class="input-icon">
+      <div
+        v-if="icon"
+        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
+      >
         <fa-icon :icon="icon" />
       </div>
 
@@ -47,7 +50,7 @@
       <button
         v-if="type === 'password'"
         type="button"
-        class="input-toggle"
+        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 bg-transparent border-0 cursor-pointer transition-colors duration-200 outline-none hover:text-gray-600 focus:text-blue-500"
         @click="togglePasswordVisibility"
       >
         <fa-icon :icon="showPassword ? 'eye-slash' : 'eye'" />
@@ -55,12 +58,12 @@
     </div>
 
     <!-- Error Message -->
-    <div v-if="hasError" class="input-error">
+    <div v-if="hasError" class="mt-2 text-sm text-red-600">
       {{ errorMessage }}
     </div>
 
     <!-- Helper Text -->
-    <div v-if="helperText && !hasError" class="input-helper">
+    <div v-if="helperText && !hasError" class="mt-2 text-sm text-gray-600">
       {{ helperText }}
     </div>
   </div>
@@ -173,113 +176,4 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-.input-wrapper {
-  @apply relative w-full mb-6;
-}
-
-.input-label {
-  @apply block text-sm font-medium text-gray-700 mb-2 transition-all duration-200;
-
-  &--focused {
-    @apply text-blue-600;
-  }
-}
-
-.input-container {
-  @apply relative;
-
-  &::before {
-    content: "";
-    @apply before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-blue-500 before:transition-all before:duration-300;
-  }
-
-  &--focused {
-    &::before {
-      @apply w-full;
-    }
-  }
-
-  &--error {
-    &::before {
-      @apply bg-red-500 w-full;
-    }
-  }
-
-  &--disabled {
-    @apply opacity-60 cursor-not-allowed;
-  }
-}
-
-.input-field {
-  @apply w-full px-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-lg
-         transition-all duration-200 outline-none;
-
-  // 漂亮的陰影效果
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-
-  &:focus {
-    @apply border-blue-500;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
-    transform: translateY(-1px);
-  }
-
-  &::placeholder {
-    @apply text-gray-400;
-  }
-
-  &:disabled {
-    @apply bg-gray-50 cursor-not-allowed;
-  }
-
-  // 數字輸入樣式
-  &[type="number"] {
-    appearance: textfield;
-    -moz-appearance: textfield;
-
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
-}
-
-.input-icon {
-  @apply absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none;
-}
-
-.input-toggle {
-  @apply absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 
-         bg-transparent border-0 cursor-pointer transition-colors duration-200 outline-none
-         hover:text-gray-600 focus:text-blue-500;
-}
-
-.input-error {
-  @apply mt-2 text-sm text-red-600;
-}
-
-.input-helper {
-  @apply mt-2 text-sm text-gray-600;
-}
-
-// 錯誤狀態樣式
-.input-container--error {
-  .input-field {
-    @apply border-red-300;
-    box-shadow: 0 1px 3px rgba(239, 68, 68, 0.1);
-
-    &:focus {
-      @apply border-red-500;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
-    }
-  }
-}
-
-// 響應式設計
-@media (max-width: 640px) {
-  .input-field {
-    @apply px-3 py-2.5 text-base;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

@@ -7,6 +7,8 @@ import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import { auth } from "./firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 // Font Awesome 輕量化配置
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -24,11 +26,17 @@ configure({
   }),
 });
 
-const app = createApp(App);
+let app;
 
-// 註冊 Font Awesome 組件
-app.component("fa-icon", FontAwesomeIcon);
+onAuthStateChanged(auth, (user) => {
+  if (!app) {
+    app = createApp(App);
 
-app.use(router);
-app.use(store);
-app.mount("#app");
+    // 註冊 Font Awesome 組件
+    app.component("fa-icon", FontAwesomeIcon);
+
+    app.use(router);
+    app.use(store);
+    app.mount("#app");
+  }
+});

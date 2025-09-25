@@ -15,14 +15,11 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from "vue";
-
 import SideBar from "@/components/SideBar.vue";
 import TopBar from "@/components/TopBar.vue";
 import Loading from "@/components/Loading.vue";
 import Modal from "@/components/modal/index.vue";
 
-import { checkAuth } from "@/request/auth";
 import { useLoadingStore } from "@/stores/loading";
 
 defineOptions({
@@ -30,6 +27,4 @@ defineOptions({
 });
 
 const loadingStore = useLoadingStore();
-
-onBeforeMount(() => checkAuth());
 </script>

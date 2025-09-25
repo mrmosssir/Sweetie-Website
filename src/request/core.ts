@@ -1,5 +1,11 @@
-import axios, { InternalAxiosRequestConfig, type AxiosRequestConfig } from "axios";
+import axios, {
+  InternalAxiosRequestConfig,
+  type AxiosRequestConfig,
+  type AxiosResponse,
+} from "axios";
 import router from "@/router";
+import { auth } from "../firebase";
+import type { ApiResponse } from "../types/api";
 
 // Declare custom meta field in AxiosRequestConfig
 declare module "axios" {
@@ -12,34 +18,34 @@ declare module "axios" {
 
 // Create axios instance
 const request = axios.create({
-  baseURL: `${import.meta.env.VITE_APP_APIPATH}/api/`,
+  baseURL: `${import.meta.env.VITE_API_PATH}`,
   withCredentials: true,
 });
 
 // Request interceptors
-request.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+request.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
   if (config.meta?.admin) {
-    config.url += `${import.meta.env.VITE_APP_CUSTOMPATH}/admin`;
+    const user = auth.currentUser;
+
+    if (!user) {
+      router.push("/login");
+      return Promise.reject(new Error("No user logged in"));
+    }
+
+    const token = await user.getIdToken();
+    config.headers["X-Auth-Token"] = `Bearer ${token}`;
   }
+
   return config;
 });
 
 // Response interceptors
 request.interceptors.response.use(
-  (response) => {
-    if (!response.data.success) {
-      if (
-        response.data.message.includes("驗證錯誤") ||
-        response.data.message.includes("請重新登入")
-      ) {
-        router.push("/login");
-        return;
-      }
-      return Promise.reject(new Error(response.data.message || "Unknown error"));
-    }
-    return response.data;
+  (response: AxiosResponse<ApiResponse>) => {
+    return response.data as any;
   },
   (error) => {
+    router.push("/login");
     return Promise.reject(error);
   }
 );
