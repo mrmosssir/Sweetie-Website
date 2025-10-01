@@ -14,10 +14,15 @@ import { onAuthStateChanged } from "firebase/auth";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 // 只導入需要的圖標 (按需添加)
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faXmark,
+  faCookieBite,
+  faClipboardList,
+  faTicket,
+} from "@fortawesome/free-solid-svg-icons";
 
 // 只添加需要的圖標到庫中
-library.add(faXmark);
+library.add(faXmark, faCookieBite, faClipboardList, faTicket);
 
 // Configure vee-validate for Vue 3
 configure({

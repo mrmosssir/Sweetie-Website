@@ -37,7 +37,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (event: "submit", product: Product): void;
+  (event: "submit", form: Product): void;
   (event: "delete", id: string): void;
 }>();
 

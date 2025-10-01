@@ -118,7 +118,6 @@
 </template>
 
 <script>
-import $ from "jquery";
 import Spotlight from "../components/Spotlight.vue";
 
 export default {
@@ -128,12 +127,12 @@ export default {
   },
   methods: {
     changePage(page) {
-      $("html, body").animate(
-        {
-          scrollTop: $(`#part${page}`).offset().top,
-        },
-        800
-      );
+      const targetElement = document.querySelector(`#part${page}`);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
     },
   },
 };

@@ -39,6 +39,8 @@ const routes = [
         name: "AdminProducts",
         component: AdminProducts,
         meta: {
+          title: "商品",
+          icon: "cookie-bite",
           requiresAuth: true,
         },
       },
@@ -47,6 +49,8 @@ const routes = [
         name: "AdminOrders",
         component: AdminOrders,
         meta: {
+          title: "訂單",
+          icon: "clipboard-list",
           requiresAuth: true,
         },
       },
@@ -55,6 +59,8 @@ const routes = [
         name: "AdminCoupons",
         component: AdminCoupons,
         meta: {
+          title: "優惠券",
+          icon: "ticket",
           requiresAuth: true,
         },
       },

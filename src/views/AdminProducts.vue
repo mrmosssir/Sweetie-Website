@@ -15,7 +15,7 @@
         <h2 class="text-brown">商品列表管理</h2>
       </div>
       <div class="col-md-2 text-right">
-        <button type="button" class="btn btn-brown" @click.prevent="setModal('create')">
+        <button type="button" class="btn btn-brown" @click.prevent="handleOpenModal()">
           新增產品
         </button>
       </div>
@@ -46,10 +46,7 @@
           <td class="text-center pt-3" v-if="item.isEnabled">已啟用</td>
           <td class="text-center pt-3" v-if="!item.isEnabled">未啟用</td>
           <td class="text-center">
-            <button
-              class="btn btn-sm btn-outline-brown rounded"
-              @click="setModal('create', { product: item })"
-            >
+            <button class="btn btn-sm btn-outline-brown rounded" @click="handleOpenModal(item)">
               編輯
             </button>
           </td>
@@ -62,7 +59,7 @@
           class="page-item"
           v-for="num in pagination.total_pages"
           :key="num"
-          @click.prevent="fetchProducts(num)"
+          @click.prevent="getProducts(num)"
           :class="{ active: pagination.current_page == num }"
         >
           <a class="page-link" href="#">
@@ -77,18 +74,25 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
 
-import { getProductList } from "@/request/product";
+import {
+  getProductsApi,
+  createProductApi,
+  updateProductApi,
+  deleteProductApi,
+} from "@/request/product";
 import type { ApiResponse, Pagination } from "@/types/api";
 import type { Product, ApiProduct } from "@/types/product";
 import { useModal } from "@/composables/useModal";
 
-const { setModal } = useModal();
+import CreateModal from "@/components/modal/create.vue";
+
+const { setModal, closeModal } = useModal();
 
 const products = ref<Product[]>([]);
 const pagination = ref<Pagination>({} as Pagination);
 
-const fetchProducts = async (page = 1) => {
-  const response: ApiResponse = await getProductList(page);
+const getProducts = async (page = 1) => {
+  const response: ApiResponse = await getProductsApi(page);
   products.value = (response.data as ApiProduct[]).map((item: ApiProduct) => ({
     id: item.id,
     name: item.name,
@@ -104,7 +108,30 @@ const fetchProducts = async (page = 1) => {
   pagination.value = response.pagination as Pagination;
 };
 
+const handleOpenModal = async (product?: Product) => {
+  setModal({
+    component: CreateModal,
+    props: { product },
+    listeners: {
+      submit: async (form: Product) => {
+        if (product) {
+          await updateProductApi(form.id, JSON.parse(JSON.stringify(form)) as FormData);
+        } else {
+          await createProductApi(JSON.parse(JSON.stringify(form)) as FormData);
+        }
+        await getProducts(pagination.value.current_page);
+        closeModal();
+      },
+      delete: async (id: string) => {
+        await deleteProductApi(id);
+        await getProducts(pagination.value.current_page);
+        closeModal();
+      },
+    },
+  });
+};
+
 onBeforeMount(async () => {
-  await fetchProducts();
+  await getProducts();
 });
 </script>

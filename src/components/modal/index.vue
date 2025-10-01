@@ -1,27 +1,20 @@
 <template>
   <transition name="fade">
-    <div v-if="currentModal" class="modal-backdrop" @click.self="closeModal">
-      <component :is="currentModal" v-bind="modalProps" @close="closeModal" />
+    <div v-if="modalState.component" class="modal-backdrop" @click.self="closeModal">
+      <component
+        :is="modalState.component"
+        v-bind="modalState.props"
+        v-on="modalState.listeners"
+        @close="closeModal"
+      />
     </div>
   </transition>
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from "vue";
 import { useModal } from "@/composables/useModal";
 
-const { modalTarget, modalProps, closeModal } = useModal();
-
-// modalMap 用於映射 modal 名稱到其組件
-const modalMap = {
-  couple: defineAsyncComponent(() => import("@/components/modal/couple.vue")),
-  create: defineAsyncComponent(() => import("@/components/modal/create.vue")),
-} as const;
-
-type ModalKey = keyof typeof modalMap;
-
-// 根據當前的 modalTarget 計算出對應的組件
-const currentModal = computed(() => modalMap[modalTarget.value as ModalKey] || null);
+const { modalState, closeModal } = useModal();
 </script>
 
 <style scoped>

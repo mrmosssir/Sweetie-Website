@@ -1,31 +1,36 @@
-import { ref, readonly, shallowRef, type Ref } from "vue";
+import { readonly, shallowRef, markRaw, type Component } from "vue";
 
-// 使用 shallowRef 來存儲 modal 的目標名稱和屬性，
-// 以避免不必要的深層響應式追蹤。
-const modalTarget = shallowRef<string | null>(null);
-const modalProps = ref<Record<string, any>>({});
+interface ModalState {
+  component: Component | null;
+  props: Record<string, any>;
+  listeners: Record<string, (...args: any[]) => void>;
+}
 
-/**
- * 設定 modal 的目標和屬性。
- * @param {string | null} target - 目標 modal 的名稱，或 null 以關閉 modal。
- * @param {object} [props={}] - 傳遞給 modal 組件的屬性。
- */
-const setModal = (target: string | null, props: Record<string, any> = {}) => {
-  modalTarget.value = target;
-  modalProps.value = props;
+const modalState = shallowRef<ModalState>({
+  component: null,
+  props: {},
+  listeners: {},
+});
+
+const setModal = (options: Partial<ModalState>) => {
+  modalState.value = {
+    component: options.component ? markRaw(options.component) : null,
+    props: options.props || {},
+    listeners: options.listeners || {},
+  };
 };
 
-/**
- * 關閉當前的 modal。
- */
 const closeModal = () => {
-  setModal(null);
+  modalState.value = {
+    component: null,
+    props: {},
+    listeners: {},
+  };
 };
 
 export const useModal = () => {
   return {
-    modalTarget: readonly(modalTarget),
-    modalProps: readonly(modalProps),
+    modalState: readonly(modalState),
     setModal,
     closeModal,
   };
