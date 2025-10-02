@@ -2,8 +2,8 @@ import request from "@/request/core";
 import type { ApiResponse } from "@/types/api";
 
 // Admin 取得商品列表
-export const getProductsApi = async (page: number): Promise<ApiResponse> => {
-  return await request.get("/admin/product", { meta: { admin: true }, params: { page } });
+export const getProductsApi = async (page: number, search: string): Promise<ApiResponse> => {
+  return await request.get("/admin/product", { meta: { admin: true }, params: { page, search } });
 };
 
 // Admin 新增商品

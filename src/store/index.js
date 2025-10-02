@@ -1,12 +1,12 @@
-import { createStore } from 'vuex';
+import { createStore } from "vuex";
 
-import admin from './admin';
-import adminProduct from './adminProduct';
-import adminOrder from './adminOrder';
-import adminCoupon from './adminCoupon';
-import client from './client';
-import clientProduct from './clientProduct';
-import clientCart from './clientCart';
+// import admin from './admin';
+import adminProduct from "./adminProduct";
+import adminOrder from "./adminOrder";
+import adminCoupon from "./adminCoupon";
+import client from "./client";
+import clientProduct from "./clientProduct";
+import clientCart from "./clientCart";
 
 export default createStore({
   state: {
@@ -14,7 +14,7 @@ export default createStore({
     loadingStatus: false,
     // Error
     error: false,
-    errorMessage: '',
+    errorMessage: "",
   },
   mutations: {
     // Loading
@@ -42,7 +42,7 @@ export default createStore({
     },
   },
   modules: {
-    admin,
+    // admin,
     adminProduct,
     adminOrder,
     adminCoupon,

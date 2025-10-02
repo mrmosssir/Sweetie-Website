@@ -1,8 +1,4 @@
-import axios, {
-  InternalAxiosRequestConfig,
-  type AxiosRequestConfig,
-  type AxiosResponse,
-} from "axios";
+import axios, { InternalAxiosRequestConfig, type AxiosResponse } from "axios";
 import router from "@/router";
 import { auth } from "../firebase";
 import type { ApiResponse } from "../types/api";

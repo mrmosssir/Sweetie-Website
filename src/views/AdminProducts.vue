@@ -1,78 +1,30 @@
 <template>
-  <div class="container">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb bg-transparent px-0">
-        <li class="breadcrumb-item text-secondary"><small>後台管理系統</small></li>
-        <li class="breadcrumb-item active">
-          <a href="#">
-            <small>商品列表管理</small>
-          </a>
-        </li>
-      </ol>
-    </nav>
-    <div class="row">
-      <div class="col-md-10">
-        <h2 class="text-brown">商品列表管理</h2>
-      </div>
-      <div class="col-md-2 text-right">
-        <button type="button" class="btn btn-brown" @click.prevent="handleOpenModal()">
-          新增產品
-        </button>
-      </div>
+  <div id="admin-product">
+    <div class="flex justify-between items-center my-4">
+      <Page :pagination="pagination" @change="handleGetProducts" />
+      <button
+        type="button"
+        class="bg-[#477182]/80 rounded w-8 h-8 cursor-pointer"
+        @click.prevent="handleOpenModal()"
+      >
+        <fa-icon icon="plus" class="text-white"></fa-icon>
+      </button>
     </div>
-    <table class="table table-borderless mt-4 bg-white border border-brown border-bottom-0">
-      <thead>
-        <tr class="bg-brown text-white text-center">
-          <th width="100px" scope="col">編號</th>
-          <th width="150px" scope="col">產品類別</th>
-          <th scope="col">產品名稱</th>
-          <th width="150px" scope="col">產品原價</th>
-          <th width="150px" scope="col">產品售價</th>
-          <th width="100px" scope="col">是否啟用</th>
-          <th width="150px" scope="col">編輯</th>
-        </tr>
-      </thead>
-      <tbody class="text-secondary">
-        <tr
-          class="border border-brown border-bottom"
-          v-for="(item, index) in products"
-          :key="item.id"
-        >
-          <th class="text-center pt-3" scope="row">{{ index + 1 }}</th>
-          <td class="text-center pt-3">{{ item.category }}</td>
-          <td class="text-center pt-3">{{ item.name }}</td>
-          <td class="text-right pt-3">{{ item.originPrice }}$</td>
-          <td class="text-right pt-3">{{ item.price }}$</td>
-          <td class="text-center pt-3" v-if="item.isEnabled">已啟用</td>
-          <td class="text-center pt-3" v-if="!item.isEnabled">未啟用</td>
-          <td class="text-center">
-            <button class="btn btn-sm btn-outline-brown rounded" @click="handleOpenModal(item)">
-              編輯
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <nav class="d-flex justify-content-center mt-5">
-      <ul class="pagination">
-        <li
-          class="page-item"
-          v-for="num in pagination.total_pages"
-          :key="num"
-          @click.prevent="getProducts(num)"
-          :class="{ active: pagination.current_page == num }"
-        >
-          <a class="page-link" href="#">
-            {{ num }}
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <Table :columns="columns" :data="products">
+      <template #default="{ item }">
+        <button class="mx-1 cursor-pointer" @click="handleOpenModal(item as Product)">
+          <fa-icon class="text-[#477182]/80 text-xl" icon="pen-to-square"></fa-icon>
+        </button>
+        <button class="mx-1 cursor-pointer" @click="handleDeletProduct(item.id)">
+          <fa-icon class="text-red-400 text-xl" icon="xmark"></fa-icon>
+        </button>
+      </template>
+    </Table>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, watch } from "vue";
 
 import {
   getProductsApi,
@@ -80,20 +32,35 @@ import {
   updateProductApi,
   deleteProductApi,
 } from "@/request/product";
+
 import type { ApiResponse, Pagination } from "@/types/api";
 import type { Product, ApiProduct } from "@/types/product";
-import { useModal } from "@/composables/useModal";
 
+import { useModal } from "@/composables/useModal";
+import { useAdminStore } from "@/store/admin";
+
+import Page from "@/components/admin/Pagination.vue";
+import Table from "@/components/admin/Table.vue";
 import CreateModal from "@/components/modal/create.vue";
 
 const { setModal, closeModal } = useModal();
+const adminStore = useAdminStore();
 
 const products = ref<Product[]>([]);
 const pagination = ref<Pagination>({} as Pagination);
+const columns = ref([
+  { name: "編號", key: "id" },
+  { name: "產品類別", key: "category" },
+  { name: "產品名稱", key: "name" },
+  { name: "產品原價", key: "originPrice" },
+  { name: "產品售價", key: "price" },
+  { name: "是否啟用", key: "isEnabled" },
+  { name: "功能" },
+]);
 
-const getProducts = async (page = 1) => {
-  const response: ApiResponse = await getProductsApi(page);
-  products.value = (response.data as ApiProduct[]).map((item: ApiProduct) => ({
+const handleGetProducts = async (page = 1) => {
+  const response: ApiResponse = await getProductsApi(page, adminStore.search);
+  products.value = (response.data || []).map((item: ApiProduct) => ({
     id: item.id,
     name: item.name,
     category: item.category,
@@ -108,6 +75,11 @@ const getProducts = async (page = 1) => {
   pagination.value = response.pagination as Pagination;
 };
 
+const handleDeletProduct = async (id: string) => {
+  await deleteProductApi(id);
+  await handleGetProducts(pagination.value.currentPage);
+};
+
 const handleOpenModal = async (product?: Product) => {
   setModal({
     component: CreateModal,
@@ -119,12 +91,11 @@ const handleOpenModal = async (product?: Product) => {
         } else {
           await createProductApi(JSON.parse(JSON.stringify(form)) as FormData);
         }
-        await getProducts(pagination.value.current_page);
+        await handleGetProducts(pagination.value.currentPage);
         closeModal();
       },
       delete: async (id: string) => {
-        await deleteProductApi(id);
-        await getProducts(pagination.value.current_page);
+        await handleDeletProduct(id);
         closeModal();
       },
     },
@@ -132,6 +103,11 @@ const handleOpenModal = async (product?: Product) => {
 };
 
 onBeforeMount(async () => {
-  await getProducts();
+  await handleGetProducts();
 });
+
+watch(
+  () => adminStore.search,
+  () => handleGetProducts(1)
+);
 </script>

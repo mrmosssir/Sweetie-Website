@@ -1,19 +1,21 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Admin from "../views/Admin.vue";
-import Login from "../views/Login.vue";
-import AdminProducts from "../views/AdminProducts.vue";
-import AdminOrders from "../views/AdminOrders.vue";
-import AdminCoupons from "../views/AdminCoupons.vue";
-import Client from "../views/Client.vue";
-import Main from "../views/Main.vue";
-import Product from "../views/Product.vue";
-import ProductMain from "../views/ProductMain.vue";
-import ProductDetail from "../views/ProductDetail.vue";
-import Coupon from "../views/Coupon.vue";
-import Cart from "../views/Cart.vue";
-import CartForm from "../views/CartForm.vue";
-import CartPayment from "../views/CartPayment.vue";
-import News from "../views/News.vue";
+
+import AdminLayout from "@/layouts/Admin.vue";
+import AdminProducts from "@/views/AdminProducts.vue";
+import AdminOrders from "@/views/AdminOrders.vue";
+import AdminCoupons from "@/views/AdminCoupons.vue";
+
+import Login from "@/views/Login.vue";
+import Client from "@/views/Client.vue";
+import Main from "@/views/Main.vue";
+import Product from "@/views/Product.vue";
+import ProductMain from "@/views/ProductMain.vue";
+import ProductDetail from "@/views/ProductDetail.vue";
+import Coupon from "@/views/Coupon.vue";
+import Cart from "@/views/Cart.vue";
+import CartForm from "@/views/CartForm.vue";
+import CartPayment from "@/views/CartPayment.vue";
+import News from "@/views/News.vue";
 
 // import test from "@/views/test.vue";
 
@@ -29,9 +31,9 @@ const routes = [
   },
   {
     path: "/admin",
-    component: Admin,
+    component: AdminLayout,
     meta: {
-      requiresAuth: true,
+      title: "後台管理",
     },
     children: [
       {
@@ -41,7 +43,6 @@ const routes = [
         meta: {
           title: "商品",
           icon: "cookie-bite",
-          requiresAuth: true,
         },
       },
       {
@@ -51,7 +52,6 @@ const routes = [
         meta: {
           title: "訂單",
           icon: "clipboard-list",
-          requiresAuth: true,
         },
       },
       {
@@ -61,7 +61,6 @@ const routes = [
         meta: {
           title: "優惠券",
           icon: "ticket",
-          requiresAuth: true,
         },
       },
     ],

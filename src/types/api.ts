@@ -1,10 +1,9 @@
-export interface Pagination {
-  total_pages: number;
-  current_page: number;
-  has_pre: boolean;
-  has_next: boolean;
-  category?: string;
-}
+export type Pagination = {
+  currentPage: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
+};
 
 // 通用的 API 回應結構
 export interface ApiResponse<T = any> {
