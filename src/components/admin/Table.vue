@@ -1,42 +1,44 @@
 <template>
-  <table class="w-full rounded-lg overflow-hidden">
-    <thead>
-      <tr>
-        <th
-          v-for="column in columns"
-          :key="column.key || 'function_slot_th'"
-          class="bg-[#477182]/80 font-thin text-white text-center py-3"
-          :class="[`w-${column.width || 'auto'}`]"
-        >
-          {{ column.name }}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        v-for="(item, index) in data"
-        :key="index"
-        :class="[index % 2 === 0 ? 'bg-white' : 'bg-gray-100']"
+  <ul
+    class="w-full grid gap-y-2 px-1"
+    :style="{ gridTemplateColumns }"
+  >
+    <li
+      class="grid col-span-full grid-cols-subgrid items-center bg-[#477182]/10 py-2 rounded-xs shadow-sm"
+    >
+      <span
+        v-for="column in columns"
+        :key="column.key || 'function_slot_header'"
+        class="block font-thin text-sm text-zinc-600 pl-4"
       >
-        <td
-          v-for="column in columns"
-          :key="column.key || 'function_slot_td'"
-          class="text-center font-thin text-gray-700 py-3"
-        >
-          <span v-if="column.key">{{ item[column.key] }}</span>
-          <slot v-else :item="item"></slot>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        {{ column.name }}
+      </span>
+    </li>
+    <li
+      v-for="(item, index) in data"
+      :key="index"
+      class="grid col-span-full grid-cols-subgrid items-center bg-white py-3 rounded-xs shadow-sm"
+    >
+      <span
+        v-for="column in columns"
+        :key="column.key || `function_slot_body_${index}`"
+        class="block font-thin text-sm text-zinc-600 pl-4"
+      >
+        <template v-if="column.key">{{ item[column.key] }}</template>
+        <slot v-else :item="item"></slot>
+      </span>
+    </li>
+  </ul>
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
+
 defineOptions({
   name: "AdminTable",
 });
 
-defineProps({
+const props = defineProps({
   columns: {
     type: Array as () => Array<TableColumn>,
     required: true,
@@ -46,6 +48,8 @@ defineProps({
     required: true,
   },
 });
+
+const gridTemplateColumns = computed(() => `repeat(${props.columns.length}, auto)`);
 
 export type TableColumn = {
   name: string;

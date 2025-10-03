@@ -13,8 +13,26 @@
 
     <!-- Input Container -->
     <div class="relative rounded-lg">
+      <!-- Boolean Switch -->
+      <div v-if="type === 'boolean'" class="switch-wrapper">
+        <input type="checkbox" :id="inputId" class="switch-input" v-model="switchValue" />
+        <label :for="inputId" class="switch-label"></label>
+      </div>
+
+      <!-- Datepicker -->
+      <VueDatePicker
+        v-else-if="type === 'datetime'"
+        :model-value="(modelValue as number)"
+        @update:model-value="handleDateUpdate"
+        teleport-center
+        :placeholder="placeholder"
+        :disabled="disabled"
+        class="w-full"
+      />
+
       <!-- Input Field -->
       <input
+        v-else
         :id="inputId"
         :type="currentType"
         :value="modelValue"
@@ -40,7 +58,7 @@
 
       <!-- Icon (if provided) -->
       <div
-        v-if="icon"
+        v-if="icon && type !== 'boolean'"
         class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
       >
         <fa-icon :icon="icon" />
@@ -71,13 +89,15 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted } from "vue";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 // Props 定義
 interface Props {
   // v-model
-  modelValue?: string | number;
+  modelValue?: string | number | Date | boolean;
   // 基本屬性
-  type?: "text" | "number" | "password";
+  type?: "text" | "number" | "password" | "datetime" | "boolean";
   label?: string;
   placeholder?: string;
   // 狀態
@@ -112,7 +132,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 // Emits 定義
 const emit = defineEmits<{
-  "update:modelValue": [value: string | number];
+  "update:modelValue": [value: string | number | Date | boolean];
   focus: [event: FocusEvent];
   blur: [event: FocusEvent];
   keydown: [event: KeyboardEvent];
@@ -139,6 +159,15 @@ const currentType = computed(() => {
   return props.type;
 });
 
+const switchValue = computed({
+  get() {
+    return props.modelValue as boolean;
+  },
+  set(newValue: boolean) {
+    emit("update:modelValue", newValue);
+  },
+});
+
 // 方法
 const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -149,6 +178,10 @@ const handleInput = (event: Event) => {
     value = value === "" ? "" : Number(value);
   }
 
+  emit("update:modelValue", value);
+};
+
+const handleDateUpdate = (value: Date) => {
   emit("update:modelValue", value);
 };
 
@@ -176,4 +209,54 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.switch-wrapper {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+/* 隱藏原生的 checkbox */
+.switch-input {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  position: absolute;
+}
+
+/* 這是開關的軌道 */
+.switch-label {
+  cursor: pointer;
+  width: 48px;
+  height: 24px;
+  background: #b3b3b3; /* 關閉時的顏色 */
+  display: block;
+  border-radius: 100px;
+  position: relative;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* 這是開關的滑塊 (thumb) */
+.switch-label::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: left 0.2s ease-in-out;
+}
+
+/* 當 checkbox 被選中時，改變 label 的樣式 */
+.switch-input:checked + .switch-label {
+  background: #42b983; /* 開啟時的顏色 (Vue 綠) */
+}
+
+/* 當 checkbox 被選中時，移動滑塊的位置 */
+.switch-input:checked + .switch-label::after {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
+</style>

@@ -1,3 +1,10 @@
+<template>
+  <div class="switch-wrapper">
+    <input type="checkbox" :id="switchId" class="switch-input" v-model="value" />
+    <label :for="switchId" class="switch-label"></label>
+  </div>
+</template>
+
 <script setup>
 import { computed } from "vue";
 
@@ -30,13 +37,6 @@ const value = computed({
   },
 });
 </script>
-
-<template>
-  <div class="switch-wrapper">
-    <input type="checkbox" :id="switchId" class="switch-input" v-model="value" />
-    <label :for="switchId" class="switch-label"></label>
-  </div>
-</template>
 
 <style scoped>
 .switch-wrapper {

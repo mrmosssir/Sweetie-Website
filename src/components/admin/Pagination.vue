@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center gap-x-2">
     <button
-      class="bg-gray-200 text-gray-600 w-8 h-8 rounded"
+      class="bg-gray-200 text-gray-600 w-8 h-8 rounded-xs text-sm"
       :class="[pagination.currentPage <= 1 ? 'cursor-not-allowed opacity-50' : 'cursor-pointer']"
       :disabled="pagination.currentPage <= 1"
     >
@@ -11,7 +11,7 @@
       v-for="num in list"
       :key="num"
       @click.prevent="emit('change', num)"
-      class="w-8 h-8 rounded cursor-pointer"
+      class="w-8 h-8 rounded-xs cursor-pointer text-sm"
       :class="[
         pagination.currentPage == num ? 'bg-[#477182]/80 text-white' : 'bg-gray-200 text-gray-600',
       ]"
@@ -19,7 +19,7 @@
       {{ num }}
     </button>
     <button
-      class="bg-gray-200 text-gray-600 w-8 h-8 rounded"
+      class="bg-gray-200 text-gray-600 w-8 h-8 rounded-xs text-sm"
       :class="[
         pagination.currentPage >= pagination.totalPages
           ? 'cursor-not-allowed opacity-50'
@@ -50,10 +50,6 @@ const emit = defineEmits<{
 const list = computed(() => {
   const start = Math.max(1, props.pagination.currentPage - 2);
   const end = Math.min(props.pagination.totalPages, props.pagination.currentPage + 2);
-  console.log(
-    Array.from({ length: end - start + 1 }, (_, i) => start + i),
-    "list"
-  );
   return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 });
 </script>

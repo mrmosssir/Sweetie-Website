@@ -1,13 +1,15 @@
 <template>
-  <div class="h-dvh bg-gradient-to-b from-[#477182] to-[#6a7e87] flex pt-3 pl-3 pr-2 pb-2 gap-3">
+  <div
+    class="h-dvh bg-gradient-to-b from-[#477182] via-[#6a7e87] to-[#f6d4c1] flex pt-3 pl-3 pr-2 pb-2 gap-3"
+  >
     <SideBar />
     <div class="flex-1 flex flex-col gap-2">
       <Header />
-      <div class="h-full bg-white rounded-2xl p-4 flex flex-col">
+      <div class="h-full bg-white rounded-sm p-4 flex flex-col">
         <Breadcrumb />
         <div class="flex-1 flex gap-x-2 overflow-y-auto">
           <router-view class="flex-1"></router-view>
-          <div class="hidden w-3/10 rounded-lg bg-red-200 xl:block"></div>
+          <div class="hidden w-3/10 rounded-lg bg-[#f6d4c1] xl:block"></div>
         </div>
       </div>
     </div>

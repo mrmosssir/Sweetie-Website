@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-end items-center py-2 pr-2">
+  <div class="flex justify-end items-center py-2">
     <div
-      class="flex justify-center items-center gap-x-2 p-1 pl-3 bg-white text-[#477182] rounded-lg"
+      class="flex justify-center items-center gap-x-2 p-1 pl-3 bg-white text-[#477182] rounded-xs"
     >
       <input class="border-0 outline-none h-4 text-sm" type="text" v-model="search" />
       <button
@@ -11,12 +11,12 @@
         <fa-icon icon="search"></fa-icon>
       </button>
     </div>
-    <button
+    <!-- <button
       class="w-8 h-8 text-white rounded-full cursor-pointer opacity-50 ml-4"
       @click.prevent="handleLogout"
     >
       <fa-icon icon="right-from-bracket"></fa-icon>
-    </button>
+    </button> -->
   </div>
 </template>
 

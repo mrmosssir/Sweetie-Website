@@ -1,9 +1,9 @@
 import { createStore } from "vuex";
 
 // import admin from './admin';
-import adminProduct from "./adminProduct";
+// import adminProduct from "./adminProduct";
 import adminOrder from "./adminOrder";
-import adminCoupon from "./adminCoupon";
+// import adminCoupon from "./adminCoupon";
 import client from "./client";
 import clientProduct from "./clientProduct";
 import clientCart from "./clientCart";
@@ -43,9 +43,9 @@ export default createStore({
   },
   modules: {
     // admin,
-    adminProduct,
+    // adminProduct,
     adminOrder,
-    adminCoupon,
+    // adminCoupon,
     client,
     clientProduct,
     clientCart,
