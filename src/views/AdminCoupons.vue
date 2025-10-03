@@ -51,9 +51,9 @@ const couponFields: FormField[] = [
     placeholder: "請輸入折扣",
     rules: "required",
   },
-  { key: "start_time", type: "datetime", label: "開始時間", rules: "required" },
-  { key: "end_time", type: "datetime", label: "結束時間", rules: "required" },
-  { key: "is_enabled", type: "boolean", label: "是否啟用" },
+  { key: "startTime", type: "datetime", label: "開始時間", rules: "required" },
+  { key: "endTime", type: "datetime", label: "結束時間", rules: "required" },
+  { key: "isEnabled", type: "boolean", label: "是否啟用" },
 ];
 
 const coupons = ref<Coupon[]>([]);
@@ -99,8 +99,6 @@ const handleGetCoupons = async (page = 1) => {
     percent: item.percent,
     startTime: item.start_time,
     endTime: item.end_time,
-    startTimeRaw: item.start_time,
-    endTimeRaw: item.end_time,
     isEnabled: item.is_enabled,
   })) as Coupon[];
   pagination.value = response.pagination as Pagination;

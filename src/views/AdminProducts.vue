@@ -50,7 +50,7 @@ const productFields = [
   { key: "name", type: "text", label: "名稱", placeholder: "請輸入名稱", rules: "required" },
   { key: "category", type: "text", label: "類別", placeholder: "請輸入類別", rules: "required" },
   {
-    key: "origin_price",
+    key: "originPrice",
     type: "number",
     label: "原價",
     placeholder: "請輸入原價",
@@ -60,7 +60,7 @@ const productFields = [
   { key: "unit", type: "text", label: "單位", placeholder: "請輸入單位", rules: "required" },
   { key: "description", type: "text", label: "產品描述", placeholder: "請輸入產品描述" },
   { key: "content", type: "text", label: "產品內容", placeholder: "請輸入產品內容" },
-  { key: "is_enabled", type: "boolean", label: "是否啟用" },
+  { key: "isEnabled", type: "boolean", label: "是否啟用" },
   { key: "image", type: "file", label: "產品圖片" },
 ];
 
