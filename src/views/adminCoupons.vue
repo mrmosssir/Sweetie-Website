@@ -36,10 +36,10 @@ import type { ApiResponse, Pagination } from "@/types/api";
 import type { Coupon, ApiCoupon } from "@/types/coupon";
 
 import { useModal } from "@/composables/useModal";
-import { useAdminStore } from "@/store/admin";
+import { useAdminStore } from "@/stores/admin";
 
-import Page from "@/components/admin/Pagination.vue";
-import Table from "@/components/admin/Table.vue";
+import Page from "@/components/admin/pagination.vue";
+import Table from "@/components/admin/table.vue";
 import CreateModal, { type FormField } from "@/components/modal/create.vue";
 
 const { setModal, closeModal } = useModal();

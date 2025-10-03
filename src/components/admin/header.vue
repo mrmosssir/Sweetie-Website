@@ -25,7 +25,7 @@ import { ref } from "vue";
 import { signOut } from "firebase/auth";
 import { useRouter } from "vue-router";
 import { auth } from "@/firebase";
-import { useAdminStore } from "@/store/admin";
+import { useAdminStore } from "@/stores/admin";
 
 defineOptions({
   name: "AdminHeader",

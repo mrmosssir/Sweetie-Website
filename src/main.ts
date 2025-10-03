@@ -1,12 +1,12 @@
 import "@/assets/style.css";
 
-import { createApp } from "vue";
+import { createApp, type App } from "vue";
 import { createPinia } from "pinia";
 import { defineRule, configure } from "vee-validate";
 import { required, integer, min_value, max_value } from "@vee-validate/rules";
 import { localize, setLocale } from "@vee-validate/i18n";
 import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
-import App from "./App.vue";
+import Application from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { auth } from "./firebase";
@@ -68,11 +68,11 @@ configure({
 // Set the active locale
 setLocale("zh_TW");
 
-let app;
+let app: App<Element>;
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, () => {
   if (!app) {
-    app = createApp(App);
+    app = createApp(Application);
 
     // 創建 Pinia 實例
     const pinia = createPinia();

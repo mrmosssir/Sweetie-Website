@@ -18,9 +18,9 @@
 </template>
 
 <script setup lang="ts">
-import SideBar from "@/components/admin/SideBar.vue";
-import Header from "@/components/admin/Header.vue";
-import Breadcrumb from "@/components/admin/Breadcrumb.vue";
+import SideBar from "@/components/admin/sidebar.vue";
+import Header from "@/components/admin/header.vue";
+import Breadcrumb from "@/components/admin/breadcrumb.vue";
 import Modal from "@/components/modal/index.vue";
 
 defineOptions({

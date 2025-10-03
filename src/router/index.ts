@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import AdminLayout from "@/layouts/Admin.vue";
-import AdminProducts from "@/views/AdminProducts.vue";
-import AdminOrders from "@/views/AdminOrders.vue";
-import AdminCoupons from "@/views/AdminCoupons.vue";
+import AdminLayout from "@/layouts/admin.vue";
+import AdminProducts from "@/views/adminProducts.vue";
+import AdminOrders from "@/views/adminOrders.vue";
+import AdminCoupons from "@/views/adminCoupons.vue";
 
 import Login from "@/views/Login.vue";
 import Client from "@/views/Client.vue";
@@ -17,14 +17,7 @@ import CartForm from "@/views/CartForm.vue";
 import CartPayment from "@/views/CartPayment.vue";
 import News from "@/views/News.vue";
 
-// import test from "@/views/test.vue";
-
 const routes = [
-  // {
-  //   path: "/",
-  //   name: "Test",
-  //   component: test,
-  // },
   {
     path: "/:pathMatch(.*)*",
     redirect: "/",
