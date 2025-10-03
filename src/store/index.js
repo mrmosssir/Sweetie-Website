@@ -1,6 +1,5 @@
 import { createStore } from "vuex";
 
-import adminOrder from "./adminOrder";
 import client from "./client";
 import clientProduct from "./clientProduct";
 import clientCart from "./clientCart";
@@ -39,7 +38,6 @@ export default createStore({
     },
   },
   modules: {
-    adminOrder,
     client,
     clientProduct,
     clientCart,

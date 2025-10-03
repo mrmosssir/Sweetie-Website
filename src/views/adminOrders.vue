@@ -1,94 +1,68 @@
 <template>
-  <div class="container" v-if="!returnLoading">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb bg-transparent px-0">
-          <li class="breadcrumb-item text-secondary"><small>後台管理系統</small></li>
-          <li class="breadcrumb-item active" aria-current="adminOrders">
-            <a href="#">
-              <small>訂單列表管理</small>
-            </a>
-          </li>
-      </ol>
-    </nav>
-    <h2 class="text-brown">訂單列表管理</h2>
-    <table class="table table-borderless mt-4 bg-white border border-brown border-bottom-0">
-      <thead>
-        <tr class="bg-brown text-white text-center">
-          <th width="200px" scope="col">購買日期</th>
-          <th scope="col">Email</th>
-          <th scope="col">購買項目</th>
-          <th width="150px" scope="col">應付金額</th>
-          <th width="100px" scope="col">是否付款</th>
-        </tr>
-      </thead>
-      <tbody class="text-secondary">
-        <tr class="border-bottom border-brown" v-for="item in returnOrders" :key="item.id">
-          <td class="text-center">{{ item.create_at }}</td>
-          <td class="text-center">{{ item.user.email }}</td>
-          <td class="text-center">
-            <ul class="mb-0">
-              <li v-for="product in item.products" :key="product.id">
-                {{ product.product.title }} 數量：{{ product.qty }} {{ product.product.unit }}
-              </li>
-            </ul>
-          </td>
-          <td class="text-right">{{ item.total }} $</td>
-          <td class="text-center text-success" v-if="item.is_paid">已付款</td>
-          <td class="text-center text-secondary" v-if="!item.is_paid">未付款</td>
-        </tr>
-      </tbody>
-    </table>
-    <nav class="d-flex justify-content-center mt-5">
-      <ul class="pagination">
-        <li class="page-item" v-for="num in returnPage"
-            :key="num"
-            @click.prevent="getOrders(num)"
-            :class="{'active': returnCurrentPage == num}">
-            <a class="page-link" href="#">{{ num }}</a>
-        </li>
-      </ul>
-    </nav>
+  <div class="px-1">
+    <div class="flex justify-between items-center my-4">
+      <Page :pagination="pagination" @change="handleGetOrders" />
+    </div>
+    <Table :columns="columns" :data="orders">
+      <template #isEnabled="{ item }">
+        <fa-icon v-if="item.isEnabled" icon="check" class="text-green-500"></fa-icon>
+        <fa-icon v-else icon="xmark" class="text-red-400"></fa-icon>
+      </template>
+    </Table>
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
+<script setup lang="ts">
+import { ref, onBeforeMount, watch } from "vue";
 
-export default {
-  name: 'Orders',
-  methods: {
-    getOrders(page = 1) {
-      this.$store.dispatch('adminOrder/adminGetOrders', page);
-      this.$store.dispatch('changeSearchMode', 'order');
-    },
-    dateTransfer(order, dateCode) {
-      const date = new Date(dateCode * 1000);
-      const dateStr = `${date.getFullYear()}/${this.addZero(date.getMonth())}/${this.addZero(date.getDate())} 
-      ${this.addZero(date.getHours())}:${this.addZero(date.getMinutes())}:${this.addZero(date.getSeconds())}`;
-      this.$set(order, 'create_at', dateStr);
-      return order;
-    },
-    addZero(num) {
-      if (Number(num) < 10) {
-        return `0${num}`;
-      }
-      return num;
-    },
-  },
-  computed: {
-    returnOrders() {
-      const orders = [];
-      this.$store.state.adminOrder.orders.forEach((order) => {
-        this.dateTransfer(order, order.create_at);
-        orders.push(order);
-      });
-      return orders;
-    },
-    ...mapGetters(['returnLoading']),
-    ...mapGetters('adminOrder', ['returnPage', 'returnCurrentPage']),
-  },
-  created() {
-    this.getOrders();
-  },
+import { getOrdersApi } from "@/request/order";
+
+import type { ApiResponse, Pagination } from "@/types/api";
+import type { Order, ApiOrder } from "@/types/order";
+
+import { useAdminStore } from "@/stores/admin";
+
+import Page from "@/components/admin/pagination.vue";
+import Table from "@/components/admin/table.vue";
+
+const adminStore = useAdminStore();
+
+const columns = [
+  { name: "編號", key: "id" },
+  { name: "姓名", key: "name" },
+  { name: "電子信箱", key: "mail" },
+  { name: "購買品項", key: "products", custom: true },
+  { name: "訂單總金額", key: "totalPrice" },
+  { name: "訂單狀態", key: "status", custom: true },
+  { name: "功能", key: "function", custom: true },
+];
+
+const orders = ref<Order[]>([]);
+const pagination = ref<Pagination>({} as Pagination);
+
+const handleGetOrders = async (page = 1) => {
+  const response: ApiResponse = await getOrdersApi(page, adminStore.search);
+  orders.value = (response.data || []).map((item: ApiOrder) => ({
+    id: item.id,
+    name: item.name,
+    mail: item.mail,
+    note: item.note,
+    totalPrice: item.total_price,
+    isPaid: item.is_paid,
+    isEnabled: item.is_enabled,
+    paidAt: item.paid_at,
+    pickedAt: item.picked_at,
+    products: item.products,
+  })) as Order[];
+  pagination.value = response.pagination as Pagination;
 };
+
+onBeforeMount(async () => {
+  await handleGetOrders();
+});
+
+watch(
+  () => adminStore.search,
+  () => handleGetOrders()
+);
 </script>
