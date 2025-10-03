@@ -11,7 +11,11 @@
       </button>
     </div>
     <Table :columns="columns" :data="tableData">
-      <template #default="{ item }">
+      <template #isEnabled="{ item }">
+        <fa-icon v-if="item.isEnabled" icon="check" class="text-green-500"></fa-icon>
+        <fa-icon v-else icon="xmark" class="text-red-400"></fa-icon>
+      </template>
+      <template #function="{ item }">
         <button class="mx-1 cursor-pointer" @click="handleOpenModal(item as Coupon)">
           <fa-icon class="text-[#477182]/80 text-xl" icon="pen-to-square"></fa-icon>
         </button>
@@ -41,6 +45,17 @@ import CreateModal, { type FormField } from "@/components/modal/create.vue";
 const { setModal, closeModal } = useModal();
 const adminStore = useAdminStore();
 
+const columns = [
+  { name: "編號", key: "id" },
+  { name: "名稱", key: "name" },
+  { name: "代碼", key: "code" },
+  { name: "折扣百分比", key: "percent" },
+  { name: "開始時間", key: "startTime" },
+  { name: "結束時間", key: "endTime" },
+  { name: "是否啟用", key: "isEnabled", custom: true },
+  { name: "功能", key: "function", custom: true },
+];
+
 const couponFields: FormField[] = [
   { key: "name", type: "text", label: "名稱", placeholder: "請輸入名稱", rules: "required" },
   { key: "code", type: "text", label: "代碼", placeholder: "請輸入代碼", rules: "required" },
@@ -58,16 +73,6 @@ const couponFields: FormField[] = [
 
 const coupons = ref<Coupon[]>([]);
 const pagination = ref<Pagination>({} as Pagination);
-const columns = ref([
-  { name: "編號", key: "id", width: "250px" },
-  { name: "名稱", key: "name" },
-  { name: "代碼", key: "code" },
-  { name: "折扣百分比", key: "percent" },
-  { name: "開始時間", key: "startTime" },
-  { name: "結束時間", key: "endTime" },
-  { name: "是否啟用", key: "isEnabled" },
-  { name: "功能" },
-]);
 
 const tableData = computed(() =>
   coupons.value.map((coupon) => ({

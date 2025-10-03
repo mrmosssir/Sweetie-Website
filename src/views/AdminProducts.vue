@@ -20,7 +20,7 @@
           <fa-icon class="text-[#477182]/80 text-xl" icon="pen-to-square"></fa-icon>
         </button>
         <button class="mx-1 cursor-pointer" @click="handleDeletProduct(item.id)">
-          <fa-icon class="text-[#] text-xl" icon="xmark"></fa-icon>
+          <fa-icon class="text-red-400 text-xl" icon="xmark"></fa-icon>
         </button>
       </template>
     </Table>
