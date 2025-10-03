@@ -9,7 +9,7 @@
         <Breadcrumb />
         <div class="flex-1 flex gap-x-2 overflow-y-auto">
           <router-view class="flex-1"></router-view>
-          <div class="hidden w-3/10 rounded-lg bg-[#f6d4c1] xl:block"></div>
+          <div class="hidden w-96 rounded-lg bg-[#f6d4c1] xl:block"></div>
         </div>
       </div>
     </div>

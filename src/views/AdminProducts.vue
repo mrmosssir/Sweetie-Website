@@ -1,5 +1,5 @@
 <template>
-  <div id="admin-product">
+  <div class="px-1">
     <div class="flex justify-between items-center my-4">
       <Page :pagination="pagination" @change="handleGetProducts" />
       <button
@@ -11,7 +11,11 @@
       </button>
     </div>
     <Table :columns="columns" :data="products">
-      <template #default="{ item }">
+      <template #isEnabled="{ item }">
+        <fa-icon v-if="item.isEnabled" icon="check" class="text-green-500"></fa-icon>
+        <fa-icon v-else icon="xmark" class="text-red-400"></fa-icon>
+      </template>
+      <template #function="{ item }">
         <button class="mx-1 cursor-pointer" @click="handleOpenModal(item as Product)">
           <fa-icon class="text-[#477182]/80 text-xl" icon="pen-to-square"></fa-icon>
         </button>
@@ -46,8 +50,19 @@ import CreateModal from "@/components/modal/create.vue";
 const { setModal, closeModal } = useModal();
 const adminStore = useAdminStore();
 
+const columns = [
+  { name: "編號", key: "id" },
+  { name: "產品類別", key: "category" },
+  { name: "產品名稱", key: "name" },
+  { name: "產品原價", key: "originPrice" },
+  { name: "產品售價", key: "price" },
+  { name: "是否啟用", key: "isEnabled", custom: true },
+  { name: "功能", key: "function", custom: true },
+];
+
 const productFields = [
   { key: "name", type: "text", label: "名稱", placeholder: "請輸入名稱", rules: "required" },
+  { key: "imageUrl", type: "text", label: "產品圖片", placeholder: "請輸入圖片網址" },
   { key: "category", type: "text", label: "類別", placeholder: "請輸入類別", rules: "required" },
   {
     key: "originPrice",
@@ -61,20 +76,10 @@ const productFields = [
   { key: "description", type: "text", label: "產品描述", placeholder: "請輸入產品描述" },
   { key: "content", type: "text", label: "產品內容", placeholder: "請輸入產品內容" },
   { key: "isEnabled", type: "boolean", label: "是否啟用" },
-  { key: "image", type: "file", label: "產品圖片" },
 ];
 
 const products = ref<Product[]>([]);
 const pagination = ref<Pagination>({} as Pagination);
-const columns = ref([
-  { name: "編號", key: "id", width: "250px" },
-  { name: "產品類別", key: "category" },
-  { name: "產品名稱", key: "name" },
-  { name: "產品原價", key: "originPrice" },
-  { name: "產品售價", key: "price" },
-  { name: "是否啟用", key: "isEnabled" },
-  { name: "功能" },
-]);
 
 const handleGetProducts = async (page = 1) => {
   const response: ApiResponse = await getProductsApi(page, adminStore.search);
@@ -108,10 +113,22 @@ const handleOpenModal = async (product?: Product) => {
     },
     listeners: {
       submit: async (form: Product) => {
+        const params: ApiProduct = {
+          id: form.id || "",
+          name: form.name,
+          image_url: form.imageUrl || "",
+          category: form.category,
+          origin_price: form.originPrice,
+          price: form.price,
+          unit: form.unit,
+          description: form.description || "",
+          content: form.content || "",
+          is_enabled: form.isEnabled || false,
+        };
         if (product) {
-          await updateProductApi(form.id, JSON.parse(JSON.stringify(form)) as FormData);
+          await updateProductApi(form.id, JSON.parse(JSON.stringify(params)) as FormData);
         } else {
-          await createProductApi(JSON.parse(JSON.stringify(form)) as FormData);
+          await createProductApi(JSON.parse(JSON.stringify(params)) as FormData);
         }
         await handleGetProducts(pagination.value.currentPage);
         closeModal();

@@ -1,5 +1,5 @@
 <template>
-  <div id="admin-coupons">
+  <div class="px-1">
     <div class="flex justify-between items-center my-4">
       <Page :pagination="pagination" @change="handleGetCoupons" />
       <button
@@ -115,14 +115,23 @@ const handleOpenModal = async (coupon?: Coupon) => {
     props: {
       title: coupon ? "編輯優惠券" : "新增優惠券",
       fields: couponFields,
-      form: coupon,
+      form: JSON.parse(JSON.stringify(coupon || {})),
     },
     listeners: {
       submit: async (form: Coupon) => {
+        const params: ApiCoupon = {
+          id: form.id || "",
+          name: form.name,
+          code: form.code,
+          percent: form.percent,
+          start_time: new Date(form.startTime).getTime() / 1000,
+          end_time: new Date(form.endTime).getTime() / 1000,
+          is_enabled: form.isEnabled,
+        };
         if (coupon) {
-          await updateCouponApi(form.id, JSON.parse(JSON.stringify(form)) as FormData);
+          await updateCouponApi(form.id, JSON.parse(JSON.stringify(params)) as FormData);
         } else {
-          await createCouponApi(JSON.parse(JSON.stringify(form)) as FormData);
+          await createCouponApi(JSON.parse(JSON.stringify(params)) as FormData);
         }
         await handleGetCoupons(pagination.value.currentPage);
         closeModal();

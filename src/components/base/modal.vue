@@ -1,25 +1,18 @@
 <template>
   <div
-    class="fixed inset-0 flex items-center justify-center z-50 bg-black/50 backdrop-blur-[30px] opacity-100 visible transition-opacity duration-300 ease-in-out"
+    class="fixed inset-0 flex items-center justify-center z-50 bg-[#477182]/10 opacity-100 visible transition-opacity duration-100 ease-in-out"
   >
-    <div
-      class="flex flex-col bg-zinc-800 border rounded-xl shadow-lg w-9/10 max-w-md max-h-8/10 backdrop-blur-[10px] pt-14 overflow-hidden"
-    >
-      <div
-        class="absolute top-0 left-0 w-full flex justify-between items-center h-14 bg-zinc-800 z-10 px-3"
-      >
-        <h2 class="text-lg text-white">{{ title }}</h2>
-        <button
-          class="bg-zinc-600 text-2xl text-white outline-none w-7 h-7 flex justify-center items-center rounded hover:bg-zinc-700 cursor-pointer"
-          @click="$emit('close')"
-        >
-          <fa-icon icon="xmark" class="text-sm"></fa-icon>
+    <div class="relative flex flex-col bg-white w-9/10 max-w-lg max-h-8/10 overflow-hidden p-4">
+      <div class="flex justify-between items-center h-10">
+        <h2 class="text-base text-gray-700">{{ title }}</h2>
+        <button class="outline-none cursor-pointer p-2" @click="$emit('close')">
+          <fa-icon icon="xmark" class="text-sm text-gray-400"></fa-icon>
         </button>
       </div>
-      <div class="py-2 px-4 text-base flex-1 overflow-y-auto">
+      <div class="text-sm flex-1 overflow-y-auto py-2">
         <slot name="body"></slot>
       </div>
-      <div class="py-2 px-4 text-base">
+      <div class="text-sm py-2">
         <slot name="footer"></slot>
       </div>
     </div>

@@ -1,8 +1,5 @@
 <template>
-  <ul
-    class="w-full grid gap-y-2 px-1"
-    :style="{ gridTemplateColumns }"
-  >
+  <ul class="w-full grid gap-y-2" :style="{ gridTemplateColumns }">
     <li
       class="grid col-span-full grid-cols-subgrid items-center bg-[#477182]/10 py-2 rounded-xs shadow-sm"
     >
@@ -24,15 +21,15 @@
         :key="column.key || `function_slot_body_${index}`"
         class="block font-thin text-sm text-zinc-600 pl-4"
       >
-        <template v-if="column.key">{{ item[column.key] }}</template>
-        <slot v-else :item="item"></slot>
+        <slot v-if="column.custom" :name="column.key" :item="item"></slot>
+        <template v-else>{{ column.key ? item[column.key] : "" }}</template>
       </span>
     </li>
   </ul>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed } from "vue";
 
 defineOptions({
   name: "AdminTable",
@@ -54,6 +51,6 @@ const gridTemplateColumns = computed(() => `repeat(${props.columns.length}, auto
 export type TableColumn = {
   name: string;
   key?: string;
-  width?: string;
+  custom?: boolean;
 };
 </script>

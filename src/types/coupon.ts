@@ -5,7 +5,7 @@ export type ApiCoupon = {
   percent: number;
   start_time: number;
   end_time: number;
-  is_enabled: number;
+  is_enabled: boolean;
 };
 
 export type Coupon = {

@@ -8,20 +8,34 @@
             :name="field.key"
             :type="field.type"
             :placeholder="field.placeholder"
-            v-model="formValues[field.key]"
+            :model-value="formValues[field.key]"
+            @update:model-value="(value) => setFieldValue(field.key, value)"
           />
         </div>
       </form>
     </template>
     <template #footer>
-      <button @click="onSubmit">送出</button>
-      <button v-if="form && form.id" @click="emit('delete', form.id)">刪除</button>
+      <div class="flex justify-end items-center gap-2">
+        <button
+          class="bg-[#477182] text-white rounded-sm px-10 py-2 cursor-pointer"
+          @click="onSubmit"
+        >
+          送出
+        </button>
+        <button
+          v-if="form?.id"
+          class="bg-red-400 text-white rounded-sm px-10 py-2 cursor-pointer"
+          @click="emit('delete', form.id)"
+        >
+          刪除
+        </button>
+      </div>
     </template>
   </baseModal>
 </template>
 
 <script lang="ts" setup>
-import { watch } from "vue";
+import { watch, nextTick } from "vue";
 import { useForm } from "vee-validate";
 import baseModal from "@/components/base/modal.vue";
 import baseInput from "@/components/base/input.vue";
@@ -54,10 +68,11 @@ const validationSchema = props.fields.reduce((schema, field) => {
 
 const {
   handleSubmit,
-  setValues,
   values: formValues,
+  setValues,
+  resetForm,
+  setFieldValue,
 } = useForm({
-  initialValues: props.form,
   validationSchema: validationSchema,
 });
 
@@ -67,8 +82,23 @@ const onSubmit = handleSubmit((values) => {
 
 watch(
   () => props.form,
-  (newData) => {
-    setValues(newData || {});
+  async (newData) => {
+    if (newData) {
+      // 完全重置表單
+      resetForm();
+      // 創建一個完全乾淨的物件
+      const cleanData: Record<string, any> = {};
+      Object.keys(newData).forEach((key) => {
+        const value = newData[key];
+        if (value !== null && value !== undefined) {
+          cleanData[key] =
+            typeof value === "object" && value !== null ? JSON.parse(JSON.stringify(value)) : value;
+        }
+      });
+      setValues(cleanData);
+    } else {
+      resetForm();
+    }
   },
   { immediate: true, deep: true }
 );

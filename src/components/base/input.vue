@@ -1,19 +1,15 @@
 <template>
-  <div class="relative w-full mb-4">
-    <!-- Label -->
-    <label
-      v-if="label"
-      :for="inputId"
-      class="block text-xs font-medium text-zinc-200 mb-2 transition-all duration-200"
-      :class="{ 'text-blue-600': isFocused || hasValue }"
-    >
+  <div
+    class="relative w-full flex items-center justify-between gap-3 h-10 bg-gray-200 pl-3 pr-2 inset-ring"
+    :class="[hasError ? 'inset-ring-red-500' : 'inset-ring-gray-200']"
+  >
+    <label v-if="label" :for="inputId" class="text-xs text-gray-500">
       {{ label }}
       <span v-if="required" class="text-red-500 ml-1">*</span>
     </label>
 
-    <!-- Input Container -->
-    <div class="relative rounded-lg">
-      <!-- Boolean Switch -->
+    <div class="relative flex-1 text-right">
+      <!-- Switcher -->
       <div v-if="type === 'boolean'" class="switch-wrapper">
         <input type="checkbox" :id="inputId" class="switch-input" v-model="switchValue" />
         <label :for="inputId" class="switch-label"></label>
@@ -43,45 +39,21 @@
         :min="min"
         :max="max"
         :step="step"
-        class="w-full p-2 rounded-lg bg-zinc-900 text-sm outline-none"
-        :class="{
-          'placeholder:text-zinc-600 text-white': !hasError,
-          'inset-ring inset-ring-zinc-500 text-white': isFocused,
-          'inset-ring inset-ring-red-600 text-red-600 placeholder:text-red-700': hasError,
-          'opacity-60 cursor-not-allowed': disabled,
-        }"
+        class="w-full p-2 rounded-lg text-xs outline-none text-right"
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
         @keydown="handleKeydown"
       />
-
-      <!-- Icon (if provided) -->
-      <div
-        v-if="icon && type !== 'boolean'"
-        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
-      >
-        <fa-icon :icon="icon" />
-      </div>
-
-      <!-- Password toggle -->
-      <button
-        v-if="type === 'password'"
-        type="button"
-        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 bg-transparent border-0 cursor-pointer transition-colors duration-200 outline-none hover:text-gray-600 focus:text-blue-500"
-        @click="togglePasswordVisibility"
-      >
-        <fa-icon :icon="showPassword ? 'eye-slash' : 'eye'" />
-      </button>
     </div>
 
     <!-- Error Message -->
-    <div v-if="hasError" class="mt-2 text-sm text-red-600">
+    <div v-if="hasError" class="mt-2 text-xs text-red-600">
       {{ errorMessage }}
     </div>
 
     <!-- Helper Text -->
-    <div v-if="helperText && !hasError" class="mt-2 text-sm text-gray-600">
+    <div v-if="helperText && !hasError" class="mt-2 text-xs text-gray-600">
       {{ helperText }}
     </div>
   </div>
