@@ -31,10 +31,10 @@
 import { ref, onBeforeMount, watch } from "vue";
 
 import {
-  getProductsApi,
-  createProductApi,
-  updateProductApi,
-  deleteProductApi,
+  getAdminProductsApi,
+  createAdminProductApi,
+  updateAdminProductApi,
+  deleteAdminProductApi,
 } from "@/request/product";
 
 import type { ApiResponse, Pagination } from "@/types/api";
@@ -82,7 +82,7 @@ const products = ref<Product[]>([]);
 const pagination = ref<Pagination>({} as Pagination);
 
 const handleGetProducts = async (page = 1) => {
-  const response: ApiResponse = await getProductsApi(page, adminStore.search);
+  const response: ApiResponse = await getAdminProductsApi(page, adminStore.search);
   products.value = (response.data || []).map((item: ApiProduct) => ({
     id: item.id,
     name: item.name,
@@ -99,7 +99,7 @@ const handleGetProducts = async (page = 1) => {
 };
 
 const handleDeletProduct = async (id: string) => {
-  await deleteProductApi(id);
+  await deleteAdminProductApi(id);
   await handleGetProducts(pagination.value.currentPage);
 };
 
@@ -126,9 +126,9 @@ const handleOpenModal = async (product?: Product) => {
           is_enabled: form.isEnabled || false,
         };
         if (product) {
-          await updateProductApi(form.id, JSON.parse(JSON.stringify(params)) as FormData);
+          await updateAdminProductApi(form.id, JSON.parse(JSON.stringify(params)) as FormData);
         } else {
-          await createProductApi(JSON.parse(JSON.stringify(params)) as FormData);
+          await createAdminProductApi(JSON.parse(JSON.stringify(params)) as FormData);
         }
         await handleGetProducts(pagination.value.currentPage);
         closeModal();

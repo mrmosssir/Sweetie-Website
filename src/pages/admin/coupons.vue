@@ -30,7 +30,12 @@
 <script setup lang="ts">
 import { ref, computed, onBeforeMount, watch } from "vue";
 
-import { getCouponsApi, createCouponApi, updateCouponApi, deleteCouponApi } from "@/request/coupon";
+import {
+  getAdminCouponsApi,
+  createAdminCouponApi,
+  updateAdminCouponApi,
+  deleteAdminCouponApi,
+} from "@/request/coupon";
 
 import type { ApiResponse, Pagination } from "@/types/api";
 import type { Coupon, ApiCoupon } from "@/types/coupon";
@@ -96,7 +101,7 @@ const formatDate = (timestamp: number) => {
 };
 
 const handleGetCoupons = async (page = 1) => {
-  const response: ApiResponse = await getCouponsApi(page, adminStore.search);
+  const response: ApiResponse = await getAdminCouponsApi(page, adminStore.search);
   coupons.value = (response.data || []).map((item: ApiCoupon) => ({
     id: item.id,
     name: item.name,
@@ -110,7 +115,7 @@ const handleGetCoupons = async (page = 1) => {
 };
 
 const handleDeleteCoupon = async (id: string) => {
-  await deleteCouponApi(id);
+  await deleteAdminCouponApi(id);
   await handleGetCoupons(pagination.value.currentPage);
 };
 
@@ -134,9 +139,9 @@ const handleOpenModal = async (coupon?: Coupon) => {
           is_enabled: form.isEnabled,
         };
         if (coupon) {
-          await updateCouponApi(form.id, JSON.parse(JSON.stringify(params)) as FormData);
+          await updateAdminCouponApi(form.id, JSON.parse(JSON.stringify(params)) as FormData);
         } else {
-          await createCouponApi(JSON.parse(JSON.stringify(params)) as FormData);
+          await createAdminCouponApi(JSON.parse(JSON.stringify(params)) as FormData);
         }
         await handleGetCoupons(pagination.value.currentPage);
         closeModal();

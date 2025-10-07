@@ -1,7 +1,5 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script setup lang="ts">
@@ -18,7 +16,7 @@ body * {
   font-family: "Noto Sans TC", sans-serif;
 }
 
-.text-indent {
-  text-indent: 2rem;
+#app {
+  overflow-y: hidden;
 }
 </style>

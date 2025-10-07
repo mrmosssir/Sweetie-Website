@@ -1,21 +1,21 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import AdminLayout from "@/layouts/admin.vue";
-import AdminProducts from "@/views/adminProducts.vue";
-import AdminOrders from "@/views/adminOrders.vue";
-import AdminCoupons from "@/views/adminCoupons.vue";
+import AdminProducts from "@/pages/admin/products.vue";
+import AdminOrders from "@/pages/admin/orders.vue";
+import AdminCoupons from "@/pages/admin/coupons.vue";
 
-import Login from "@/views/Login.vue";
-import Client from "@/views/Client.vue";
-import Main from "@/views/Main.vue";
-import Product from "@/views/Product.vue";
-import ProductMain from "@/views/ProductMain.vue";
-import ProductDetail from "@/views/ProductDetail.vue";
-import Coupon from "@/views/Coupon.vue";
-import Cart from "@/views/Cart.vue";
-import CartForm from "@/views/CartForm.vue";
-import CartPayment from "@/views/CartPayment.vue";
-import News from "@/views/News.vue";
+import Login from "@/pages/Login.vue";
+import Client from "@/pages/Client.vue";
+import Main from "@/pages/Main.vue";
+import Product from "@/pages/Product.vue";
+import ProductMain from "@/pages/ProductMain.vue";
+import ProductDetail from "@/pages/ProductDetail.vue";
+import Coupon from "@/pages/Coupon.vue";
+import Cart from "@/pages/Cart.vue";
+import CartForm from "@/pages/CartForm.vue";
+import CartPayment from "@/pages/CartPayment.vue";
+import News from "@/pages/News.vue";
 
 const routes = [
   {
