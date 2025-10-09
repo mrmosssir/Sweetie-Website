@@ -16,12 +16,20 @@
         <fa-icon v-else icon="xmark" class="text-red-400"></fa-icon>
       </template>
       <template #function="{ item }">
-        <button class="mx-1 cursor-pointer" @click="handleOpenModal(item as Coupon)">
-          <fa-icon class="text-[#477182]/80 text-xl" icon="pen-to-square"></fa-icon>
-        </button>
-        <button class="mx-1 cursor-pointer" @click="handleDeleteCoupon(item.id)">
-          <fa-icon class="text-red-400 text-xl" icon="xmark"></fa-icon>
-        </button>
+        <div class="flex gap-1">
+          <button
+            class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer"
+            @click="handleOpenModal(item as Coupon)"
+          >
+            <fa-icon class="text-[#477182]/80 text-sm" icon="pen-to-square"></fa-icon>
+          </button>
+          <button
+            class="border border-red-400 rounded-sm w-8 h-8 cursor-pointer"
+            @click="handleDeleteCoupon(item.id)"
+          >
+            <fa-icon class="text-red-400 text-sm" icon="xmark"></fa-icon>
+          </button>
+        </div>
       </template>
     </Table>
   </div>

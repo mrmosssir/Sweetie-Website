@@ -231,4 +231,10 @@ onMounted(() => {
   left: calc(100% - 2px);
   transform: translateX(-100%);
 }
+
+:deep([data-test-id="dp-input"]) {
+  background: transparent;
+  border: none;
+  text-align: center;
+}
 </style>

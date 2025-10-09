@@ -5,6 +5,7 @@ export type ApiOrder = {
   note: string;
   total_price: number;
   is_paid: boolean;
+  is_picked: boolean;
   is_enabled: boolean;
   paid_at: string;
   picked_at: string;
@@ -18,6 +19,7 @@ export type Order = {
   note: string;
   totalPrice: number;
   isPaid: boolean;
+  isPicked: boolean;
   isEnabled: boolean;
   paidAt: string;
   pickedAt: string;
@@ -27,4 +29,5 @@ export type Order = {
 export type OrderProduct = {
   name: string;
   count: number;
+  price: number;
 };

@@ -15,16 +15,21 @@ import { onAuthStateChanged } from "firebase/auth";
 // Font Awesome 輕量化配置
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
 // 只導入需要的圖標 (按需添加)
 import {
   faAngleLeft,
   faAngleRight,
+  faBars,
+  faBreadSlice,
+  faCakeCandles,
   faCartShopping,
   faCheck,
   faClipboardList,
   faCookieBite,
   faDollarSign,
   faGreaterThan,
+  faMugHot,
   faPenToSquare,
   faPlus,
   faRightFromBracket,
@@ -34,17 +39,24 @@ import {
   faTrash,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { faFacebook, faInstagram, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 
 // 只添加需要的圖標到庫中
 library.add(
   faAngleLeft,
   faAngleRight,
+  faBars,
+  faBreadSlice,
+  faCakeCandles,
   faCartShopping,
   faCheck,
   faClipboardList,
   faCookieBite,
+  faFacebook,
   faDollarSign,
   faGreaterThan,
+  faInstagram,
+  faMugHot,
   faPenToSquare,
   faPlus,
   faRightFromBracket,
@@ -52,7 +64,8 @@ library.add(
   faStroopwafel,
   faTicket,
   faTrash,
-  faXmark
+  faXmark,
+  faXTwitter
 );
 
 // Define the validation rules that will be used in the project

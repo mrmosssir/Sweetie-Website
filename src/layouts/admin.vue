@@ -5,7 +5,7 @@
     <SideBar />
     <div class="flex-1 flex flex-col gap-2">
       <Header />
-      <div class="h-full bg-white rounded-sm p-4 flex flex-col">
+      <div class="h-full bg-white rounded-sm p-4 flex flex-col max-lg:max-h-[calc(100%-3.6rem)]">
         <Breadcrumb />
         <div class="flex-1 flex gap-x-2 overflow-y-auto">
           <router-view class="flex-1"></router-view>

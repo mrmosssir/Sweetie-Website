@@ -1,6 +1,7 @@
 <template>
   <div
     class="fixed inset-0 flex items-center justify-center z-50 bg-[#477182]/10 opacity-100 visible transition-opacity duration-100 ease-in-out"
+    @click.self="$emit('close')"
   >
     <div class="relative flex flex-col bg-white w-9/10 max-w-lg max-h-8/10 overflow-hidden p-4">
       <div class="flex justify-between items-center h-10">

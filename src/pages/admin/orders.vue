@@ -5,29 +5,44 @@
     </div>
     <Table :columns="columns" :data="orders">
       <template #products="{ item }">
-        <div v-for="product in item.products" :key="product.id">
-          {{ product.name }} x {{ product.count }} - 總金額 ${{ product.price }}
+        <div class="flex flex-col gap-1">
+          <span v-for="product in item.products" :key="product.id">
+            {{ product.name }} x {{ product.count }} - 總金額 ${{ product.price }}
+          </span>
         </div>
       </template>
       <template #status="{ item }">
-        <status-item title="訂單狀態" :status="item.isEnabled"></status-item>
-        <template v-if="item.isEnabled">
-          <status-item title="付款狀態" :status="item.isPaid"></status-item>
-          <p v-if="item.paidAt">付款時間：{{ item.paidAt }}</p>
-          <status-item title="取貨狀態" :status="item.isPicked"></status-item>
-          <p v-if="item.pickedAt">取貨時間：{{ item.pickedAt }}</p>
-        </template>
+        <div class="flex flex-col gap-1">
+          <status-item title="訂單狀態" :status="item.isEnabled"></status-item>
+          <template v-if="item.isEnabled">
+            <status-item title="付款狀態" :status="item.isPaid"></status-item>
+            <p v-if="item.paidAt">付款時間：{{ item.paidAt }}</p>
+            <status-item title="取貨狀態" :status="item.isPicked"></status-item>
+            <p v-if="item.pickedAt">取貨時間：{{ item.pickedAt }}</p>
+          </template>
+        </div>
       </template>
       <template #function="{ item }">
         <div class="flex gap-1">
-          <button class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer text-sm">
-            <fa-icon class="text-[#477182]/80" icon="dollar-sign"></fa-icon>
+          <button
+            class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer"
+            v-if="!item.isPaid"
+            @click="handleUpdateOrder(item.id, 'is_paid', true)"
+          >
+            <fa-icon class="text-[#477182]/80 text-sm" icon="dollar-sign"></fa-icon>
           </button>
-          <button class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer text-sm">
-            <fa-icon class="text-[#477182]/80" icon="cart-shopping"></fa-icon>
+          <button
+            class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer"
+            v-if="!item.isPicked"
+            @click="handleUpdateOrder(item.id, 'is_picked', true)"
+          >
+            <fa-icon class="text-[#477182]/80 text-sm" icon="cart-shopping"></fa-icon>
           </button>
-          <button class="border border-red-400 rounded-sm w-8 h-8 cursor-pointer text-sm">
-            <fa-icon class="text-red-400" icon="xmark"></fa-icon>
+          <button
+            class="border border-red-400 rounded-sm w-8 h-8 cursor-pointer"
+            @click="handleUpdateOrder(item.id, 'is_enabled', !item.isEnabled)"
+          >
+            <fa-icon class="text-red-400 text-sm" icon="xmark"></fa-icon>
           </button>
         </div>
       </template>
@@ -39,12 +54,13 @@
 import { ref, onBeforeMount, watch, h } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-import { getAdminOrdersApi } from "@/request/order";
+import { getAdminOrdersApi, updateAdminOrderApi } from "@/request/order";
 
 import type { ApiResponse, Pagination } from "@/types/api";
 import type { Order, ApiOrder } from "@/types/order";
 
 import { useAdminStore } from "@/stores/admin";
+import { getDateTimeString } from "@/utils/day";
 
 import Page from "@/components/admin/pagination.vue";
 import Table from "@/components/admin/table.vue";
@@ -71,14 +87,20 @@ const handleGetOrders = async (page = 1) => {
     name: item.name,
     mail: item.mail,
     note: item.note,
-    totalPrice: item.total_price,
+    totalPrice: `$${item.total_price}`,
     isPaid: item.is_paid,
+    isPicked: item.is_picked,
     isEnabled: item.is_enabled,
-    paidAt: item.paid_at,
-    pickedAt: item.picked_at,
+    paidAt: item.paid_at ? getDateTimeString(item.paid_at) : "",
+    pickedAt: item.picked_at ? getDateTimeString(item.picked_at) : "",
     products: item.products,
   })) as Order[];
   pagination.value = response.pagination as Pagination;
+};
+
+const handleUpdateOrder = (id: string, column: string, value: boolean) => {
+  const param = { [column]: value };
+  updateAdminOrderApi(id, param as any);
 };
 
 const statusItem = ({ title, status }: { title: string; status: boolean }) => {
