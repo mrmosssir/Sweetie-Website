@@ -16,6 +16,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
+import VueRollerSwiper from "vue-roller-swiper";
+import "vue-roller-swiper/dist/style.css";
+
 // 只導入需要的圖標 (按需添加)
 import {
   faAngleLeft,
@@ -96,6 +99,9 @@ onAuthStateChanged(auth, () => {
 
     // 註冊 Font Awesome 組件
     app.component("fa-icon", FontAwesomeIcon);
+
+    // 註冊 VueRollerSwiper 插件
+    app.use(VueRollerSwiper);
 
     app.use(router);
     app.use(store); // Vuex store

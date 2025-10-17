@@ -23,9 +23,8 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "ignoreDeprecations": "6.0",
     // --- Types for Node.js environment (for .config.js files) ---
-    "types": ["node"]
+    "types": ["node", "vite/client"]
   },
   "include": [
     "src/**/*.ts",

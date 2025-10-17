@@ -40,7 +40,7 @@
         <router-link :to="menu.path" class="text-black">{{ menu.title }}</router-link>
       </li>
     </ul>
-    <div class="w-full flex flex-1 items-center">
+    <div class="w-full flex flex-1 items-center pl-24 z-[1]">
       <!-- 主要內容區塊 -->
       <div class="flex-1 h-full">
         <router-view />

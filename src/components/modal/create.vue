@@ -9,7 +9,7 @@
             :type="field.type"
             :placeholder="field.placeholder"
             :model-value="formValues[field.key]"
-            @update:model-value="(value) => setFieldValue(field.key, value)"
+            @update:model-value="(value: any) => setFieldValue(field.key, value)"
           />
         </div>
       </form>
