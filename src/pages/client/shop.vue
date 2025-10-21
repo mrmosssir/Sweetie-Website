@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import type { ClientProduct, ApiClientProduct } from "@/types/product";
+import type { ApiClientProduct } from "@/types/product";
 import { getProductsApi } from "@/request/product";
 
 import Product, { type ProductProps } from "@/components/product.vue";
@@ -28,6 +28,5 @@ onBeforeMount(async () => {
     image: item.image_url,
     rating: item.rating,
   })) as ProductProps[];
-  console.log(products.value, "test");
 });
 </script>

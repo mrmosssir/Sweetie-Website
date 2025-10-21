@@ -34,12 +34,3 @@ export type ApiClientProduct = {
   image_url: string;
   rating: string | number;
 };
-
-export type ClientProduct = {
-  id: string;
-  name: string;
-  price: number;
-  originPrice: number;
-  imageUrl: string;
-  rating: number;
-};

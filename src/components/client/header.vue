@@ -1,12 +1,12 @@
 <template>
-  <header class="flex justify-between items-center gap-x-32 py-4">
+  <header class="flex justify-between items-center gap-x-16 py-4 lg:gap-x-32">
     <!-- Logo 區塊 -->
     <h1 class="flex items-center gap-x-1">
       <fa-icon icon="stroopwafel" class="block text-[#477182] text-xl"></fa-icon>
       <span class="text-black/80 text-lg font-semibold">SuShop</span>
     </h1>
     <!-- 搜尋框 -->
-    <div class="flex flex-1 items-center gap-x-1 bg-gray-100 py-3 px-4 rounded-full">
+    <div class="hidden flex-1 items-center gap-x-1 bg-gray-100 py-3 px-4 rounded-full md:flex">
       <button class="w-7 h-7 bg-transparent cursor-pointer flex justify-center items-center">
         <fa-icon icon="search" class="text-gray text-sm"></fa-icon>
       </button>
@@ -21,8 +21,9 @@
       <fa-icon :icon="['far', 'heart']" class="text-lg text-gray-700 cursor-pointer"></fa-icon>
       <fa-icon icon="shopping-cart" class="text-lg text-gray-700 cursor-pointer"></fa-icon>
       <fa-icon icon="clipboard-list" class="text-lg text-gray-700 cursor-pointer"></fa-icon>
+      <fa-icon icon="bars" class="block text-lg text-gray-700 cursor-pointer md:!hidden"></fa-icon>
       <button
-        class="relative flex items-center bg-[#477182] text-white text-sm px-8 py-2 cursor-pointer ml-8"
+        class="relative hidden items-center bg-[#477182] text-white text-sm px-8 py-2 cursor-pointer ml-8 md:block"
       >
         加入會員
       </button>
