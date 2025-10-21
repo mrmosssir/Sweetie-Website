@@ -10,7 +10,7 @@
         <fa-icon icon="plus" class="text-white"></fa-icon>
       </button>
     </div>
-    <Table :columns="columns" :data="products">
+    <Table :columns="columns" :data="products" class="lg:max-h-[85%] overflow-y-auto">
       <template #isEnabled="{ item }">
         <fa-icon v-if="item.isEnabled" icon="check" class="text-green-500"></fa-icon>
         <fa-icon v-else icon="xmark" class="text-red-400"></fa-icon>
@@ -19,7 +19,7 @@
         <div class="flex gap-1">
           <button
             class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer"
-            @click="handleOpenModal(item as Product)"
+            @click="handleOpenModal(item as AdminProduct)"
           >
             <fa-icon class="text-[#477182]/80 text-sm" icon="pen-to-square"></fa-icon>
           </button>
@@ -46,7 +46,7 @@ import {
 } from "@/request/product";
 
 import type { ApiResponse, Pagination } from "@/types/api";
-import type { Product, ApiProduct } from "@/types/product";
+import type { AdminProduct, ApiAdminProduct } from "@/types/product";
 
 import { useModal } from "@/composables/useModal";
 import { useAdminStore } from "@/stores/admin";
@@ -86,12 +86,12 @@ const productFields = [
   { key: "isEnabled", type: "boolean", label: "是否啟用" },
 ];
 
-const products = ref<Product[]>([]);
+const products = ref<AdminProduct[]>([]);
 const pagination = ref<Pagination>({} as Pagination);
 
 const handleGetProducts = async (page = 1) => {
   const response: ApiResponse = await getAdminProductsApi(page, adminStore.search);
-  products.value = (response.data || []).map((item: ApiProduct) => ({
+  products.value = (response.data || []).map((item: ApiAdminProduct) => ({
     id: item.id,
     name: item.name,
     category: item.category,
@@ -102,7 +102,7 @@ const handleGetProducts = async (page = 1) => {
     content: item.content,
     isEnabled: item.is_enabled,
     imageUrl: item.image_url,
-  })) as Product[];
+  })) as AdminProduct[];
   pagination.value = response.pagination as Pagination;
 };
 
@@ -111,7 +111,7 @@ const handleDeletProduct = async (id: string) => {
   await handleGetProducts(pagination.value.currentPage);
 };
 
-const handleOpenModal = async (product?: Product) => {
+const handleOpenModal = async (product?: AdminProduct) => {
   setModal({
     component: CreateModal,
     props: {
@@ -120,8 +120,8 @@ const handleOpenModal = async (product?: Product) => {
       form: product,
     },
     listeners: {
-      submit: async (form: Product) => {
-        const params: ApiProduct = {
+      submit: async (form: AdminProduct) => {
+        const params: ApiAdminProduct = {
           id: form.id || "",
           name: form.name,
           image_url: form.imageUrl || "",
@@ -132,6 +132,7 @@ const handleOpenModal = async (product?: Product) => {
           description: form.description || "",
           content: form.content || "",
           is_enabled: form.isEnabled || false,
+          rating: form.rating || 0,
         };
         if (product) {
           await updateAdminProductApi(form.id, JSON.parse(JSON.stringify(params)) as FormData);

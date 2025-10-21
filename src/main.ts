@@ -41,8 +41,10 @@ import {
   faTicket,
   faTrash,
   faXmark,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faInstagram, faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
 
 // 只添加需要的圖標到庫中
 library.add(
@@ -58,10 +60,12 @@ library.add(
   faFacebook,
   faDollarSign,
   faGreaterThan,
+  faHeart,
   faInstagram,
   faMugHot,
   faPenToSquare,
   faPlus,
+  faRegularHeart,
   faRightFromBracket,
   faSearch,
   faStroopwafel,

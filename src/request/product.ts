@@ -23,3 +23,13 @@ export const updateAdminProductApi = async (
 export const deleteAdminProductApi = async (id: string): Promise<ApiResponse> => {
   return await request.delete(`/admin/product/${id}`, { meta: { admin: true } });
 };
+
+// Client 取得商品列表
+export const getProductsApi = async (page: number): Promise<ApiResponse> => {
+  return await request.get("/products", { params: { page } });
+};
+
+// Client 取得單一商品詳情
+export const getProductApi = async (id: string): Promise<ApiResponse> => {
+  return await request.get(`/product/${id}`);
+};

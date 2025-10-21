@@ -1,4 +1,4 @@
-export type ApiProduct = {
+export type ApiAdminProduct = {
   id: string;
   name: string;
   category: string;
@@ -9,9 +9,10 @@ export type ApiProduct = {
   content: string;
   is_enabled: boolean;
   image_url: string;
+  rating: string | number;
 };
 
-export type Product = {
+export type AdminProduct = {
   id: string;
   name: string;
   category: string;
@@ -22,4 +23,23 @@ export type Product = {
   content: string;
   isEnabled: boolean;
   imageUrl: string;
+  rating: number;
+};
+
+export type ApiClientProduct = {
+  id: string;
+  name: string;
+  price: string | number;
+  origin_price: string | number;
+  image_url: string;
+  rating: string | number;
+};
+
+export type ClientProduct = {
+  id: string;
+  name: string;
+  price: number;
+  originPrice: number;
+  imageUrl: string;
+  rating: number;
 };
