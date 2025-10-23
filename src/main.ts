@@ -23,6 +23,7 @@ import "vue-roller-swiper/dist/style.css";
 import {
   faAngleLeft,
   faAngleRight,
+  faArrowLeft,
   faBars,
   faBreadSlice,
   faCakeCandles,
@@ -50,6 +51,7 @@ import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
 library.add(
   faAngleLeft,
   faAngleRight,
+  faArrowLeft,
   faBars,
   faBreadSlice,
   faCakeCandles,

@@ -41,7 +41,6 @@ request.interceptors.response.use(
     return response.data as any;
   },
   (error) => {
-    router.push("/login");
     return Promise.reject(error);
   }
 );

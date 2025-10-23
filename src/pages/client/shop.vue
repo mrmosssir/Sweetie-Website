@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import type { ApiClientProduct } from "@/types/product";
+import type { ApiProductSimple } from "@/types/product";
 import { getProductsApi } from "@/request/product";
 
 import Product, { type ProductProps } from "@/components/product.vue";
@@ -20,7 +20,7 @@ const products = ref<ProductProps[]>([]);
 
 onBeforeMount(async () => {
   const response = await getProductsApi(currentPage.value);
-  products.value = (response.data || []).map((item: ApiClientProduct) => ({
+  products.value = (response.data || []).map((item: ApiProductSimple) => ({
     id: item.id,
     name: item.name,
     price: item.price,

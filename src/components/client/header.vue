@@ -18,10 +18,14 @@
     </div>
     <!-- 功能按鈕區塊 -->
     <div class="flex items-center gap-x-6">
-      <fa-icon :icon="['far', 'heart']" class="text-lg text-gray-700 cursor-pointer"></fa-icon>
-      <fa-icon icon="shopping-cart" class="text-lg text-gray-700 cursor-pointer"></fa-icon>
-      <fa-icon icon="clipboard-list" class="text-lg text-gray-700 cursor-pointer"></fa-icon>
-      <fa-icon icon="bars" class="block text-lg text-gray-700 cursor-pointer md:!hidden"></fa-icon>
+      <menu-icon :icon="['far', 'heart']" :label="productStore.favorites.length"></menu-icon>
+      <menu-icon
+        icon="shopping-cart"
+        :label="cartStore.carts.length"
+        @click="handleToCart"
+      ></menu-icon>
+      <menu-icon icon="clipboard-list"></menu-icon>
+      <menu-icon icon="bars" class="md:!hidden"></menu-icon>
       <button
         class="relative hidden items-center bg-[#477182] text-white text-sm px-8 py-2 cursor-pointer ml-8 md:block"
       >
@@ -31,4 +35,18 @@
   </header>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useRouter } from "vue-router";
+import { useCartStore } from "@/stores/cart";
+import { useProductStore } from "@/stores/product";
+import menuIcon from "@/components/base/menuIcon.vue";
+
+const router = useRouter();
+
+const cartStore = useCartStore();
+const productStore = useProductStore();
+
+const handleToCart = () => {
+  router.push({ path: "/cart" });
+};
+</script>

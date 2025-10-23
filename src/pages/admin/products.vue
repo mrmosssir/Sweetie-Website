@@ -46,7 +46,7 @@ import {
 } from "@/request/product";
 
 import type { ApiResponse, Pagination } from "@/types/api";
-import type { AdminProduct, ApiAdminProduct } from "@/types/product";
+import type { AdminProduct, ApiProduct } from "@/types/product";
 
 import { useModal } from "@/composables/useModal";
 import { useAdminStore } from "@/stores/admin";
@@ -91,7 +91,7 @@ const pagination = ref<Pagination>({} as Pagination);
 
 const handleGetProducts = async (page = 1) => {
   const response: ApiResponse = await getAdminProductsApi(page, adminStore.search);
-  products.value = (response.data || []).map((item: ApiAdminProduct) => ({
+  products.value = (response.data || []).map((item: ApiProduct) => ({
     id: item.id,
     name: item.name,
     category: item.category,
@@ -121,7 +121,7 @@ const handleOpenModal = async (product?: AdminProduct) => {
     },
     listeners: {
       submit: async (form: AdminProduct) => {
-        const params: ApiAdminProduct = {
+        const params: ApiProduct = {
           id: form.id || "",
           name: form.name,
           image_url: form.imageUrl || "",
