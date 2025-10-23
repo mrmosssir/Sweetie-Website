@@ -37,8 +37,8 @@
 <script lang="ts" setup>
 import { watch, nextTick } from "vue";
 import { useForm } from "vee-validate";
-import baseModal from "@/components/base/modal.vue";
-import baseInput from "@/components/base/input.vue";
+import baseModal from "@/components/admin/modal.vue";
+import baseInput from "@/components/admin/input.vue";
 
 export type FormField = {
   key: string;

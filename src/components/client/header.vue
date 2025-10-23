@@ -39,7 +39,7 @@
 import { useRouter } from "vue-router";
 import { useCartStore } from "@/stores/cart";
 import { useProductStore } from "@/stores/product";
-import menuIcon from "@/components/base/menuIcon.vue";
+import menuIcon from "@/components/client/menuIcon.vue";
 
 const router = useRouter();
 

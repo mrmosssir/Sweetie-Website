@@ -23,7 +23,7 @@
         </div>
       </template>
       <template #function="{ item }">
-        <div class="flex gap-1">
+        <div class="flex gap-1" v-if="item.isEnabled">
           <button
             class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer"
             v-if="!item.isPaid"

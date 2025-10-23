@@ -5,10 +5,12 @@
     <SideBar />
     <div class="flex-1 flex flex-col gap-2">
       <Header />
-      <div class="h-full bg-white rounded-sm p-4 flex flex-col max-lg:max-h-[calc(100%-3.6rem)]">
+      <div
+        class="flex-1 bg-white rounded-sm p-4 flex flex-col max-lg:max-h-[calc(100%-3.6rem)] overflow-y-hidden"
+      >
         <Breadcrumb />
-        <div class="flex-1 flex gap-x-2 overflow-y-auto">
-          <router-view class="flex-1"></router-view>
+        <div class="flex-1 flex gap-x-2 overflow-y-hidden">
+          <router-view class="flex-1 overflow-y-auto"></router-view>
           <div class="hidden w-96 rounded-lg bg-[#f6d4c1] xl:block"></div>
         </div>
       </div>
@@ -21,7 +23,7 @@
 import SideBar from "@/components/admin/sidebar.vue";
 import Header from "@/components/admin/header.vue";
 import Breadcrumb from "@/components/admin/breadcrumb.vue";
-import Modal from "@/components/modal/index.vue";
+import Modal from "@/components/admin/modal/index.vue";
 
 defineOptions({
   name: "AdminLayout",

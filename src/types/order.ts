@@ -31,3 +31,13 @@ export type OrderProduct = {
   count: number;
   price: number;
 };
+
+export type CreateOrderRequest = {
+  name: string;
+  mail: string;
+  products: {
+    name: string;
+    count: number;
+    price: number;
+  }[];
+};

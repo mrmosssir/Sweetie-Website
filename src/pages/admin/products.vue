@@ -53,7 +53,7 @@ import { useAdminStore } from "@/stores/admin";
 
 import Page from "@/components/admin/pagination.vue";
 import Table from "@/components/admin/table.vue";
-import CreateModal from "@/components/modal/create.vue";
+import CreateModal from "@/components/admin/modal/create.vue";
 
 const { setModal, closeModal } = useModal();
 const adminStore = useAdminStore();

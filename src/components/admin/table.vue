@@ -14,7 +14,7 @@
     <li
       v-for="(item, index) in data"
       :key="index"
-      class="grid col-span-full grid-cols-subgrid items-center bg-white py-3 rounded-xs shadow-sm max-lg:block"
+      class="grid col-span-full grid-cols-subgrid items-center bg-white p-3 rounded-xs shadow-sm max-lg:block"
     >
       <div
         v-for="column in columns"

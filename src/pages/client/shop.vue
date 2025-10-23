@@ -9,7 +9,7 @@ import { ref, onBeforeMount } from "vue";
 import type { ApiProductSimple } from "@/types/product";
 import { getProductsApi } from "@/request/product";
 
-import Product, { type ProductProps } from "@/components/product.vue";
+import Product, { type ProductProps } from "@/components/client/product.vue";
 
 defineOptions({
   name: "ClientShopPage",
