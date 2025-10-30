@@ -24,7 +24,7 @@
         :label="cartStore.carts.length"
         @click="handleToCart"
       ></menu-icon>
-      <menu-icon icon="clipboard-list"></menu-icon>
+      <menu-icon icon="clipboard-list" @click="handleToHistory"></menu-icon>
       <menu-icon icon="bars" class="md:!hidden"></menu-icon>
       <button
         class="relative hidden items-center bg-[#477182] text-white text-sm px-8 py-2 cursor-pointer ml-8 md:block"
@@ -48,5 +48,9 @@ const productStore = useProductStore();
 
 const handleToCart = () => {
   router.push({ path: "/cart" });
+};
+
+const handleToHistory = () => {
+  router.push({ path: "/order/history" });
 };
 </script>

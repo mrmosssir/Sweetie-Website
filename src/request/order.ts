@@ -12,6 +12,10 @@ export const updateAdminOrderApi = async (id: string, order: any): Promise<ApiRe
   return await request.put(`/admin/order/${id}`, order, { meta: { admin: true } });
 };
 
+export const searchOrderApi = async (search: string): Promise<ApiResponse> => {
+  return await request.get("/order", { params: { search } });
+};
+
 // Client 建立訂單
 export const createOrderApi = async (order: CreateOrderRequest): Promise<ApiResponse> => {
   return await request.post("/order", order);
