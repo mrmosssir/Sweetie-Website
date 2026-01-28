@@ -22,6 +22,16 @@ const routes = [
         },
       },
       {
+        path: "category",
+        name: "AdminCategory",
+        component: () => import("@/pages/admin/category.vue"),
+        meta: {
+          title: "類別",
+          icon: "tag",
+        },
+      },
+
+      {
         path: "orders",
         name: "AdminOrders",
         component: () => import("@/pages/admin/orders.vue"),

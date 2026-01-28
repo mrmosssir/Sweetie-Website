@@ -6,9 +6,7 @@
     <Table :columns="columns" :data="orders">
       <template #products="{ item }">
         <div class="flex flex-col gap-1">
-          <span v-for="product in item.products" :key="product.id">
-            {{ product.name }} x {{ product.count }} - 總金額 ${{ product.price }}
-          </span>
+          <span v-for="product in item.products" :key="product.id"> {{ product.name }} x {{ product.count }} - 總金額 ${{ product.price }} </span>
         </div>
       </template>
       <template #status="{ item }">
@@ -38,10 +36,7 @@
           >
             <fa-icon class="text-[#477182]/80 text-sm" icon="cart-shopping"></fa-icon>
           </button>
-          <button
-            class="border border-red-400 rounded-sm w-8 h-8 cursor-pointer"
-            @click="handleUpdateOrder(item.id, 'is_enabled', !item.isEnabled)"
-          >
+          <button class="border border-red-400 rounded-sm w-8 h-8 cursor-pointer" @click="handleUpdateOrder(item.id, 'is_enabled', !item.isEnabled)">
             <fa-icon class="text-red-400 text-sm" icon="xmark"></fa-icon>
           </button>
         </div>
@@ -51,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount, watch, h } from "vue";
+import { ref, watch, h } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import { getAdminOrdersApi, updateAdminOrderApi } from "@/request/order";
@@ -113,12 +108,10 @@ const statusItem = ({ title, status }: { title: string; status: boolean }) => {
   ]);
 };
 
-onBeforeMount(async () => {
-  await handleGetOrders();
-});
+handleGetOrders();
 
 watch(
   () => adminStore.search,
-  () => handleGetOrders()
+  () => handleGetOrders(),
 );
 </script>

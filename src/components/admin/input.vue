@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative w-full flex items-center justify-between gap-3 h-10 bg-gray-200 pl-3 pr-2 inset-ring"
+    class="relative w-full flex items-center justify-between gap-3 min-h-10 bg-gray-200 pl-3 pr-2 inset-ring"
     :class="[hasError ? 'inset-ring-red-500' : 'inset-ring-gray-200']"
   >
     <label v-if="label" :for="inputId" class="text-xs text-gray-500">
@@ -18,13 +18,19 @@
       <!-- Datepicker -->
       <VueDatePicker
         v-else-if="type === 'datetime'"
-        :model-value="(modelValue as number)"
+        :model-value="modelValue as number"
         @update:model-value="handleDateUpdate"
         teleport-center
         :placeholder="placeholder"
         :disabled="disabled"
         class="w-full"
       />
+
+      <!-- File Upload -->
+      <template v-else-if="type === 'file'">
+        <input ref="fileInput" type="file" @change="handleUploadChange" hidden />
+        <input type="text" class="h-full w-full outline-none cursor-pointer" :value="modelValue" readonly @click="handleUploadClick" />
+      </template>
 
       <!-- Input Field -->
       <input
@@ -60,16 +66,21 @@
 </template>
 
 <script lang="ts" setup>
+import "@vuepic/vue-datepicker/dist/main.css";
+
 import { ref, computed, onMounted } from "vue";
 import VueDatePicker from "@vuepic/vue-datepicker";
-import "@vuepic/vue-datepicker/dist/main.css";
+
+import { uploadFileApi } from "@/request/upload";
+
+type InputValue = string | number | Date | boolean | File | Blob;
 
 // Props 定義
 interface Props {
   // v-model
-  modelValue?: string | number | Date | boolean;
+  modelValue?: InputValue;
   // 基本屬性
-  type?: "text" | "number" | "password" | "datetime" | "boolean";
+  type?: "text" | "number" | "password" | "datetime" | "boolean" | "file";
   label?: string;
   placeholder?: string;
   // 狀態
@@ -84,6 +95,8 @@ interface Props {
   icon?: string;
   errorMessage?: string;
   helperText?: string;
+  // 來源位置 (給上傳圖片用)
+  page: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -104,11 +117,13 @@ const props = withDefaults(defineProps<Props>(), {
 
 // Emits 定義
 const emit = defineEmits<{
-  "update:modelValue": [value: string | number | Date | boolean];
+  "update:modelValue": [value: InputValue];
   focus: [event: FocusEvent];
   blur: [event: FocusEvent];
   keydown: [event: KeyboardEvent];
 }>();
+
+const fileInput = ref<HTMLInputElement | null>(null);
 
 // 響應式狀態
 const isFocused = ref(false);
@@ -143,11 +158,16 @@ const switchValue = computed({
 // 方法
 const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
-  let value: string | number = target.value;
+  let value: InputValue = target.value;
 
   // 數字類型處理
   if (props.type === "number") {
-    value = value === "" ? "" : Number(value);
+    value = value ? Number(value) : "";
+  }
+
+  // 檔案類型處理
+  if (props.type === "file" && target.files && target.files.length > 0) {
+    value = target.files[0];
   }
 
   emit("update:modelValue", value);
@@ -175,6 +195,24 @@ const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
 
+const handleUploadClick = () => {
+  console.log("handleUploadClick", fileInput.value);
+  if (!fileInput.value) return;
+  fileInput.value.click();
+};
+
+const handleUploadChange = async (event: Event) => {
+  try {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      const { data } = await uploadFileApi(target.files[0], props.page);
+      if (!data.url) return;
+      emit("update:modelValue", data.url);
+    }
+  } catch (error) {
+    console.error("File upload failed:", error);
+  }
+};
 // 生命週期
 onMounted(() => {
   inputId.value = `input-${Math.random().toString(36).substr(2, 9)}`;

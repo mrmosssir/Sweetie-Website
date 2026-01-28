@@ -9,40 +9,31 @@
             :type="field.type"
             :placeholder="field.placeholder"
             :model-value="formValues[field.key]"
+            :page="page"
             @update:model-value="(value: any) => setFieldValue(field.key, value)"
           />
+          <img class="mt-4 mx-auto" v-if="field.type === 'file' && formValues[field.key]" :src="formValues[field.key]" alt="image" />
         </div>
       </form>
     </template>
     <template #footer>
       <div class="flex justify-end items-center gap-2">
-        <button
-          class="bg-[#477182] text-white rounded-sm px-10 py-2 cursor-pointer"
-          @click="onSubmit"
-        >
-          送出
-        </button>
-        <button
-          v-if="form?.id"
-          class="bg-red-400 text-white rounded-sm px-10 py-2 cursor-pointer"
-          @click="emit('delete', form.id)"
-        >
-          刪除
-        </button>
+        <button class="bg-[#477182] text-white rounded-sm px-10 py-2 cursor-pointer" @click="onSubmit">送出</button>
+        <button v-if="form?.id" class="bg-red-400 text-white rounded-sm px-10 py-2 cursor-pointer" @click="emit('delete', form.id)">刪除</button>
       </div>
     </template>
   </baseModal>
 </template>
 
 <script lang="ts" setup>
-import { watch, nextTick } from "vue";
+import { watch } from "vue";
 import { useForm } from "vee-validate";
 import baseModal from "@/components/admin/modal.vue";
 import baseInput from "@/components/admin/input.vue";
 
 export type FormField = {
   key: string;
-  type: "text" | "number" | "password" | "datetime" | "boolean";
+  type: "text" | "number" | "password" | "datetime" | "boolean" | "file";
   label: string;
   placeholder?: string;
   rules?: string | Record<string, any>;
@@ -52,6 +43,7 @@ const props = defineProps<{
   title: string;
   fields: FormField[];
   form?: Record<string, any>;
+  page: string;
 }>();
 
 const emit = defineEmits<{
@@ -59,12 +51,15 @@ const emit = defineEmits<{
   (event: "delete", id: any): void;
 }>();
 
-const validationSchema = props.fields.reduce((schema, field) => {
-  if (field.rules) {
-    schema[field.key] = field.rules;
-  }
-  return schema;
-}, {} as Record<string, any>);
+const validationSchema = props.fields.reduce(
+  (schema, field) => {
+    if (field.rules) {
+      schema[field.key] = field.rules;
+    }
+    return schema;
+  },
+  {} as Record<string, any>,
+);
 
 const {
   handleSubmit,
@@ -91,8 +86,7 @@ watch(
       Object.keys(newData).forEach((key) => {
         const value = newData[key];
         if (value !== null && value !== undefined) {
-          cleanData[key] =
-            typeof value === "object" && value !== null ? JSON.parse(JSON.stringify(value)) : value;
+          cleanData[key] = typeof value === "object" && value !== null ? JSON.parse(JSON.stringify(value)) : value;
         }
       });
       setValues(cleanData);
@@ -100,6 +94,6 @@ watch(
       resetForm();
     }
   },
-  { immediate: true, deep: true }
+  { immediate: true, deep: true },
 );
 </script>

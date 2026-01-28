@@ -2,11 +2,7 @@
   <div class="px-1">
     <div class="flex justify-between items-center my-4">
       <Page :pagination="pagination" @change="handleGetProducts" />
-      <button
-        type="button"
-        class="bg-[#477182]/80 rounded-xs w-8 h-8 cursor-pointer text-sm"
-        @click.prevent="handleOpenModal()"
-      >
+      <button type="button" class="bg-[#477182]/80 rounded-xs w-8 h-8 cursor-pointer text-sm" @click.prevent="handleOpenModal()">
         <fa-icon icon="plus" class="text-white"></fa-icon>
       </button>
     </div>
@@ -17,16 +13,10 @@
       </template>
       <template #function="{ item }">
         <div class="flex gap-1">
-          <button
-            class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer"
-            @click="handleOpenModal(item as AdminProduct)"
-          >
+          <button class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer" @click="handleOpenModal(item as AdminProduct)">
             <fa-icon class="text-[#477182]/80 text-sm" icon="pen-to-square"></fa-icon>
           </button>
-          <button
-            class="border border-red-400 rounded-sm w-8 h-8 cursor-pointer"
-            @click="handleDeletProduct(item.id)"
-          >
+          <button class="border border-red-400 rounded-sm w-8 h-8 cursor-pointer" @click="handleDeletProduct(item.id)">
             <fa-icon class="text-red-400 text-sm" icon="xmark"></fa-icon>
           </button>
         </div>
@@ -36,14 +26,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount, watch } from "vue";
+import { ref, watch } from "vue";
 
-import {
-  getAdminProductsApi,
-  createAdminProductApi,
-  updateAdminProductApi,
-  deleteAdminProductApi,
-} from "@/request/product";
+import { getAdminProductsApi, createAdminProductApi, updateAdminProductApi, deleteAdminProductApi } from "@/request/product";
 
 import type { ApiResponse, Pagination } from "@/types/api";
 import type { AdminProduct, ApiProduct } from "@/types/product";
@@ -118,6 +103,7 @@ const handleOpenModal = async (product?: AdminProduct) => {
       title: product ? "編輯產品" : "新增產品",
       fields: productFields,
       form: product,
+      page: "product",
     },
     listeners: {
       submit: async (form: AdminProduct) => {
@@ -150,12 +136,10 @@ const handleOpenModal = async (product?: AdminProduct) => {
   });
 };
 
-onBeforeMount(async () => {
-  await handleGetProducts();
-});
+handleGetProducts();
 
 watch(
   () => adminStore.search,
-  () => handleGetProducts(1)
+  () => handleGetProducts(1),
 );
 </script>

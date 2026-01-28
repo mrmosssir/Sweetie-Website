@@ -10,6 +10,14 @@ declare module "axios" {
       admin?: boolean;
     };
   }
+
+  // 覆蓋返回類型，讓外部泛型 R 作為最終返回值
+  export interface AxiosInstance {
+    get<T, R = ApiResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R>;
+    post<T, R = ApiResponse<T>>(url: string, data?: T, config?: AxiosRequestConfig): Promise<R>;
+    put<T, R = ApiResponse<T>>(url: string, data?: T, config?: AxiosRequestConfig): Promise<R>;
+    delete<T, R = ApiResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R>;
+  }
 }
 
 // Create axios instance
@@ -38,11 +46,11 @@ request.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
 // Response interceptors
 request.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
-    return response.data as any;
+    return response.data as unknown as AxiosResponse;
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 export default request;

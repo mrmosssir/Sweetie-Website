@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import request from "@/request/core";
 import type { ApiResponse } from "@/types/api";
 import type { ApiProduct, Product } from "@/types/product";

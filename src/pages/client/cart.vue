@@ -1,5 +1,5 @@
 <template>
-  <div class="relative mt-8">
+  <div>
     <router-link to="/shop" class="flex items-center gap-x-4 text-sm text-gray-700 cursor-pointer">
       <fa-icon icon="arrow-left" class="text-xs"></fa-icon>
       <span>繼續購物</span>

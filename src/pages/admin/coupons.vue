@@ -2,11 +2,7 @@
   <div class="px-1">
     <div class="flex justify-between items-center my-4">
       <Page :pagination="pagination" @change="handleGetCoupons" />
-      <button
-        type="button"
-        class="bg-[#477182]/80 rounded w-8 h-8 cursor-pointer"
-        @click.prevent="handleOpenModal()"
-      >
+      <button type="button" class="bg-[#477182]/80 rounded-xs w-8 h-8 cursor-pointer text-sm" @click.prevent="handleOpenModal()">
         <fa-icon icon="plus" class="text-white"></fa-icon>
       </button>
     </div>
@@ -17,16 +13,10 @@
       </template>
       <template #function="{ item }">
         <div class="flex gap-1">
-          <button
-            class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer"
-            @click="handleOpenModal(item as Coupon)"
-          >
+          <button class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer" @click="handleOpenModal(item as Coupon)">
             <fa-icon class="text-[#477182]/80 text-sm" icon="pen-to-square"></fa-icon>
           </button>
-          <button
-            class="border border-red-400 rounded-sm w-8 h-8 cursor-pointer"
-            @click="handleDeleteCoupon(item.id)"
-          >
+          <button class="border border-red-400 rounded-sm w-8 h-8 cursor-pointer" @click="handleDeleteCoupon(item.id)">
             <fa-icon class="text-red-400 text-sm" icon="xmark"></fa-icon>
           </button>
         </div>
@@ -36,14 +26,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount, watch } from "vue";
+import { ref, computed, watch } from "vue";
 
-import {
-  getAdminCouponsApi,
-  createAdminCouponApi,
-  updateAdminCouponApi,
-  deleteAdminCouponApi,
-} from "@/request/coupon";
+import { getAdminCouponsApi, createAdminCouponApi, updateAdminCouponApi, deleteAdminCouponApi } from "@/request/coupon";
 
 import type { ApiResponse, Pagination } from "@/types/api";
 import type { Coupon, ApiCoupon } from "@/types/coupon";
@@ -93,7 +78,7 @@ const tableData = computed(() =>
     startTime: formatDate(Number(coupon.startTime)),
     endTime: formatDate(Number(coupon.endTime)),
     isEnabled: coupon.isEnabled ? "啟用" : "未啟用",
-  }))
+  })),
 );
 
 const formatDate = (timestamp: number) => {
@@ -134,6 +119,7 @@ const handleOpenModal = async (coupon?: Coupon) => {
       title: coupon ? "編輯優惠券" : "新增優惠券",
       fields: couponFields,
       form: JSON.parse(JSON.stringify(coupon || {})),
+      page: "coupon",
     },
     listeners: {
       submit: async (form: Coupon) => {
@@ -162,12 +148,10 @@ const handleOpenModal = async (coupon?: Coupon) => {
   });
 };
 
-onBeforeMount(async () => {
-  await handleGetCoupons();
-});
+handleGetCoupons();
 
 watch(
   () => adminStore.search,
-  () => handleGetCoupons(1)
+  () => handleGetCoupons(1),
 );
 </script>

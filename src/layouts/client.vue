@@ -1,7 +1,7 @@
 <template>
   <div class="relative px-4 max-w-7xl mx-auto">
     <Header />
-    <main>
+    <main class="relative mt-8">
       <router-view />
     </main>
   </div>

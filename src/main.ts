@@ -43,6 +43,7 @@ import {
   faTrash,
   faXmark,
   faHeart,
+  faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faInstagram, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
@@ -74,7 +75,8 @@ library.add(
   faTicket,
   faTrash,
   faXmark,
-  faXTwitter
+  faXTwitter,
+  faTag,
 );
 
 // Define the validation rules that will be used in the project
