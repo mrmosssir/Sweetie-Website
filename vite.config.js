@@ -14,9 +14,6 @@ export default defineConfig({
     },
   },
   build: {
-    target: {
-      browser: ["es2022", "firefox115", "chrome115", "safari14"],
-      node: "node20",
-    },
+    target: ["es2022", "firefox115", "chrome115", "safari14"],
   },
 });

@@ -8,16 +8,12 @@ import { localize, setLocale } from "@vee-validate/i18n";
 import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
 import Application from "./App.vue";
 import router from "./router";
-import store from "./store";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 // Font Awesome 輕量化配置
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
-import VueRollerSwiper from "vue-roller-swiper";
-import "vue-roller-swiper/dist/style.css";
 
 // 只導入需要的圖標 (按需添加)
 import {
@@ -108,11 +104,7 @@ onAuthStateChanged(auth, () => {
     // 註冊 Font Awesome 組件
     app.component("fa-icon", FontAwesomeIcon);
 
-    // 註冊 VueRollerSwiper 插件
-    app.use(VueRollerSwiper);
-
     app.use(router);
-    app.use(store); // Vuex store
     app.use(pinia); // Pinia store
     app.mount("#app");
   }

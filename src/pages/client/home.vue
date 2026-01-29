@@ -1,5 +1,5 @@
 <template>
-  <roller-swiper></roller-swiper>
+  <div></div>
 </template>
 
 <script lang="ts" setup></script>

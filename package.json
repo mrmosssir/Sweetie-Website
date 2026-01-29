@@ -23,17 +23,15 @@
     "pinia": "^3.0.3",
     "vee-validate": "^4.15.1",
     "vue": "^3.3.4",
-    "vue-roller-swiper": "^0.0.5",
-    "vue-router": "^4.5.1",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.13",
-    "@types/node": "^24.5.2",
+    "@types/node": "^25.1.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "autoprefixer": "^10.4.21",
-    "eslint": "^8.50.0",
-    "eslint-plugin-vue": "^9.17.0",
+    "eslint": "^9.39.2",
+    "eslint-plugin-vue": "^10.7.0",
     "sass-embedded": "^1.69.5",
     "tailwindcss": "^4.1.13",
     "vite": "^7.1.6",
