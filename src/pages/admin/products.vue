@@ -11,6 +11,14 @@
         <fa-icon v-if="item.isEnabled" icon="check" class="text-green-500"></fa-icon>
         <fa-icon v-else icon="xmark" class="text-red-400"></fa-icon>
       </template>
+      <template #isHot="{ item }">
+        <fa-icon v-if="item.isHot" icon="check" class="text-green-500"></fa-icon>
+        <fa-icon v-else icon="xmark" class="text-red-400"></fa-icon>
+      </template>
+      <template #isNew="{ item }">
+        <fa-icon v-if="item.isNew" icon="check" class="text-green-500"></fa-icon>
+        <fa-icon v-else icon="xmark" class="text-red-400"></fa-icon>
+      </template>
       <template #function="{ item }">
         <div class="flex gap-1">
           <button class="border border-[#477182]/80 rounded-sm w-8 h-8 cursor-pointer" @click="handleOpenModal(item as AdminProduct)">
@@ -50,6 +58,8 @@ const columns = [
   { name: "產品原價", key: "originPrice" },
   { name: "產品售價", key: "price" },
   { name: "是否啟用", key: "isEnabled", custom: true },
+  { name: "熱門", key: "isHot", custom: true },
+  { name: "新品", key: "isNew", custom: true },
   { name: "功能", key: "function", custom: true },
 ];
 
@@ -69,6 +79,8 @@ const productFields = [
   { key: "description", type: "text", label: "產品描述", placeholder: "請輸入產品描述" },
   { key: "content", type: "text", label: "產品內容", placeholder: "請輸入產品內容" },
   { key: "isEnabled", type: "boolean", label: "是否啟用" },
+  { key: "isHot", type: "boolean", label: "熱門" },
+  { key: "isNew", type: "boolean", label: "新品" },
 ];
 
 const products = ref<AdminProduct[]>([]);
@@ -87,6 +99,8 @@ const handleGetProducts = async (page = 1) => {
     content: item.content,
     isEnabled: item.is_enabled,
     imageUrl: item.image_url,
+    isHot: item.is_hot,
+    isNew: item.is_new,
   })) as AdminProduct[];
   pagination.value = response.pagination as Pagination;
 };
@@ -119,6 +133,8 @@ const handleOpenModal = async (product?: AdminProduct) => {
           content: form.content || "",
           is_enabled: form.isEnabled || false,
           rating: form.rating || 0,
+          is_hot: form.isHot || false,
+          is_new: form.isNew || false,
         };
         if (product) {
           await updateAdminProductApi(form.id, JSON.parse(JSON.stringify(params)) as FormData);

@@ -1,14 +1,14 @@
 import request from "@/request/core";
 import type { ApiResponse } from "@/types/api";
-import type { ApiCategory, Category } from "@/types/category";
+import type { ApiAdminCategory, AdminCategory, Category } from "@/types/category";
 
 // Admin 取得商品類別列表
-export const getAdminCategoryApi = async (page: number, search: string): Promise<ApiResponse<Category[]>> => {
-  const response = await request.get<ApiCategory[]>("/admin/category", {
+export const getAdminCategoryApi = async (page: number, search: string): Promise<ApiResponse<AdminCategory[]>> => {
+  const response = await request.get<ApiAdminCategory[]>("/admin/category", {
     meta: { admin: true },
     params: { page, search },
   });
-  const data: Category[] = (response.data || []).map((item: ApiCategory) => ({
+  const data: AdminCategory[] = (response.data || []).map((item: ApiAdminCategory) => ({
     id: item.id,
     name: item.name,
     image: item.image,
@@ -18,7 +18,7 @@ export const getAdminCategoryApi = async (page: number, search: string): Promise
 };
 
 // Admin 新增商品類別
-export const createAdminCategoryApi = async (category: Category): Promise<ApiResponse> => {
+export const createAdminCategoryApi = async (category: AdminCategory): Promise<ApiResponse> => {
   return await request.post(
     "/admin/category",
     {
@@ -31,7 +31,7 @@ export const createAdminCategoryApi = async (category: Category): Promise<ApiRes
 };
 
 // Admin 編輯商品類別
-export const updateAdminCategoryApi = async (id: string, category: Category): Promise<ApiResponse> => {
+export const updateAdminCategoryApi = async (id: string, category: AdminCategory): Promise<ApiResponse> => {
   return await request.put(
     `/admin/category/${id}`,
     {
@@ -46,4 +46,9 @@ export const updateAdminCategoryApi = async (id: string, category: Category): Pr
 // Admin 刪除商品類別
 export const deleteAdminCategoryApi = async (id: string): Promise<ApiResponse> => {
   return await request.delete(`/admin/category/${id}`, { meta: { admin: true } });
+};
+
+export const getCategoryApi = async (): Promise<Category[]> => {
+  const response = await request.get<Category[]>("/categories");
+  return response.data;
 };

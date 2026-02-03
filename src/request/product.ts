@@ -1,6 +1,6 @@
 import request from "@/request/core";
 import type { ApiResponse } from "@/types/api";
-import type { ApiProduct, Product } from "@/types/product";
+import type { ApiProduct, ApiProductSimple, Product, ProductSimple } from "@/types/product";
 
 // Admin 取得商品列表
 export const getAdminProductsApi = async (page: number, search: string): Promise<ApiResponse> => {
@@ -13,10 +13,7 @@ export const createAdminProductApi = async (product: FormData): Promise<ApiRespo
 };
 
 // Admin 編輯商品
-export const updateAdminProductApi = async (
-  id: string,
-  product: FormData
-): Promise<ApiResponse> => {
+export const updateAdminProductApi = async (id: string, product: FormData): Promise<ApiResponse> => {
   return await request.put(`/admin/product/${id}`, product, { meta: { admin: true } });
 };
 
@@ -26,8 +23,51 @@ export const deleteAdminProductApi = async (id: string): Promise<ApiResponse> =>
 };
 
 // Client 取得商品列表
-export const getProductsApi = async (page: number): Promise<ApiResponse> => {
-  return await request.get("/products", { params: { page } });
+export const getProductsApi = async (page: number): Promise<ProductSimple[]> => {
+  const response = await request.get<ProductSimple[]>("/products", { params: { page } });
+  return response.data.map(
+    (item: ApiProductSimple) =>
+      ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        originPrice: item.origin_price,
+        image: item.image_url,
+        rating: item.rating,
+      }) as ProductSimple,
+  );
+};
+
+// Client 取得新商列表
+export const getNewProductsApi = async (): Promise<ProductSimple[]> => {
+  const response = await request.get<ProductSimple[]>("/products/new");
+  return response.data.map(
+    (item: ApiProductSimple) =>
+      ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        originPrice: item.origin_price,
+        image: item.image_url,
+        rating: item.rating,
+      }) as ProductSimple,
+  );
+};
+
+// Client 取得熱門商品列表
+export const getHotProductsApi = async (): Promise<ProductSimple[]> => {
+  const response = await request.get<ProductSimple[]>("/products/hot");
+  return response.data.map(
+    (item: ApiProductSimple) =>
+      ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        originPrice: item.origin_price,
+        image: item.image_url,
+        rating: item.rating,
+      }) as ProductSimple,
+  );
 };
 
 // Client 透過 ids 取得多個商品
@@ -47,7 +87,7 @@ export const getProductsIdsApi = async (ids: string[]): Promise<Product[]> => {
         isEnabled: item.is_enabled,
         imageUrl: item.image_url,
         rating: item.rating,
-      } as Product)
+      }) as Product,
   );
 };
 

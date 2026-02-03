@@ -10,6 +10,8 @@ export type ApiProduct = {
   is_enabled: boolean;
   image_url: string;
   rating: string | number;
+  is_new: boolean;
+  is_hot: boolean;
 };
 
 export type AdminProduct = {
@@ -24,6 +26,8 @@ export type AdminProduct = {
   isEnabled: boolean;
   imageUrl: string;
   rating: number;
+  isNew: boolean;
+  isHot: boolean;
 };
 
 export type ApiProductSimple = {
@@ -46,5 +50,14 @@ export type Product = {
   content: string;
   isEnabled: boolean;
   imageUrl: string;
+  rating: number;
+};
+
+export type ProductSimple = {
+  id: string;
+  name: string;
+  originPrice: number;
+  price: number;
+  image: string;
   rating: number;
 };
