@@ -30,7 +30,15 @@ const routes = [
           icon: "tag",
         },
       },
-
+      {
+        path: "advertise",
+        name: "AdminAdvertise",
+        component: () => import("@/pages/admin/advertise.vue"),
+        meta: {
+          title: "廣告",
+          icon: "rectangle-ad",
+        },
+      },
       {
         path: "orders",
         name: "AdminOrders",

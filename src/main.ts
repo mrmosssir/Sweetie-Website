@@ -29,17 +29,18 @@ import {
   faCookieBite,
   faDollarSign,
   faGreaterThan,
+  faHeart,
   faMugHot,
   faPenToSquare,
   faPlus,
+  faRectangleAd,
   faRightFromBracket,
   faSearch,
   faStroopwafel,
+  faTag,
   faTicket,
   faTrash,
   faXmark,
-  faHeart,
-  faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faInstagram, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
@@ -64,15 +65,16 @@ library.add(
   faMugHot,
   faPenToSquare,
   faPlus,
+  faRectangleAd,
   faRegularHeart,
   faRightFromBracket,
   faSearch,
   faStroopwafel,
+  faTag,
   faTicket,
   faTrash,
-  faXmark,
   faXTwitter,
-  faTag,
+  faXmark,
 );
 
 // Define the validation rules that will be used in the project
@@ -104,8 +106,8 @@ onAuthStateChanged(auth, () => {
     // 註冊 Font Awesome 組件
     app.component("fa-icon", FontAwesomeIcon);
 
-    app.use(router);
     app.use(pinia); // Pinia store
+    app.use(router);
     app.mount("#app");
   }
 });

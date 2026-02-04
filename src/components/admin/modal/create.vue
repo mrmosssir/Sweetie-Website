@@ -12,7 +12,13 @@
             :page="page"
             @update:model-value="(value: any) => setFieldValue(field.key, value)"
           />
-          <img class="mt-4 mx-auto" v-if="field.type === 'file' && formValues[field.key]" :src="formValues[field.key]" alt="image" />
+          <lazyImage
+            class="w-auto h-36 mt-4 mx-auto"
+            v-if="field.type === 'file' && formValues[field.key]"
+            :path="formValues[field.key]"
+            :height="200"
+            :alt="field.label"
+          />
         </div>
       </form>
     </template>
@@ -28,6 +34,7 @@
 <script lang="ts" setup>
 import { watch } from "vue";
 import { useForm } from "vee-validate";
+import lazyImage from "@/components/lazyImage.vue";
 import baseModal from "@/components/admin/modal.vue";
 import baseInput from "@/components/admin/input.vue";
 
