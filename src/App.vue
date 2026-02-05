@@ -18,11 +18,14 @@ const endpoint = computed(() => {
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap");
 
 body * {
   list-style: none;
   font-family: "Noto Sans TC", sans-serif;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 #app {

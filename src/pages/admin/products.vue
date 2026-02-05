@@ -65,14 +65,13 @@ const columns = [
 
 const productFields = [
   { key: "name", type: "text", label: "名稱", placeholder: "請輸入名稱", rules: "required" },
-  { key: "imageUrl", type: "text", label: "產品圖片", placeholder: "請輸入圖片網址" },
+  { key: "imageUrl", type: "file", label: "產品圖片", placeholder: "請輸入圖片網址", rules: "required" },
   { key: "category", type: "text", label: "類別", placeholder: "請輸入類別", rules: "required" },
   {
     key: "originPrice",
     type: "number",
     label: "原價",
     placeholder: "請輸入原價",
-    rules: "required",
   },
   { key: "price", type: "number", label: "售價", placeholder: "請輸入售價", rules: "required" },
   { key: "unit", type: "text", label: "單位", placeholder: "請輸入單位", rules: "required" },
