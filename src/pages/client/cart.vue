@@ -17,7 +17,7 @@
         <li v-for="item in cartProducts" :key="item.id" class="grid grid-cols-1 md:grid-cols-4 text-gray-700 border-b border-gray-200 py-6">
           <div class="flex items-center gap-x-4 col-span-1 md:col-span-2">
             <input type="checkbox" class="w-3 h-3 cursor-pointer" v-model="item.selected" @click="handleSelect(item.id)" />
-            <img :src="item.imageUrl" :alt="item.name" class="w-36 h-46 object-cover" />
+            <img :src="item.image" :alt="item.name" class="w-36 h-46 object-cover" />
             <div class="flex flex-col gap-y-2">
               <span class="text-sm text-gray-900">{{ item.name }}</span>
               <span class="text-sm text-gray-400 word-break">{{ item.description }}</span>

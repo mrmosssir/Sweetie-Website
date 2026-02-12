@@ -2,6 +2,7 @@ export type ApiProduct = {
   id: string;
   name: string;
   category: string;
+  category_id: string;
   origin_price: string | number;
   price: string | number;
   unit: string;
@@ -12,12 +13,14 @@ export type ApiProduct = {
   rating: string | number;
   is_new: boolean;
   is_hot: boolean;
+  stock: number;
 };
 
 export type AdminProduct = {
   id: string;
   name: string;
   category: string;
+  categoryId: string;
   originPrice: number;
   price: number;
   unit: string;
@@ -28,6 +31,7 @@ export type AdminProduct = {
   rating: number;
   isNew: boolean;
   isHot: boolean;
+  stock: number;
 };
 
 export type ApiProductSimple = {
@@ -43,14 +47,18 @@ export type Product = {
   id: string;
   name: string;
   category: string;
+  categoryId: string;
   originPrice: number;
   price: number;
   unit: string;
   description: string;
   content: string;
   isEnabled: boolean;
-  imageUrl: string;
+  image: string;
   rating: number;
+  isHot: boolean;
+  isNew: boolean;
+  stock: number;
 };
 
 export type ProductSimple = {

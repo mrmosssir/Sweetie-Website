@@ -17,7 +17,7 @@
         :class="{ 'embla__dot--selected': index === selectedIndex }"
         type="button"
         @click="scrollTo(index)"
-      />
+      ></button>
     </div>
   </div>
 </template>

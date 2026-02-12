@@ -1,7 +1,7 @@
 <template>
   <div class="relative px-4 max-w-7xl mx-auto">
-    <Header />
-    <banner :list="advertises" />
+    <navbar />
+    <banner :list="advertises" v-if="route.meta.ads" />
     <main class="relative mt-8">
       <router-view />
     </main>
@@ -12,19 +12,23 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeMount } from "vue";
+import { ref } from "vue";
+import { useRoute } from "vue-router";
+
 import { useCartStore } from "@/stores/cart";
 import { useProductStore } from "@/stores/product";
 
 import type { Advertise } from "@/types/advertise";
 import { getAdvertiseApi } from "@/request/advertise";
 
-import Header from "@/components/client/header.vue";
+import Navbar from "@/components/client/navbar.vue";
 import Banner from "@/components/client/banner.vue";
 
 defineOptions({
   name: "ClientLayout",
 });
+
+const route = useRoute();
 
 const cartStore = useCartStore();
 const productStore = useProductStore();

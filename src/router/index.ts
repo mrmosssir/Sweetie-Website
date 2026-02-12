@@ -67,14 +67,20 @@ const routes = [
         path: "",
         name: "ClientHome",
         component: () => import("@/pages/client/home.vue"),
+        meta: {
+          ads: true,
+        },
       },
       {
         path: "shop",
         name: "ClientShop",
         component: () => import("@/pages/client/shop.vue"),
+        meta: {
+          ads: true,
+        },
       },
       {
-        path: "product/:productId",
+        path: "product/:id",
         name: "ClientProduct",
         component: () => import("@/pages/client/product.vue"),
       },

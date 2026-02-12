@@ -2,25 +2,17 @@
   <div class="flex flex-col gap-4 md:flex-row">
     <div class="flex-1">
       <h2 class="text-3xl font-bold text-gray-900">確認訂單</h2>
-      <strong class="block text-sm text-gray-500 mt-2"
-        >檢查您訂購的商品並填寫個人基本資料以獲得更好的購物體驗</strong
-      >
+      <strong class="block text-sm text-gray-500 mt-2">檢查您訂購的商品並填寫個人基本資料以獲得更好的購物體驗</strong>
       <p class="py-2 text-gray-900 border-b border-gray-200 mt-4">個人資料</p>
       <form class="mt-4 flex flex-col gap-y-2" @submit="handleSubmit">
         <base-input label="姓名" v-model="form.name" required></base-input>
         <base-input label="電子郵件" v-model="form.mail" required></base-input>
-        <button type="submit" class="bg-[#477182] text-white py-2 mt-2 cursor-pointer">
-          提交訂單
-        </button>
+        <button type="submit" class="bg-[#477182] text-white py-2 mt-2 cursor-pointer">提交訂單</button>
       </form>
     </div>
     <div class="flex flex-col gap-y-4 ml-auto w-full p-6 border border-gray-200 h-fit md:w-96">
-      <div
-        v-for="(item, index) in products"
-        class="flex items-stretch gap-x-2 border-b border-gray-200 pb-4"
-        :key="item.id"
-      >
-        <img :src="item.imageUrl" :alt="item.name" class="w-24 h-26 object-cover" />
+      <div v-for="(item, index) in products" class="flex items-stretch gap-x-2 border-b border-gray-200 pb-4" :key="item.id">
+        <img :src="item.image" :alt="item.name" class="w-24 h-26 object-cover" />
         <div class="flex flex-col justify-between">
           <span class="text-gray-900">{{ item.name }}</span>
           <div class="flex flex-col gap-y-1">
@@ -106,9 +98,7 @@ const handleSubmit = async (event: Event) => {
   localStorage.removeItem("cart-selected");
 
   const cart: Cart[] = JSON.parse(localStorage.getItem("cart") || "[]");
-  const reserveCart = cart.filter(
-    (item: Cart) => !products.value.find((product) => product.id === item.productId)
-  );
+  const reserveCart = cart.filter((item: Cart) => !products.value.find((product) => product.id === item.productId));
   localStorage.setItem("cart", JSON.stringify(reserveCart));
   cartStore.initCart();
 

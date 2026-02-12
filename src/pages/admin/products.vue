@@ -56,6 +56,7 @@ const columns = [
   { name: "產品類別", key: "category" },
   { name: "產品名稱", key: "name" },
   { name: "產品原價", key: "originPrice" },
+  { name: "庫存", key: "stock" },
   { name: "產品售價", key: "price" },
   { name: "是否啟用", key: "isEnabled", custom: true },
   { name: "熱門", key: "isHot", custom: true },
@@ -77,6 +78,7 @@ const productFields = [
   { key: "unit", type: "text", label: "單位", placeholder: "請輸入單位", rules: "required" },
   { key: "description", type: "text", label: "產品描述", placeholder: "請輸入產品描述" },
   { key: "content", type: "text", label: "產品內容", placeholder: "請輸入產品內容" },
+  { key: "stock", type: "number", label: "庫存", placeholder: "請輸入庫存數量" },
   { key: "isEnabled", type: "boolean", label: "是否啟用" },
   { key: "isHot", type: "boolean", label: "熱門" },
   { key: "isNew", type: "boolean", label: "新品" },
@@ -100,6 +102,7 @@ const handleGetProducts = async (page = 1) => {
     imageUrl: item.image_url,
     isHot: item.is_hot,
     isNew: item.is_new,
+    stock: item.stock,
   })) as AdminProduct[];
   pagination.value = response.pagination as Pagination;
 };
@@ -124,6 +127,7 @@ const handleOpenModal = async (product?: AdminProduct) => {
           id: form.id || "",
           name: form.name,
           image_url: form.imageUrl || "",
+          category_id: form.categoryId || "",
           category: form.category,
           origin_price: form.originPrice,
           price: form.price,
@@ -134,6 +138,7 @@ const handleOpenModal = async (product?: AdminProduct) => {
           rating: form.rating || 0,
           is_hot: form.isHot || false,
           is_new: form.isNew || false,
+          stock: form.stock || 0,
         };
         if (product) {
           await updateAdminProductApi(form.id, JSON.parse(JSON.stringify(params)) as FormData);

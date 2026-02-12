@@ -15,5 +15,32 @@ export default defineConfig({
   },
   build: {
     target: ["es2022", "firefox115", "chrome115", "safari14"],
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("@firebase")) {
+              return "vendor-firebase";
+            }
+            if (id.includes("@fortawesome")) {
+              return "vendor-fontawesome";
+            }
+            if (id.includes("embla-carousel")) {
+              return "vendor-embla-carousel";
+            }
+            if (id.includes("vue-datepicker")) {
+              return "vendor-vue-datepicker";
+            }
+            if (id.includes("date-fns")) {
+              return "vendor-date-fns";
+            }
+            if (id.includes("axios")) {
+              return "vendor-axios";
+            }
+            return "vendor";
+          }
+        },
+      },
+    },
   },
 });

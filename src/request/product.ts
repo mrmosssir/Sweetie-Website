@@ -79,19 +79,41 @@ export const getProductsIdsApi = async (ids: string[]): Promise<Product[]> => {
         id: item.id,
         name: item.name,
         category: item.category,
+        categoryId: item.category,
         originPrice: item.origin_price,
         price: item.price,
         unit: item.unit,
         description: item.description,
         content: item.content,
         isEnabled: item.is_enabled,
-        imageUrl: item.image_url,
+        image: item.image_url,
         rating: item.rating,
+        isHot: item.is_hot,
+        isNew: item.is_new,
+        stock: item.stock,
       }) as Product,
   );
 };
 
 // Client 取得單一商品詳情
-export const getProductApi = async (id: string): Promise<ApiResponse> => {
-  return await request.get(`/product/${id}`);
+export const getProductDetail = async (id: string): Promise<Product> => {
+  const response = await request.get(`/product/${id}`);
+  const item: ApiProduct = response.data;
+  return {
+    id: item.id,
+    name: item.name,
+    category: item.category,
+    categoryId: item.category,
+    originPrice: item.origin_price,
+    price: item.price,
+    unit: item.unit,
+    description: item.description,
+    content: item.content,
+    isEnabled: item.is_enabled,
+    image: item.image_url,
+    rating: item.rating,
+    isHot: item.is_hot,
+    isNew: item.is_new,
+    stock: item.stock,
+  } as Product;
 };

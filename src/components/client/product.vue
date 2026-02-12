@@ -1,7 +1,14 @@
 <template>
   <div class="w-full max-w-64 mx-auto">
     <div class="relative w-full aspect-square">
-      <lazy-image :path="product.image" :width="300" :height="300" class="w-full h-full object-cover" :alt="product.name" />
+      <lazy-image
+        :path="product.image"
+        :width="300"
+        :height="300"
+        class="w-full h-full object-cover cursor-pointer"
+        :alt="product.name"
+        @click="handleClickProduct"
+      />
       <button
         v-if="favorite"
         class="absolute top-3 right-3 bg-white w-9 h-9 rounded-full flex items-center justify-center cursor-pointer z-10"
@@ -24,6 +31,8 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
+import { useRouter } from "vue-router";
+
 import { useCartStore } from "@/stores/cart";
 import { useProductStore } from "@/stores/product";
 import type { ProductSimple } from "@/types/product";
@@ -47,6 +56,9 @@ const props = withDefaults(
     addCart: true,
   },
 );
+
+const router = useRouter();
+
 const cartStore = useCartStore();
 const productStore = useProductStore();
 
@@ -54,6 +66,10 @@ const isFavorite = computed(() => productStore.favorites.includes(props.product.
 
 const handleFavorite = (isFavorite: boolean) => {
   !isFavorite ? productStore.addFavorites(props.product.id) : productStore.removeFavorites(props.product.id);
+};
+
+const handleClickProduct = () => {
+  router.push(`/product/${props.product.id}`);
 };
 </script>
 
